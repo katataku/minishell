@@ -19,7 +19,9 @@ pipeexを一緒にするのはmandatoryまで。
 
 ## タスク管理
 
+
 - issueを切ってタスクを管理する
+- issueを切る前にGithub Discussionsで議論して、そこである程度やることが明確になったらIssue化
 - PRとissueを連携？やったことないから勉強したい
 
 
