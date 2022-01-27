@@ -72,11 +72,20 @@ Prefixについて：https://qiita.com/itosho/items/9565c6ad2ffc24c09364
 
 - ディレクトリは機能がわかりやすいようにファイルをまとめる。
 
-  - src/featA/hogehoge.c
-  - src/featB/fugafuga.c
-  - includes/featA.h
-  - includes/featB.h
-  - test
+.
+├── Makefile
+├── README.md
+├── docs
+│   └── policy.md
+├── includes
+├── libft
+├── main.c
+├── srcs
+│   ├── xlibft
+│   └── xsyscall
+└── tests
+│   ├── shell_scripts
+    └── google_tests
 
 - ヘッダファイルはincludesディレクトリ以下に入れる
 - ヘッダファイルは関数の目的/機能別で分割する。ディレクトリ単位などでまとめるのが好ましい。ディレクトリを横断するような機能を持つ関数はその都度判断し、レビューにより合意形成する。
