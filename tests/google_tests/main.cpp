@@ -37,3 +37,19 @@ TEST(parse_token, word_2_space)
 	ASSERT_EQ(token->token[2], NULL);
 	ASSERT_STREQ(token->word[2], NULL);
 }
+
+TEST(parse_token, bar_1_normal)
+{
+	t_token *token;
+	char *word = "ls | cat";
+	
+	token = parse_token(word);
+	ASSERT_EQ(token->token[0], T_WORD);
+	ASSERT_STREQ(token->word[0], "ls");
+	ASSERT_EQ(token->token[1], T_BAR);
+	ASSERT_STREQ(token->word[1], NULL);
+	ASSERT_EQ(token->token[2], T_WORD);
+	ASSERT_STREQ(token->word[2], "cat");
+	ASSERT_EQ(token->token[3], NULL);
+	ASSERT_STREQ(token->word[3], NULL);
+}
