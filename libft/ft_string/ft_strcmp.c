@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp      +#+  +:+       +#+        */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/09 01:44:04 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/01/31 21:24:17 by ahayashi         ###   ########.jp       */
+/*   Created: 2022/01/31 11:36:20 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/01/31 11:36:20 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
 
-void	ft_bzero(void *s, size_t n)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	ft_memset(s, 0, n);
+	size_t	i;
+
+	i = 0;
+	while (s1[i] == s2[i])
+	{
+		if (s1[i] == '\0')
+			break ;
+		i++;
+	}
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

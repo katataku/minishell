@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:47:02 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/01/27 00:54:55 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/01/31 21:24:17 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static int	get_char(int fd, t_fd_info *info)
 	{
 		info->read_bytes = read(fd, info->buf, BUFFER_SIZE);
 		if (info->read_bytes < 0)
-			return (GNL_ERR);
+			return (GETC_ERR);
 		if (info->read_bytes == 0)
-			return (GNL_EOF);
+			return (GETC_EOF);
 		info->index = 0;
 	}
 	return (info->buf[info->index++]);
@@ -63,37 +63,39 @@ static size_t	grow_memory(char **ptr, size_t size)
 	return (size);
 }
 
-static char	*return_with_free(char *rtv, char *line)
+static int	return_with_free(int rtv, char *ptr)
 {
-	free(line);
+	free(ptr);
 	return (rtv);
 }
 
-char	*get_next_line(int fd)
+// If successful, the number of bytes actually read is returned.
+// Upon reading end-of-file, zero is returned. Otherwise, a -1 is returned.
+int	get_next_line(int fd, char **line)
 {
-	static t_fd_info	fd_info = {0};
-	char				*line;
+	static t_fd_info	fd_info;
 	char				c;
 	size_t				i;
 	size_t				size;
 
 	i = 0;
 	size = 0;
-	line = NULL;
+	if (line == NULL)
+		return (-1);
+	*line = NULL;
 	while (1)
 	{
 		c = get_char(fd, &fd_info);
-		if (c == GNL_ERR)
-			return (return_with_free(NULL, line));
-		if (c == GNL_EOF)
-			return (line);
+		if (c == GETC_ERR)
+			return (return_with_free(-1, *line));
+		if (c == GETC_EOF)
+			return (i);
 		if (i + 1 >= size)
-			size = grow_memory(&line, size);
-		if (line == NULL)
-			return (NULL);
-		line[i] = c;
+			size = grow_memory(line, size);
+		if (*line == NULL)
+			return (-1);
+		(*line)[i++] = c;
 		if (c == '\n')
-			return (line);
-		i++;
+			return (i);
 	}
 }

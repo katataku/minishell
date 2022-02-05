@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:47:25 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/01/26 22:50:55 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/01/31 21:24:17 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 #  define INITIAL_ALLOCATE_SIZE 8
 # endif
 
-# define GNL_EOF -1
-# define GNL_ERR -2
+# define GETC_EOF -1
+# define GETC_ERR -2
 
 # include "libft.h"
 # include <stdlib.h>
@@ -35,5 +35,6 @@ typedef struct s_fd_info
 	ssize_t	read_bytes;
 }	t_fd_info;
 
-char	*get_next_line(int fd);
+int	get_next_line(int fd, char **line);
+
 #endif

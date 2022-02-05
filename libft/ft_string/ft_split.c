@@ -55,12 +55,15 @@ static char	*ft_split_strdup(const char **s, char c)
 	return (ptr);
 }
 
-static void	ft_free_all(char **ptr, size_t i)
+static void	ft_free_all(char **ptr, size_t max_i)
 {
-	while (i >= 0)
+	size_t	i;
+
+	i = 0;
+	while (i <= max_i)
 	{
 		free(ptr[i]);
-		i--;
+		i++;
 	}
 	free(ptr);
 }
