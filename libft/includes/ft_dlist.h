@@ -13,9 +13,7 @@
 #ifndef FT_DLIST_H
 # define FT_DLIST_H
 
-# include "libft.h"
-# include <stdlib.h>
-# include <unistd.h>
+# include "ft_stdlib.h"
 
 typedef struct s_node
 {
