@@ -10,6 +10,6 @@
 # define ERR_CODE_CAN_NOT_EXECUTE 126
 # define ERR_CODE_COMMAND_NOT_FOUND 127
 
-t_token	*parse_token(const char *str);
+t_token	*tokenize(const char *str);
 
 #endif

@@ -2,7 +2,7 @@
 #include "typedefs.h"
 #include "xlibft.h"
 
-t_token	*parse_token(const char *str)
+t_token	*tokenize(const char *str)
 {
 	t_token	*ans;
 	int		i;

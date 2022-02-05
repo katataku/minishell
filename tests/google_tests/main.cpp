@@ -10,7 +10,7 @@ extern "C" {
 void	check_token_assert(char *input, int token_len, int *expected_token, char **expected_word)
 {
 	t_token *token;
-	token = parse_token(input);
+	token = tokenize(input);
 
 	for (int i = 0; i < token_len; i++)
 	{
@@ -24,7 +24,7 @@ TEST(minishell, normal_case)
     ASSERT_EQ(0, 0);
 }
 
-TEST(parse_token, word_1)
+TEST(tokenize, word_1)
 {
 	char *input = "hoge";
 	int token_len = 2;
@@ -35,7 +35,7 @@ TEST(parse_token, word_1)
 
 }
 
-TEST(parse_token, word_2_space)
+TEST(tokenize, word_2_space)
 {
 	char *input = "ls -la";
 	int token_len = 3;
@@ -45,7 +45,7 @@ TEST(parse_token, word_2_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(parse_token, bar_1_normal)
+TEST(tokenize, bar_1_normal)
 {
 
 	char *input = "ls | cat";
