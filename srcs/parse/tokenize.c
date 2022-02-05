@@ -20,27 +20,40 @@ int	count_token_num(char *str)
 	return (ans + 1);
 }
 
-t_token	*tokenize(const char *str)
+t_token	*initialize_t_token(char *str)
 {
 	t_token	*ans;
-	int		i;
-	char	**strs;
 
 	ans = (t_token *)ft_xcalloc(sizeof(t_token), 1);
 	ans->token = (int *)ft_xcalloc(sizeof(int), count_token_num(str));
 	ans->word = (char **)ft_xcalloc(sizeof(char *), count_token_num(str));
-	strs = ft_split(str, ' ');
+	return (ans);
+}
+
+t_token	*tokenize(const char *str)
+{
+	t_token	*ans;
+	int		i;
+	int		j;
+	char	word[4097];
+
+	ans = initialize_t_token(str);
 	i = 0;
-	while (strs[i] != NULL)
+	while (*str != '\0')
 	{
-		if (ft_strncmp(strs[i], "|", strlen(strs[i])) == 0)
-			ans->token[i] = T_BAR;
-		else
+		if (*str == '|')
+			ans->token[i++] = T_BAR;
+		if (*str == ' ' || *str == '|')
 		{
-			ans->token[i] = T_WORD;
-			ans->word[i] = ft_xstrdup(strs[i]);
+			str++;
+			continue ;
 		}
-		i++;
+		j = 0;
+		while (*str != ' ' && *str != '\0' && *str != '|')
+			word[j++] = *str++;
+		word[j] = '\0';
+		ans->token[i] = T_WORD;
+		ans->word[i++] = ft_xstrdup(word);
 	}
 	return (ans);
 }
