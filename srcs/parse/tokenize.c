@@ -30,6 +30,13 @@ t_token	*initialize_t_token(char *str)
 	return (ans);
 }
 
+bool	is_special_char(char c)
+{
+	if (c == ' ' || c == '|' || c == '\0')
+		return (true);
+	return (false);
+}
+
 t_token	*tokenize(const char *str)
 {
 	t_token	*ans;
@@ -43,13 +50,13 @@ t_token	*tokenize(const char *str)
 	{
 		if (*str == '|')
 			ans->token[i++] = T_BAR;
-		if (*str == ' ' || *str == '|')
+		if (is_special_char(*str))
 		{
 			str++;
 			continue ;
 		}
 		j = 0;
-		while (*str != ' ' && *str != '\0' && *str != '|')
+		while (!is_special_char(*str))
 			word[j++] = *str++;
 		word[j] = '\0';
 		ans->token[i] = T_WORD;

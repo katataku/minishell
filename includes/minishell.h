@@ -2,6 +2,7 @@
 # define MINISHELL_H
 # include "typedefs.h"
 
+# include <stdbool.h>
 # include <stdio.h>
 # define READ_INDEX 0
 # define WRITE_INDEX 1
