@@ -49,7 +49,7 @@ TEST(tokenize, bar_1_normal)
 {
 
 	char *input = "ls | cat";
-	int token_len = 3;
+	int token_len = 4;
 	int expected_token[] = {T_WORD, T_BAR, T_WORD, NULL};
 	char *expected_word[] = {"ls", NULL, "cat", NULL};
 
@@ -60,7 +60,7 @@ TEST(tokenize, bar_1_normal_without_space)
 {
 
 	char *input = "ls|cat";
-	int token_len = 3;
+	int token_len = 4;
 	int expected_token[] = {T_WORD, T_BAR, T_WORD, NULL};
 	char *expected_word[] = {"ls", NULL, "cat", NULL};
 
