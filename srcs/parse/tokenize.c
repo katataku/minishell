@@ -32,9 +32,7 @@ t_token	*initialize_t_token(char *str)
 
 bool	is_special_char(char c)
 {
-	if (c == ' ' || c == '\0' || c == '|' || c == '&')
-		return (true);
-	return (false);
+	return (c == ' ' || c == '\0' || c == '|' || c == '&');
 }
 
 void	tokenize_special_char(char *str, t_token *token, int *i)
