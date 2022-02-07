@@ -5,29 +5,29 @@
 int	count_token_num(char *str)
 {
 	size_t	i;
-	int		ans;
+	int		token_num;
 
 	i = 0;
-	ans = 1;
+	token_num = 1;
 	while (str[i] != '\0')
 	{
 		if (str[i] == ' ')
-			ans += 1;
+			token_num += 1;
 		if (str[i] == '|')
-			ans += 2;
+			token_num += 2;
 		i++;
 	}
-	return (ans + 1);
+	return (token_num + 1);
 }
 
 t_token	*initialize_t_token(char *str)
 {
-	t_token	*ans;
+	t_token	*token;
 
-	ans = (t_token *)ft_xcalloc(sizeof(t_token), 1);
-	ans->token = (int *)ft_xcalloc(sizeof(int), count_token_num(str));
-	ans->word = (char **)ft_xcalloc(sizeof(char *), count_token_num(str));
-	return (ans);
+	token = (t_token *)ft_xcalloc(sizeof(t_token), 1);
+	token->token = (int *)ft_xcalloc(sizeof(int), count_token_num(str));
+	token->word = (char **)ft_xcalloc(sizeof(char *), count_token_num(str));
+	return (token);
 }
 
 bool	is_special_char(char c)
@@ -37,26 +37,26 @@ bool	is_special_char(char c)
 	return (false);
 }
 
-void	tokenize_special_char(char *str, t_token *ans, int *i)
+void	tokenize_special_char(char *str, t_token *token, int *i)
 {
 	if (*str == '|')
-		ans->token[(*i)++] = T_BAR;
+		token->token[(*i)++] = T_BAR;
 	if (*str == '&')
-		ans->token[(*i)++] = T_AMP;
+		token->token[(*i)++] = T_AMP;
 }
 
 t_token	*tokenize(const char *str)
 {
-	t_token	*ans;
+	t_token	*token;
 	int		i;
 	int		j;
 	char	word[4097];
 
-	ans = initialize_t_token(str);
+	token = initialize_t_token(str);
 	i = 0;
 	while (*str != '\0')
 	{
-		tokenize_special_char(str, ans, &i);
+		tokenize_special_char(str, token, &i);
 		if (is_special_char(*str))
 		{
 			str++;
@@ -66,8 +66,8 @@ t_token	*tokenize(const char *str)
 		while (!is_special_char(*str))
 			word[j++] = *str++;
 		word[j] = '\0';
-		ans->token[i] = T_WORD;
-		ans->word[i++] = ft_xstrdup(word);
+		token->token[i] = T_WORD;
+		token->word[i++] = ft_xstrdup(word);
 	}
-	return (ans);
+	return (token);
 }
