@@ -66,14 +66,3 @@ TEST(tokenize, bar_1_normal_without_space)
 
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
-
-TEST(tokenize, amp_1)
-{
-
-	char *input = "ls &";
-	int token_len = 3;
-	int expected_token[] = {T_WORD, T_AMP, NULL};
-	char *expected_word[] = {"ls", NULL, NULL};
-
-	check_token_assert(input, token_len, expected_token, expected_word);
-}

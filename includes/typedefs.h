@@ -5,7 +5,6 @@ enum e_token
 {
 	T_WORD,
 	T_BAR,
-	T_AMP,
 	T_SEMI,
 	T_GT,
 	T_GTGT,

@@ -32,15 +32,13 @@ t_token	*initialize_t_token(char *str)
 
 bool	is_special_char(char c)
 {
-	return (c == ' ' || c == '\0' || c == '|' || c == '&');
+	return (c == ' ' || c == '\0' || c == '|');
 }
 
 void	tokenize_special_char(char *str, t_token *token, int *i)
 {
 	if (*str == '|')
 		token->token[(*i)++] = T_BAR;
-	if (*str == '&')
-		token->token[(*i)++] = T_AMP;
 }
 
 t_token	*tokenize(const char *str)
