@@ -2,6 +2,11 @@
 #include "typedefs.h"
 #include "xlibft.h"
 
+bool	is_special_char(char c)
+{
+	return (c == ' ' || c == '\0' || c == '|' || c == ';');
+}
+
 int	count_token_num(char *str)
 {
 	size_t	i;
@@ -11,10 +16,10 @@ int	count_token_num(char *str)
 	token_num = 1;
 	while (str[i] != '\0')
 	{
-		if (str[i] == ' ')
-			token_num += 1;
-		if (str[i] == '|')
+		if (is_special_char(str[i]))
 			token_num += 2;
+		if (str[i] == ' ')
+			token_num -= 1;
 		i++;
 	}
 	return (token_num + 1);
@@ -30,15 +35,12 @@ t_token	*initialize_t_token(char *str)
 	return (token);
 }
 
-bool	is_special_char(char c)
-{
-	return (c == ' ' || c == '\0' || c == '|');
-}
-
 void	tokenize_special_char(char *str, t_token *token, int *i)
 {
 	if (*str == '|')
 		token->token[(*i)++] = T_BAR;
+	if (*str == ';')
+		token->token[(*i)++] = T_SEMI;
 }
 
 t_token	*tokenize(const char *str)
