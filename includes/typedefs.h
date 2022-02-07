@@ -10,6 +10,8 @@ enum e_token
 	T_GTGT,
 	T_LT,
 	T_LTLT,
+	T_SQ,
+	T_BQ,
 	T_NL,
 	T_EOF
 };
