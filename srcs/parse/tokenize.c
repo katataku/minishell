@@ -4,7 +4,8 @@
 
 bool	is_special_char(char c)
 {
-	return (c == ' ' || c == '\0' || c == '|' || c == ';');
+	return (c == ' ' || c == '\0' || c == '|' || c == ';'
+		|| c == '>');
 }
 
 int	count_token_num(char *str)
@@ -20,6 +21,10 @@ int	count_token_num(char *str)
 			token_num += 2;
 		if (str[i] == ' ')
 			token_num -= 1;
+		if (str[i] == '>' && str[i + 1] == '>')
+		{
+			i++;
+		}
 		i++;
 	}
 	return (token_num + 1);
@@ -41,6 +46,11 @@ void	tokenize_special_char(char *str, t_token *token, int *i)
 		token->token[(*i)++] = T_BAR;
 	if (*str == ';')
 		token->token[(*i)++] = T_SEMI;
+	if (*str == '>' && *(str + 1) == '>')
+		token->token[(*i)++] = T_GTGT;
+	if (*str == '>' && *(str + 1) != '>')
+		token->token[(*i)++] = T_GT;
+
 }
 
 t_token	*tokenize(const char *str)
@@ -57,6 +67,8 @@ t_token	*tokenize(const char *str)
 		tokenize_special_char(str, token, &i);
 		if (is_special_char(*str))
 		{
+			if (*str == '>' && *(str + 1) == '>')
+				str++;
 			str++;
 			continue ;
 		}
