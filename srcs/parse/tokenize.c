@@ -29,9 +29,9 @@ t_token	*initialize_t_token(char *str)
 {
 	t_token	*token;
 
-	token = (t_token *)ft_xcalloc(sizeof(t_token), 1);
-	token->token = (int *)ft_xcalloc(sizeof(int), count_token_num(str));
-	token->word = (char **)ft_xcalloc(sizeof(char *), count_token_num(str));
+	token = (t_token *)ft_xcalloc(1, sizeof(t_token));
+	token->token = (int *)ft_xcalloc(count_token_num(str), sizeof(int));
+	token->word = (char **)ft_xcalloc(count_token_num(str), sizeof(char *));
 	return (token);
 }
 
