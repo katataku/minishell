@@ -12,6 +12,7 @@ enum e_token
 	T_LTLT,
 	T_SQ,
 	T_BQ,
+	T_DOLLER,
 	T_NL,
 	T_EOF
 };

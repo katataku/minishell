@@ -220,3 +220,25 @@ TEST(tokenize, bq_1_normal_without_space)
 
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
+
+TEST(tokenize, doller_1_normal)
+{
+
+	char *input = "ls $ outfile";
+	int token_len = 4;
+	int expected_token[] = {T_WORD, T_DOLLER, T_WORD, NULL};
+	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+}
+
+TEST(tokenize, doller_1_normal_without_space)
+{
+
+	char *input = "ls$outfile";
+	int token_len = 4;
+	int expected_token[] = {T_WORD, T_DOLLER, T_WORD, NULL};
+	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+}
