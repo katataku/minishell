@@ -13,6 +13,8 @@ enum e_token
 	T_SQ,
 	T_BQ,
 	T_DOLLER,
+	T_C_BRA_OPN,
+	T_C_BRA_CLS,
 	T_NL,
 	T_EOF
 };

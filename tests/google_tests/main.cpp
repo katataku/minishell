@@ -242,3 +242,47 @@ TEST(tokenize, doller_1_normal_without_space)
 
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
+
+TEST(tokenize, curly_bracket_open_1_normal)
+{
+
+	char *input = "ls { outfile";
+	int token_len = 4;
+	int expected_token[] = {T_WORD, T_C_BRA_OPN, T_WORD, NULL};
+	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+}
+
+TEST(tokenize, curly_bracket_open_1_normal_without_space)
+{
+
+	char *input = "ls{outfile";
+	int token_len = 4;
+	int expected_token[] = {T_WORD, T_C_BRA_OPN, T_WORD, NULL};
+	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+}
+
+TEST(tokenize, curly_bracket_close_1_normal)
+{
+
+	char *input = "ls } outfile";
+	int token_len = 4;
+	int expected_token[] = {T_WORD, T_C_BRA_CLS, T_WORD, NULL};
+	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+}
+
+TEST(tokenize, curly_bracket_close_1_normal_without_space)
+{
+
+	char *input = "ls}outfile";
+	int token_len = 4;
+	int expected_token[] = {T_WORD, T_C_BRA_CLS, T_WORD, NULL};
+	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+}
