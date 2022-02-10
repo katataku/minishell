@@ -12,5 +12,7 @@
 # define ERR_CODE_COMMAND_NOT_FOUND 127
 
 t_token	*tokenize(const char *str);
+t_token	*initialize_t_token(char *str);
+bool	is_special_char(char c);
 
 #endif

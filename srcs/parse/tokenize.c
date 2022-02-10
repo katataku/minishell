@@ -9,38 +9,6 @@ bool	is_special_char(char c)
 		|| c == '$' || c == '{' || c == '}');
 }
 
-int	count_token_num(char *str)
-{
-	size_t	i;
-	int		token_num;
-
-	i = 0;
-	token_num = 1;
-	while (str[i] != '\0')
-	{
-		if (is_special_char(str[i]))
-			token_num += 2;
-		if (str[i] == ' ')
-			token_num -= 1;
-		if (str[i] == '>' && str[i + 1] == '>')
-			i++;
-		if (str[i] == '<' && str[i + 1] == '<')
-			i++;
-		i++;
-	}
-	return (token_num + 1);
-}
-
-t_token	*initialize_t_token(char *str)
-{
-	t_token	*token;
-
-	token = (t_token *)ft_xcalloc(1, sizeof(t_token));
-	token->token = (int *)ft_xcalloc(count_token_num(str), sizeof(int));
-	token->word = (char **)ft_xcalloc(count_token_num(str), sizeof(char *));
-	return (token);
-}
-
 void	tokenize_special_char(char *str, t_token *token, int *i)
 {
 	if (*str == '|')
@@ -67,6 +35,12 @@ void	tokenize_special_char(char *str, t_token *token, int *i)
 		token->token[(*i)++] = T_C_BRA_CLS;
 }
 
+void	set_token(	t_token	*t, int index, int token, char *word)
+{
+	t->token[index] = token;
+	t->word[index] = ft_xstrdup(word);
+}
+
 t_token	*tokenize(const char *str)
 {
 	t_token	*token;
@@ -91,8 +65,7 @@ t_token	*tokenize(const char *str)
 		while (!is_special_char(*str))
 			word[j++] = *str++;
 		word[j] = '\0';
-		token->token[i] = T_WORD;
-		token->word[i++] = ft_xstrdup(word);
+		set_token(token, i++, T_WORD, word);
 	}
 	return (token);
 }
