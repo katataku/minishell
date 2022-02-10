@@ -1,0 +1,31 @@
+name: norminette
+
+on:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Display Python version
+        run: python --version
+      - name: Install norminette
+        run: |
+          python3 -m pip install --upgrade pip setuptools
+          python3 -m pip install norminette
+      - name: Run norminette for printting
+        run: norminette
+        continue-on-error: true
+      - name: Run norminette
+        run: |
+          [ $(norminette | grep -vE 'OK|Error!' \
+          | grep -v "Missing or invalid 42 header" \
+          | grep -v "Function has more than 25 lines" \
+          | grep -v "Too many functions in file" \
+          | wc -l) -eq 0 ]
