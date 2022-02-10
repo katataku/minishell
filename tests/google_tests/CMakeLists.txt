@@ -18,7 +18,10 @@ add_library(minishell
   ${XSYSCALL}
 )
 
-add_executable(main main.cpp)
+add_executable(main
+        main.cpp
+        exec.cpp
+        )
 
 add_definitions(-w)
 

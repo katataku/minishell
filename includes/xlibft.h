@@ -14,7 +14,6 @@
 # define XLIBFT_H
 
 # include "libft.h"
-# include "pipex.h"
 # include "typedefs.h"
 
 char	*ft_xcalloc(size_t count, size_t size);
