@@ -22,4 +22,4 @@ jobs:
       - name: Print pwd
         run: pwd
       - name: Run norminette
-          norminette
+        run: norminette
