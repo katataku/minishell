@@ -24,5 +24,4 @@ jobs:
         continue-on-error: true
       - name: Run norminette
         run: |
-          norminette
-          | grep -vE 'OK|Error!'
+          norminette | grep -vE 'OK|Error!'
