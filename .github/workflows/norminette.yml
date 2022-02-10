@@ -22,3 +22,7 @@ jobs:
       - name: Run norminette for printting
         run: norminette
         continue-on-error: true
+      - name: Run norminette
+        run: |
+          norminette
+          | grep -vE 'OK|Error!'
