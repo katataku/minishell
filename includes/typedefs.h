@@ -20,4 +20,10 @@
 # define ERR_CODE_CAN_NOT_EXECUTE 126
 # define ERR_CODE_COMMAND_NOT_FOUND 127
 
+typedef struct s_token
+{
+	int		*token;
+	char	**word;
+}	t_token;
+
 #endif
