@@ -11,6 +11,7 @@ enum e_token
 	T_LT,
 	T_LTLT,
 	T_SQ,
+	T_DQ,
 	T_BQ,
 	T_DOLLER,
 	T_C_BRA_OPN,

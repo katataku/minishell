@@ -5,7 +5,7 @@
 bool	is_special_char(char c)
 {
 	return (c == ' ' || c == '\0' || c == '|' || c == ';'
-		|| c == '>' || c == '<' || c == '\'' || c == '\"'
+		|| c == '>' || c == '<' || c == '\'' || c == '\"' || c == '`'
 		|| c == '$' || c == '{' || c == '}');
 }
 
@@ -26,6 +26,8 @@ void	tokenize_special_char(char *str, t_token *token, int *i)
 	if (*str == '\'')
 		token->token[(*i)++] = T_SQ;
 	if (*str == '\"')
+		token->token[(*i)++] = T_DQ;
+	if (*str == '`')
 		token->token[(*i)++] = T_BQ;
 	if (*str == '$')
 		token->token[(*i)++] = T_DOLLER;
