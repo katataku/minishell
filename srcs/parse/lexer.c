@@ -44,15 +44,15 @@ void	set_token(	t_token	*t, int index, int token, char *word)
 t_token	*lexer(const char *str)
 {
 	t_token	*token;
-	int		i;
-	int		j;
+	int		token_index;
+	int		word_index;
 	char	word[4097];
 
 	token = initialize_lexer(str);
-	i = 0;
+	token_index = 0;
 	while (*str != '\0')
 	{
-		tokenize_special_char(str, token, &i);
+		tokenize_special_char(str, token, &token_index);
 		if (is_special_char(*str))
 		{
 			if ((str[0] == '>' && str[1] == '>')
@@ -61,11 +61,11 @@ t_token	*lexer(const char *str)
 			str++;
 			continue ;
 		}
-		j = 0;
+		word_index = 0;
 		while (!is_special_char(*str))
-			word[j++] = *str++;
-		word[j] = '\0';
-		set_token(token, i++, T_WORD, word);
+			word[word_index++] = *str++;
+		word[word_index] = '\0';
+		set_token(token, token_index++, T_WORD, word);
 	}
 	return (token);
 }
