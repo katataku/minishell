@@ -24,4 +24,6 @@ jobs:
         continue-on-error: true
       - name: Run norminette
         run: |
-          [ $(norminette | grep -vE 'OK|Error!' | wc -l) -eq 0 ]
+          [ $(norminette | grep -vE 'OK|Error!' \
+          | grep -v "Missing or invalid 42 header" \
+          | wc -l) -eq 0 ]
