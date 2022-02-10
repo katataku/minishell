@@ -1,6 +1,4 @@
-#include "minishell.h"
-#include "typedefs.h"
-#include "xlibft.h"
+#include "lexer.h"
 
 bool	is_special_char(char c)
 {

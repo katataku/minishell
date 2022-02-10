@@ -2,8 +2,7 @@
 # define XLIBFT_H
 
 # include "libft.h"
-# include "minishell.h"
-# include "typedefs.h"
+# include "define.h"
 
 char	*ft_xcalloc(size_t count, size_t size);
 char	**ft_xsplit(const char *s, char c);

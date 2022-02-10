@@ -4,7 +4,6 @@
 
 extern "C" {
 #include "minishell.h"
-#include "typedefs.h"
 }
 
 void	check_token_assert(char *input, int token_len, int *expected_token, char **expected_word)

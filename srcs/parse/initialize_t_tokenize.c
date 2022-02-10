@@ -1,6 +1,4 @@
-#include "minishell.h"
-#include "typedefs.h"
-#include "xlibft.h"
+#include "lexer.h"
 
 int	count_token_num(char *str)
 {
