@@ -1,12 +1,8 @@
 #include <gtest/gtest.h>
 
-#include <stdlib.h>
-
-extern "C" {
-#include "minishell.h"
-}
-
-TEST(minishell, normal_case)
+int main(int argc, char **argv)
 {
-    ASSERT_EQ(0, 0);
+	testing::InitGoogleTest(&argc, argv);
+	int rtv = RUN_ALL_TESTS();
+	return rtv;
 }
