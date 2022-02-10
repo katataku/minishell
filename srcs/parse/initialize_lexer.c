@@ -22,7 +22,7 @@ int	count_token_num(char *str)
 	return (token_num + 1);
 }
 
-t_token	*initialize_t_token(char *str)
+t_token	*initialize_lexer(char *str)
 {
 	t_token	*token;
 

@@ -9,7 +9,7 @@ extern "C" {
 void	check_token_assert(char *input, int token_len, int *expected_token, char **expected_word)
 {
 	t_token *token;
-	token = tokenize(input);
+	token = lexer(input);
 
 	for (int i = 0; i < token_len; i++)
 	{
@@ -23,7 +23,7 @@ TEST(minishell, normal_case)
     ASSERT_EQ(0, 0);
 }
 
-TEST(tokenize, word_1)
+TEST(lexer, word_1)
 {
 	char *input = "hoge";
 	int token_len = 2;
@@ -34,7 +34,7 @@ TEST(tokenize, word_1)
 
 }
 
-TEST(tokenize, word_2_space)
+TEST(lexer, word_2_space)
 {
 	char *input = "ls -la";
 	int token_len = 3;
@@ -44,7 +44,7 @@ TEST(tokenize, word_2_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, bar_1_normal)
+TEST(lexer, bar_1_normal)
 {
 
 	char *input = "ls | cat";
@@ -55,7 +55,7 @@ TEST(tokenize, bar_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, bar_1_normal_without_space)
+TEST(lexer, bar_1_normal_without_space)
 {
 
 	char *input = "ls|cat";
@@ -66,7 +66,7 @@ TEST(tokenize, bar_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, semi_1_normal)
+TEST(lexer, semi_1_normal)
 {
 
 	char *input = "ls ; cat";
@@ -77,7 +77,7 @@ TEST(tokenize, semi_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, semi_1_normal_without_space)
+TEST(lexer, semi_1_normal_without_space)
 {
 
 	char *input = "ls;cat";
@@ -88,7 +88,7 @@ TEST(tokenize, semi_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, gt_1_normal)
+TEST(lexer, gt_1_normal)
 {
 
 	char *input = "ls > outfile";
@@ -99,7 +99,7 @@ TEST(tokenize, gt_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, gt_1_normal_without_space)
+TEST(lexer, gt_1_normal_without_space)
 {
 
 	char *input = "ls>outfile";
@@ -110,7 +110,7 @@ TEST(tokenize, gt_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, gtgt_1_normal)
+TEST(lexer, gtgt_1_normal)
 {
 
 	char *input = "ls >> outfile";
@@ -121,7 +121,7 @@ TEST(tokenize, gtgt_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, gtgt_1_normal_without_space)
+TEST(lexer, gtgt_1_normal_without_space)
 {
 
 	char *input = "ls>>outfile";
@@ -132,7 +132,7 @@ TEST(tokenize, gtgt_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, lt_1_normal)
+TEST(lexer, lt_1_normal)
 {
 
 	char *input = "ls < outfile";
@@ -143,7 +143,7 @@ TEST(tokenize, lt_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, lt_1_normal_without_space)
+TEST(lexer, lt_1_normal_without_space)
 {
 
 	char *input = "ls<outfile";
@@ -154,7 +154,7 @@ TEST(tokenize, lt_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, ltlt_1_normal)
+TEST(lexer, ltlt_1_normal)
 {
 
 	char *input = "ls << outfile";
@@ -165,7 +165,7 @@ TEST(tokenize, ltlt_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, ltlt_1_normal_without_space)
+TEST(lexer, ltlt_1_normal_without_space)
 {
 
 	char *input = "ls<<outfile";
@@ -176,7 +176,7 @@ TEST(tokenize, ltlt_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, sq_1_normal)
+TEST(lexer, sq_1_normal)
 {
 
 	char *input = "ls ' outfile";
@@ -187,7 +187,7 @@ TEST(tokenize, sq_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, sq_1_normal_without_space)
+TEST(lexer, sq_1_normal_without_space)
 {
 
 	char *input = "ls'outfile";
@@ -198,7 +198,7 @@ TEST(tokenize, sq_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, dq_1_normal)
+TEST(lexer, dq_1_normal)
 {
 
 	char *input = "ls \" outfile";
@@ -209,7 +209,7 @@ TEST(tokenize, dq_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, dq_1_normal_without_space)
+TEST(lexer, dq_1_normal_without_space)
 {
 
 	char *input = "ls\"outfile";
@@ -220,7 +220,7 @@ TEST(tokenize, dq_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, bq_1_normal)
+TEST(lexer, bq_1_normal)
 {
 
 	char *input = "ls ` outfile";
@@ -231,7 +231,7 @@ TEST(tokenize, bq_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, bq_1_normal_without_space)
+TEST(lexer, bq_1_normal_without_space)
 {
 
 	char *input = "ls`outfile";
@@ -242,7 +242,7 @@ TEST(tokenize, bq_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, doller_1_normal)
+TEST(lexer, doller_1_normal)
 {
 
 	char *input = "ls $ outfile";
@@ -253,7 +253,7 @@ TEST(tokenize, doller_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, doller_1_normal_without_space)
+TEST(lexer, doller_1_normal_without_space)
 {
 
 	char *input = "ls$outfile";
@@ -264,7 +264,7 @@ TEST(tokenize, doller_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, curly_bracket_open_1_normal)
+TEST(lexer, curly_bracket_open_1_normal)
 {
 
 	char *input = "ls { outfile";
@@ -275,7 +275,7 @@ TEST(tokenize, curly_bracket_open_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, curly_bracket_open_1_normal_without_space)
+TEST(lexer, curly_bracket_open_1_normal_without_space)
 {
 
 	char *input = "ls{outfile";
@@ -286,7 +286,7 @@ TEST(tokenize, curly_bracket_open_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, curly_bracket_close_1_normal)
+TEST(lexer, curly_bracket_close_1_normal)
 {
 
 	char *input = "ls } outfile";
@@ -297,7 +297,7 @@ TEST(tokenize, curly_bracket_close_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST(tokenize, curly_bracket_close_1_normal_without_space)
+TEST(lexer, curly_bracket_close_1_normal_without_space)
 {
 
 	char *input = "ls}outfile";

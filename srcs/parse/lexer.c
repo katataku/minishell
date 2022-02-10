@@ -41,14 +41,14 @@ void	set_token(	t_token	*t, int index, int token, char *word)
 	t->word[index] = ft_xstrdup(word);
 }
 
-t_token	*tokenize(const char *str)
+t_token	*lexer(const char *str)
 {
 	t_token	*token;
 	int		i;
 	int		j;
 	char	word[4097];
 
-	token = initialize_t_token(str);
+	token = initialize_lexer(str);
 	i = 0;
 	while (*str != '\0')
 	{

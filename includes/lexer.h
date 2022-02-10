@@ -4,8 +4,8 @@
 # include "define.h"
 # include "xlibft.h"
 
-t_token	*tokenize(const char *str);
-t_token	*initialize_t_token(char *str);
+t_token	*lexer(const char *str);
+t_token	*initialize_lexer(char *str);
 bool	is_special_char(char c);
 
 #endif
