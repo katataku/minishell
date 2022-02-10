@@ -26,4 +26,6 @@ jobs:
         run: |
           [ $(norminette | grep -vE 'OK|Error!' \
           | grep -v "Missing or invalid 42 header" \
+          | grep -v "Function has more than 25 lines" \
+          | grep -v "Too many functions in file" \
           | wc -l) -eq 0 ]
