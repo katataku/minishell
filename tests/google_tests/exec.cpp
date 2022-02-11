@@ -36,8 +36,12 @@ protected:
 };
 
 void ExecTest::to_exec_info_cmd(std::string cmds[], int size) {
+	exec_info->cmd_num = size;
 	exec_info->cmds = (char ***)calloc(size, sizeof(char **));
-	exec_info->cmds[0] = ft_split(cmds[0].c_str(), ' ');
+	for (int i = 0; i < size; i++)
+	{
+		exec_info->cmds[i] = ft_split(cmds[i].c_str(), ' ');
+	}
 }
 
 std::string ExecTest::build_cmd(std::string *cmds, int size) {
@@ -88,4 +92,14 @@ TEST_F(ExecTest, single_command_with_args)
 	};
 
 	do_execute(cmds, 1);
+}
+
+TEST_F(ExecTest, pipe)
+{
+	std::string cmds[] = {
+			"/bin/cat",
+			"/usr/bin/grep ab"
+	};
+
+	do_execute(cmds, 2);
 }

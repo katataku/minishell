@@ -48,6 +48,7 @@ typedef struct s_token
 typedef struct s_exec_info
 {
 	char	***cmds;
+	int		cmd_num;
 	char	*srcfile;
 	char	*dstfile;
 	int		o_flag;
