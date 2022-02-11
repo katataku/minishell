@@ -80,3 +80,12 @@ TEST_F(ExecTest, single_command)
 
 	do_execute(cmds, 1);
 }
+
+TEST_F(ExecTest, single_command_with_args)
+{
+	std::string cmds[] = {
+			"/usr/bin/grep ab"
+	};
+
+	do_execute(cmds, 1);
+}
