@@ -45,4 +45,11 @@ typedef struct s_token
 	char	**word;
 }	t_token;
 
+typedef struct s_exec_info
+{
+	char	***cmds;
+	char	*srcfile;
+	char	*dstfile;
+}	t_exec_info;
+
 #endif
