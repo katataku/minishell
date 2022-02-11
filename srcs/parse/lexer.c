@@ -28,7 +28,7 @@ void	tokenize_special_char(char *str, t_token *token, int *i)
 	if (*str == '`')
 		token->token[(*i)++] = T_BQ;
 	if (*str == '$')
-		token->token[(*i)++] = T_DOLLER;
+		token->token[(*i)++] = T_DOLLAR;
 	if (*str == '{')
 		token->token[(*i)++] = T_C_BRA_OPN;
 	if (*str == '}')
