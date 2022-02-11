@@ -94,7 +94,7 @@ TEST_F(ExecTest, single_command_with_args)
 	do_execute(cmds, 1);
 }
 
-TEST_F(ExecTest, pipe)
+TEST_F(ExecTest, simple_pipe)
 {
 	std::string cmds[] = {
 			"/bin/cat",
@@ -102,4 +102,31 @@ TEST_F(ExecTest, pipe)
 	};
 
 	do_execute(cmds, 2);
+}
+
+TEST_F(ExecTest, multiple_pipe_odd)
+{
+	std::string cmds[] = {
+			"/bin/cat",
+			"/usr/bin/rev",
+			"/usr/bin/tr a x",
+			"/usr/bin/grep bx",
+			"/bin/cat",
+	};
+
+	do_execute(cmds, 5);
+}
+
+TEST_F(ExecTest, multiple_pipe_even)
+{
+	std::string cmds[] = {
+			"/bin/cat",
+			"/usr/bin/rev",
+			"/usr/bin/tr a x",
+			"/usr/bin/grep bx",
+			"/usr/bin/rev",
+			"/bin/cat",
+	};
+
+	do_execute(cmds, 6);
 }
