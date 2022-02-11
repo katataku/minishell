@@ -50,6 +50,7 @@ typedef struct s_exec_info
 	char	***cmds;
 	char	*srcfile;
 	char	*dstfile;
+	int		o_flag;
 }	t_exec_info;
 
 #endif

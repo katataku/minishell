@@ -15,6 +15,7 @@
 
 # include "define.h"
 # include "libft.h"
+# include "xsyscall.h"
 
 int	execute(t_exec_info *exec_info);
 
