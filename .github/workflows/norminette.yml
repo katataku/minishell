@@ -19,6 +19,8 @@ jobs:
         run: |
           python3 -m pip install --upgrade pip setuptools
           python3 -m pip install norminette
+      - name: Display Norminette version
+        run: norminette --version
       - name: Run norminette for printting
         run: norminette
         continue-on-error: true
