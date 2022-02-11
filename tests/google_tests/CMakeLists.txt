@@ -21,6 +21,7 @@ add_library(minishell
 add_executable(main
         main.cpp
         exec.cpp
+        lexer.cpp
         )
 
 add_definitions(-w)
