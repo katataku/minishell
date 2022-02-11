@@ -29,23 +29,10 @@ static void	do_command(char **argv, char **env, int read_fd, int write_fd)
 
 static void	close_pipes(t_exec_info *info, int i, int pipes[2][2])
 {
-	if (i == 0 && info->cmd_num == 1)
-	{
-		return ;
-	}
-	else if (i == 0)
-	{
-		xclose(pipes[0][WRITE_INDEX]);
-	}
-	else if (i == info->cmd_num - 1)
-	{
+	if (i != 0)
 		xclose(pipes[(i + 1) % 2][READ_INDEX]);
-	}
-	else
-	{
-		xclose(pipes[(i + 1) % 2][READ_INDEX]);
+	if (i != info->cmd_num - 1 && info->cmd_num > 1)
 		xclose(pipes[i % 2][WRITE_INDEX]);
-	}
 }
 
 static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
@@ -53,26 +40,15 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 	int		read_fd;
 	int		write_fd;
 
-	if (i == 0 && info->cmd_num == 1)
-	{
+	if (i == 0)
 		read_fd = xopen(info->srcfile, O_RDONLY, 0);
+	if (i == info->cmd_num - 1)
 		write_fd = xopen(info->dstfile, info->o_flag, 0644);
-	}
-	else if (i == 0)
-	{
-		xclose(pipes[0][READ_INDEX]);
-		read_fd = xopen(info->srcfile, O_RDONLY, 0);
-		write_fd = pipes[0][WRITE_INDEX];
-	}
-	else if (i == info->cmd_num - 1)
-	{
+	if (i != 0)
 		read_fd = pipes[(i + 1) % 2][READ_INDEX];
-		write_fd = xopen(info->dstfile, info->o_flag, 0644);
-	}
-	else
+	if (i != info->cmd_num - 1)
 	{
 		xclose(pipes[i % 2][READ_INDEX]);
-		read_fd = pipes[(i + 1) % 2][READ_INDEX];
 		write_fd = pipes[i % 2][WRITE_INDEX];
 	}
 	do_command(info->cmds[i], NULL, read_fd, write_fd);
