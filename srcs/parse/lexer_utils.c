@@ -6,3 +6,9 @@ bool	is_special_char(char c)
 		|| c == '>' || c == '<' || c == '\'' || c == '\"' || c == '`'
 		|| c == '$' || c == '{' || c == '}');
 }
+
+bool	is_space(char c)
+{
+	return (c == '\t' || c == '\n' || c == '\v'
+		|| c == '\f' || c == '\r' || c == ' ');
+}
