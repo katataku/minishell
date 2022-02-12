@@ -7,7 +7,7 @@ bool	is_special_char(char c)
 		|| c == '$' || c == '{' || c == '}');
 }
 
-void	tokenize_special_char(char *str, t_token *token, int *i)
+void	tokenize_special_char(char *str, t_token *token, int *i, int *state)
 {
 	if (*str == '|')
 		token->token[(*i)++] = T_BAR;
@@ -22,11 +22,20 @@ void	tokenize_special_char(char *str, t_token *token, int *i)
 	if (*str == '<' && *(str + 1) != '<')
 		token->token[(*i)++] = T_LT;
 	if (*str == '\'')
+	{
 		token->token[(*i)++] = T_SQ;
+		*state = IN_SQUOTE;
+	}
 	if (*str == '\"')
+	{
 		token->token[(*i)++] = T_DQ;
+		*state = IN_DQUOTE;
+	}
 	if (*str == '`')
+	{
 		token->token[(*i)++] = T_BQ;
+		*state = IN_BQUOTE;
+	}
 	if (*str == '$')
 		token->token[(*i)++] = T_DOLLAR;
 	if (*str == '{')
@@ -47,25 +56,43 @@ t_token	*lexer(const char *str)
 	int		token_index;
 	int		word_index;
 	char	word[4097];
+	int		state;
 
+	state = NEUTRAL;
 	token = initialize_lexer(str);
 	token_index = 0;
+	word_index = 0;
 	while (*str != '\0')
 	{
-		tokenize_special_char(str, token, &token_index);
-		if (is_special_char(*str))
+		while (*str == ' ')
+			*str++;
+		if (is_special_char(*str) && state == NEUTRAL)
 		{
+			tokenize_special_char(str, token, &token_index, &state);
 			if ((str[0] == '>' && str[1] == '>')
 				|| (str[0] == '<' && str[1] == '<'))
 				str++;
 			str++;
-			continue ;
 		}
-		word_index = 0;
-		while (!is_special_char(*str))
-			word[word_index++] = *str++;
-		word[word_index] = '\0';
-		set_token(token, token_index++, T_WORD, word);
+		else
+		{
+			if (state == NEUTRAL)
+				while (!is_special_char(*str))
+					word[word_index++] = *str++;
+			if (state == IN_SQUOTE)
+				while (!(*str == '\'' || *str == '\0'))
+					word[word_index++] = *str++;
+			if (state == IN_DQUOTE)
+				while (!(*str == '\"' || *str == '\0'))
+					word[word_index++] = *str++;
+			if (state == IN_BQUOTE)
+				while (!(*str == '`' || *str == '\0'))
+					word[word_index++] = *str++;
+			word[word_index] = '\0';
+			set_token(token, token_index++, T_WORD, word);
+			word_index = 0;
+			state = NEUTRAL;
+		}
 	}
 	return (token);
 }
