@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/12 14:13:19 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/12 16:02:27 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ typedef struct s_token
 	int		*token;
 	char	**word;
 }	t_token;
+
+typedef struct s_lexer_manager
+{
+	t_token		*token;
+	int			token_index;
+	int			word_index;
+	char		word[4097];
+	int			state;
+}	t_lexer_manager;
 
 enum e_lexer_state
 {
