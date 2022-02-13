@@ -42,11 +42,11 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 
 	if (i == 0)
 		read_fd = xopen(info->srcfile, O_RDONLY, 0);
+	else
+		read_fd = pipes[(i + 1) % 2][READ_INDEX];
 	if (i == info->cmd_num - 1)
 		write_fd = xopen(info->dstfile, info->o_flag, 0644);
-	if (i != 0)
-		read_fd = pipes[(i + 1) % 2][READ_INDEX];
-	if (i != info->cmd_num - 1)
+	else
 	{
 		xclose(pipes[i % 2][READ_INDEX]);
 		write_fd = pipes[i % 2][WRITE_INDEX];
