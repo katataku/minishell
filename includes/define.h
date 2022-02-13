@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/13 17:56:48 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/13 18:20:46 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # define ERR_CODE_CAN_NOT_EXECUTE 126
 # define ERR_CODE_COMMAND_NOT_FOUND 127
 
-int	g_last_exit_status;
+extern int	g_last_exit_status;
 
 enum e_token
 {

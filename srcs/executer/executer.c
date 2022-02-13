@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/11 17:29:43 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/02/13 18:22:08 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
+
+int	g_last_exit_status;
 
 static void	replace_fd(int old_fd, int new_fd)
 {
