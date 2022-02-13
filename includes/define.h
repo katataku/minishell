@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/12 16:02:27 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/13 16:40:37 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 # define WRITE_INDEX 1
 
 # define ERR_CODE_GENERAL 1
+# define ERR_CODE_MISUSE_BUILTIN 2
 # define ERR_CODE_CAN_NOT_EXECUTE 126
 # define ERR_CODE_COMMAND_NOT_FOUND 127
+
+int	g_last_exit_status;
 
 enum e_token
 {

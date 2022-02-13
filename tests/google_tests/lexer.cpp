@@ -7,8 +7,9 @@ extern "C" {
 void	check_token_assert(char *input, int token_len, int *expected_token, char **expected_word)
 {
 	t_token *token;
-	token = lexer(input);
 
+	g_last_exit_status = 0;
+	token = lexer(input);
 	for (int i = 0; i < token_len; i++)
 	{
 		ASSERT_EQ(token->token[i], expected_token[i]);
@@ -305,4 +306,37 @@ TEST(lexer, special_char_in_bquote_1)
 	char *expected_word[] = {"ls", NULL, "hoge|outfile", NULL, NULL};
 
 	check_token_assert(input, token_len, expected_token, expected_word);
+}
+
+TEST(lexer, not_close_squote)
+{
+	char *input = "ls 'hoge";
+	int token_len = 0;
+	int expected_token[] = {NULL};
+	char *expected_word[] = {NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+	ASSERT_EQ(g_last_exit_status, ERR_CODE_MISUSE_BUILTIN);
+}
+
+TEST(lexer, not_close_dquote)
+{
+	char *input = "ls \"hoge";
+	int token_len = 0;
+	int expected_token[] = {NULL};
+	char *expected_word[] = {NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+	ASSERT_EQ(g_last_exit_status, ERR_CODE_MISUSE_BUILTIN);
+}
+
+TEST(lexer, not_close_bquote)
+{
+	char *input = "ls `hoge";
+	int token_len = 0;
+	int expected_token[] = {NULL};
+	char *expected_word[] = {NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+	ASSERT_EQ(g_last_exit_status, ERR_CODE_MISUSE_BUILTIN);
 }

@@ -78,6 +78,8 @@ int	lexer_loop_handler_not_neutral(t_lexer_manager *mgr, const char *str)
 		while (!(*str == '`' || *str == '\0'))
 			mgr->word[mgr->word_index++] = *str++;
 	mgr->word[mgr->word_index] = '\0';
+	if (*str == '\0')
+		g_last_exit_status = ERR_CODE_MISUSE_BUILTIN;
 	set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
 	mgr->state = NEUTRAL;
 	return (str - init_str);
