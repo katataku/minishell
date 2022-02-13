@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/12 16:02:27 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/13 15:57:28 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,15 @@ typedef struct s_token
 	int		*token;
 	char	**word;
 }	t_token;
+
+typedef struct s_exec_info
+{
+	char	***cmds;
+	int		cmd_num;
+	char	*srcfile;
+	char	*dstfile;
+	int		o_flag;
+}	t_exec_info;
 
 typedef struct s_lexer_manager
 {
