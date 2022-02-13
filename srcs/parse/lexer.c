@@ -87,7 +87,7 @@ t_token	*lexer(const char *str)
 	while (*str != '\0')
 	{
 		mgr->word_index = 0;
-		while (is_space(*str))
+		while (*str == ' ')
 			*str++;
 		if (mgr->state == NEUTRAL)
 			str += lexer_loop_handler_neutral(mgr, str);
