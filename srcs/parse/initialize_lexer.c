@@ -20,12 +20,18 @@ int	max_token_num(char *str)
 	return (token_num);
 }
 
-t_token	*initialize_lexer(char *str)
+t_lexer_manager	*initialize_lexer(char *str)
 {
-	t_token	*token;
+	t_token			*token;
+	t_lexer_manager	*mgr;
 
 	token = (t_token *)ft_xcalloc(1, sizeof(t_token));
 	token->token = (int *)ft_xcalloc(max_token_num(str) + 1, sizeof(int));
 	token->word = (char **)ft_xcalloc(max_token_num(str) + 1, sizeof(char *));
-	return (token);
+	mgr = (t_lexer_manager *)ft_xcalloc(1, sizeof(t_lexer_manager));
+	mgr->state = NEUTRAL;
+	mgr->token = token;
+	mgr->token_index = 0;
+	mgr->word_index = 0;
+	return (mgr);
 }

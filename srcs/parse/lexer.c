@@ -1,38 +1,31 @@
 #include "lexer.h"
 
-bool	is_special_char(char c)
-{
-	return (c == ' ' || c == '\0' || c == '|' || c == ';'
-		|| c == '>' || c == '<' || c == '\'' || c == '\"' || c == '`'
-		|| c == '$' || c == '{' || c == '}');
-}
-
-void	tokenize_special_char(char *str, t_token *token, int *i)
+void	tokenize_special_char(t_lexer_manager *mgr, char *str)
 {
 	if (*str == '|')
-		token->token[(*i)++] = T_BAR;
+		mgr->token->token[mgr->token_index++] = T_BAR;
 	if (*str == ';')
-		token->token[(*i)++] = T_SEMI;
+		mgr->token->token[mgr->token_index++] = T_SEMI;
 	if (*str == '>' && *(str + 1) == '>')
-		token->token[(*i)++] = T_GTGT;
+		mgr->token->token[mgr->token_index++] = T_GTGT;
 	if (*str == '>' && *(str + 1) != '>')
-		token->token[(*i)++] = T_GT;
+		mgr->token->token[mgr->token_index++] = T_GT;
 	if (*str == '<' && *(str + 1) == '<')
-		token->token[(*i)++] = T_LTLT;
+		mgr->token->token[mgr->token_index++] = T_LTLT;
 	if (*str == '<' && *(str + 1) != '<')
-		token->token[(*i)++] = T_LT;
+		mgr->token->token[mgr->token_index++] = T_LT;
 	if (*str == '\'')
-		token->token[(*i)++] = T_SQ;
+		mgr->token->token[mgr->token_index++] = T_SQ;
 	if (*str == '\"')
-		token->token[(*i)++] = T_DQ;
+		mgr->token->token[mgr->token_index++] = T_DQ;
 	if (*str == '`')
-		token->token[(*i)++] = T_BQ;
+		mgr->token->token[mgr->token_index++] = T_BQ;
 	if (*str == '$')
-		token->token[(*i)++] = T_DOLLAR;
+		mgr->token->token[mgr->token_index++] = T_DOLLAR;
 	if (*str == '{')
-		token->token[(*i)++] = T_C_BRA_OPN;
+		mgr->token->token[mgr->token_index++] = T_C_BRA_OPN;
 	if (*str == '}')
-		token->token[(*i)++] = T_C_BRA_CLS;
+		mgr->token->token[mgr->token_index++] = T_C_BRA_CLS;
 }
 
 void	set_token(	t_token	*t, int index, int token, char *word)
@@ -41,31 +34,69 @@ void	set_token(	t_token	*t, int index, int token, char *word)
 	t->word[index] = ft_xstrdup(word);
 }
 
+int	lexer_loop_handler_neutral(t_lexer_manager *mgr, const char *str)
+{
+	char	*init_str;
+
+	init_str = str;
+	if (is_special_char(*str))
+	{
+		if (*str == '\'')
+			mgr->state = IN_SQUOTE;
+		if (*str == '\"')
+			mgr->state = IN_DQUOTE;
+		if (*str == '`')
+			mgr->state = IN_BQUOTE;
+		tokenize_special_char(mgr, str);
+		if ((str[0] == '>' && str[1] == '>')
+			|| (str[0] == '<' && str[1] == '<'))
+			str++;
+		str++;
+	}
+	else
+	{
+		while (!is_special_char(*str))
+			mgr->word[mgr->word_index++] = *str++;
+		mgr->word[mgr->word_index] = '\0';
+		set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
+	}
+	return (str - init_str);
+}
+
+int	lexer_loop_handler_not_neutral(t_lexer_manager *mgr, const char *str)
+{
+	char	*init_str;
+
+	init_str = str;
+	if (mgr->state == IN_SQUOTE)
+		while (!(*str == '\'' || *str == '\0'))
+			mgr->word[mgr->word_index++] = *str++;
+	if (mgr->state == IN_DQUOTE)
+		while (!(*str == '\"' || *str == '\0'))
+			mgr->word[mgr->word_index++] = *str++;
+	if (mgr->state == IN_BQUOTE)
+		while (!(*str == '`' || *str == '\0'))
+			mgr->word[mgr->word_index++] = *str++;
+	mgr->word[mgr->word_index] = '\0';
+	set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
+	mgr->state = NEUTRAL;
+	return (str - init_str);
+}
+
 t_token	*lexer(const char *str)
 {
-	t_token	*token;
-	int		token_index;
-	int		word_index;
-	char	word[4097];
+	t_lexer_manager	*mgr;
 
-	token = initialize_lexer(str);
-	token_index = 0;
+	mgr = initialize_lexer(str);
 	while (*str != '\0')
 	{
-		tokenize_special_char(str, token, &token_index);
-		if (is_special_char(*str))
-		{
-			if ((str[0] == '>' && str[1] == '>')
-				|| (str[0] == '<' && str[1] == '<'))
-				str++;
-			str++;
-			continue ;
-		}
-		word_index = 0;
-		while (!is_special_char(*str))
-			word[word_index++] = *str++;
-		word[word_index] = '\0';
-		set_token(token, token_index++, T_WORD, word);
+		mgr->word_index = 0;
+		while (*str == ' ')
+			*str++;
+		if (mgr->state == NEUTRAL)
+			str += lexer_loop_handler_neutral(mgr, str);
+		else
+			str += lexer_loop_handler_not_neutral(mgr, str);
 	}
-	return (token);
+	return (mgr->token);
 }
