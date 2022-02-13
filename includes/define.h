@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/13 16:40:37 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/13 17:41:54 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_lexer_manager
 enum e_lexer_state
 {
 	NEUTRAL,
+	IN_CBRACKET,
 	IN_SQUOTE,
 	IN_DQUOTE,
 	IN_BQUOTE

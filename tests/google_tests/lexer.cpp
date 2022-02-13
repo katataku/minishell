@@ -340,3 +340,14 @@ TEST(lexer, not_close_bquote)
 	check_token_assert(input, token_len, expected_token, expected_word);
 	ASSERT_EQ(g_last_exit_status, ERR_CODE_MISUSE_BUILTIN);
 }
+
+TEST(lexer, not_close_cbracket)
+{
+	char *input = "ls {hoge";
+	int token_len = 0;
+	int expected_token[] = {NULL};
+	char *expected_word[] = {NULL};
+
+	check_token_assert(input, token_len, expected_token, expected_word);
+	ASSERT_EQ(g_last_exit_status, ERR_CODE_MISUSE_BUILTIN);
+}
