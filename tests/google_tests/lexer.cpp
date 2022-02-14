@@ -4,7 +4,7 @@ extern "C" {
 #include "minishell.h"
 }
 
-class ExecTest : public ::testing::Test {
+class LexerTest : public ::testing::Test {
 protected:
 	static void SetUpTestCase() {}
 	static void TearDownTestCase() {}
@@ -16,7 +16,7 @@ protected:
 };
 
 
-void	ExecTest::check_token_assert(char *input, int token_len, int *expected_token, char **expected_word)
+void	LexerTest::check_token_assert(char *input, int token_len, int *expected_token, char **expected_word)
 {
 	t_token *token;
 
@@ -28,7 +28,7 @@ void	ExecTest::check_token_assert(char *input, int token_len, int *expected_toke
 	}
 }
 
-TEST_F(ExecTest, word_1)
+TEST_F(LexerTest, word_1)
 {
 	char *input = "hoge";
 	int token_len = 2;
@@ -39,7 +39,7 @@ TEST_F(ExecTest, word_1)
 
 }
 
-TEST_F(ExecTest, word_2_space)
+TEST_F(LexerTest, word_2_space)
 {
 	char *input = "ls -la";
 	int token_len = 3;
@@ -49,7 +49,7 @@ TEST_F(ExecTest, word_2_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, bar_1_normal)
+TEST_F(LexerTest, bar_1_normal)
 {
 	char *input = "ls | cat";
 	int token_len = 4;
@@ -59,7 +59,7 @@ TEST_F(ExecTest, bar_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, bar_1_normal_without_space)
+TEST_F(LexerTest, bar_1_normal_without_space)
 {
 	char *input = "ls|cat";
 	int token_len = 4;
@@ -69,7 +69,7 @@ TEST_F(ExecTest, bar_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, semi_1_normal)
+TEST_F(LexerTest, semi_1_normal)
 {
 	char *input = "ls ; cat";
 	int token_len = 4;
@@ -79,7 +79,7 @@ TEST_F(ExecTest, semi_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, semi_1_normal_without_space)
+TEST_F(LexerTest, semi_1_normal_without_space)
 {
 	char *input = "ls;cat";
 	int token_len = 4;
@@ -89,7 +89,7 @@ TEST_F(ExecTest, semi_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, gt_1_normal)
+TEST_F(LexerTest, gt_1_normal)
 {
 	char *input = "ls > outfile";
 	int token_len = 4;
@@ -99,7 +99,7 @@ TEST_F(ExecTest, gt_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, gt_1_normal_without_space)
+TEST_F(LexerTest, gt_1_normal_without_space)
 {
 	char *input = "ls>outfile";
 	int token_len = 4;
@@ -109,7 +109,7 @@ TEST_F(ExecTest, gt_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, gtgt_1_normal)
+TEST_F(LexerTest, gtgt_1_normal)
 {
 	char *input = "ls >> outfile";
 	int token_len = 4;
@@ -119,7 +119,7 @@ TEST_F(ExecTest, gtgt_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, gtgt_1_normal_without_space)
+TEST_F(LexerTest, gtgt_1_normal_without_space)
 {
 	char *input = "ls>>outfile";
 	int token_len = 4;
@@ -129,7 +129,7 @@ TEST_F(ExecTest, gtgt_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, lt_1_normal)
+TEST_F(LexerTest, lt_1_normal)
 {
 	char *input = "ls < outfile";
 	int token_len = 4;
@@ -139,7 +139,7 @@ TEST_F(ExecTest, lt_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, lt_1_normal_without_space)
+TEST_F(LexerTest, lt_1_normal_without_space)
 {
 	char *input = "ls<outfile";
 	int token_len = 4;
@@ -149,7 +149,7 @@ TEST_F(ExecTest, lt_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, ltlt_1_normal)
+TEST_F(LexerTest, ltlt_1_normal)
 {
 	char *input = "ls << outfile";
 	int token_len = 4;
@@ -159,7 +159,7 @@ TEST_F(ExecTest, ltlt_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, ltlt_1_normal_without_space)
+TEST_F(LexerTest, ltlt_1_normal_without_space)
 {
 	char *input = "ls<<outfile";
 	int token_len = 4;
@@ -169,7 +169,7 @@ TEST_F(ExecTest, ltlt_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, sq_1_normal)
+TEST_F(LexerTest, sq_1_normal)
 {
 	char *input = "ls ' outfile";
 	int token_len = 4;
@@ -179,7 +179,7 @@ TEST_F(ExecTest, sq_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, sq_1_normal_without_space)
+TEST_F(LexerTest, sq_1_normal_without_space)
 {
 	char *input = "ls'outfile";
 	int token_len = 4;
@@ -189,7 +189,7 @@ TEST_F(ExecTest, sq_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, dq_1_normal)
+TEST_F(LexerTest, dq_1_normal)
 {
 	char *input = "ls \" outfile";
 	int token_len = 4;
@@ -199,7 +199,7 @@ TEST_F(ExecTest, dq_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, dq_1_normal_without_space)
+TEST_F(LexerTest, dq_1_normal_without_space)
 {
 	char *input = "ls\"outfile";
 	int token_len = 4;
@@ -209,7 +209,7 @@ TEST_F(ExecTest, dq_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, bq_1_normal)
+TEST_F(LexerTest, bq_1_normal)
 {
 	char *input = "ls ` outfile";
 	int token_len = 4;
@@ -219,7 +219,7 @@ TEST_F(ExecTest, bq_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, bq_1_normal_without_space)
+TEST_F(LexerTest, bq_1_normal_without_space)
 {
 	char *input = "ls`outfile";
 	int token_len = 4;
@@ -229,7 +229,7 @@ TEST_F(ExecTest, bq_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, doller_1_normal)
+TEST_F(LexerTest, doller_1_normal)
 {
 	char *input = "ls $ outfile";
 	int token_len = 4;
@@ -239,7 +239,7 @@ TEST_F(ExecTest, doller_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, doller_1_normal_without_space)
+TEST_F(LexerTest, doller_1_normal_without_space)
 {
 	char *input = "ls$outfile";
 	int token_len = 4;
@@ -249,7 +249,7 @@ TEST_F(ExecTest, doller_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, curly_bracket_open_1_normal)
+TEST_F(LexerTest, curly_bracket_open_1_normal)
 {
 	char *input = "ls { outfile";
 	int token_len = 4;
@@ -259,7 +259,7 @@ TEST_F(ExecTest, curly_bracket_open_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, curly_bracket_open_1_normal_without_space)
+TEST_F(LexerTest, curly_bracket_open_1_normal_without_space)
 {
 	char *input = "ls{outfile";
 	int token_len = 4;
@@ -269,7 +269,7 @@ TEST_F(ExecTest, curly_bracket_open_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, curly_bracket_close_1_normal)
+TEST_F(LexerTest, curly_bracket_close_1_normal)
 {
 	char *input = "ls } outfile";
 	int token_len = 4;
@@ -279,7 +279,7 @@ TEST_F(ExecTest, curly_bracket_close_1_normal)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, curly_bracket_close_1_normal_without_space)
+TEST_F(LexerTest, curly_bracket_close_1_normal_without_space)
 {
 	char *input = "ls}outfile";
 	int token_len = 4;
@@ -289,7 +289,7 @@ TEST_F(ExecTest, curly_bracket_close_1_normal_without_space)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, special_char_in_dquote_1)
+TEST_F(LexerTest, special_char_in_dquote_1)
 {
 	char *input = "ls\"hoge'outfile\"";
 	int token_len = 5;
@@ -299,7 +299,7 @@ TEST_F(ExecTest, special_char_in_dquote_1)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, special_char_in_squote_1)
+TEST_F(LexerTest, special_char_in_squote_1)
 {
 	char *input = "ls 'hoge`outfile'";
 	int token_len = 5;
@@ -309,7 +309,7 @@ TEST_F(ExecTest, special_char_in_squote_1)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, special_char_in_bquote_1)
+TEST_F(LexerTest, special_char_in_bquote_1)
 {
 	char *input = " ls `hoge|outfile`";
 	int token_len = 5;
@@ -319,7 +319,7 @@ TEST_F(ExecTest, special_char_in_bquote_1)
 	check_token_assert(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(ExecTest, not_close_squote)
+TEST_F(LexerTest, not_close_squote)
 {
 	char *input = "ls 'hoge";
 	int token_len = 0;
@@ -330,7 +330,7 @@ TEST_F(ExecTest, not_close_squote)
 	ASSERT_EQ(g_last_exit_status, ERR_CODE_MISUSE_BUILTIN);
 }
 
-TEST_F(ExecTest, not_close_dquote)
+TEST_F(LexerTest, not_close_dquote)
 {
 	char *input = "ls \"hoge";
 	int token_len = 0;
@@ -341,7 +341,7 @@ TEST_F(ExecTest, not_close_dquote)
 	ASSERT_EQ(g_last_exit_status, ERR_CODE_MISUSE_BUILTIN);
 }
 
-TEST_F(ExecTest, not_close_bquote)
+TEST_F(LexerTest, not_close_bquote)
 {
 	char *input = "ls `hoge";
 	int token_len = 0;
@@ -352,7 +352,7 @@ TEST_F(ExecTest, not_close_bquote)
 	ASSERT_EQ(g_last_exit_status, ERR_CODE_MISUSE_BUILTIN);
 }
 
-TEST_F(ExecTest, not_close_cbracket)
+TEST_F(LexerTest, not_close_cbracket)
 {
 	char *input = "ls {hoge";
 	int token_len = 0;
