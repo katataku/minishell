@@ -30,4 +30,5 @@ jobs:
           | grep -v "Missing or invalid 42 header" \
           | grep -v "Function has more than 25 lines" \
           | grep -v "Too many functions in file" \
+          | grep -v "Global variable present in file. Make sure it is a reasonable choice." \
           | wc -l) -eq 0 ]

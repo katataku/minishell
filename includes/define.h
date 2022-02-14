@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/13 15:57:28 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/02/13 18:20:46 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@
 # define WRITE_INDEX 1
 
 # define ERR_CODE_GENERAL 1
+# define ERR_CODE_MISUSE_BUILTIN 2
 # define ERR_CODE_CAN_NOT_EXECUTE 126
 # define ERR_CODE_COMMAND_NOT_FOUND 127
+
+extern int	g_last_exit_status;
 
 enum e_token
 {
@@ -66,6 +69,7 @@ typedef struct s_lexer_manager
 enum e_lexer_state
 {
 	NEUTRAL,
+	IN_CBRACKET,
 	IN_SQUOTE,
 	IN_DQUOTE,
 	IN_BQUOTE

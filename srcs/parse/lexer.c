@@ -1,5 +1,7 @@
 #include "lexer.h"
 
+int	g_last_exit_status;
+
 void	tokenize_special_char(t_lexer_manager *mgr, char *str)
 {
 	if (*str == '|')
@@ -28,12 +30,6 @@ void	tokenize_special_char(t_lexer_manager *mgr, char *str)
 		mgr->token->token[mgr->token_index++] = T_C_BRA_CLS;
 }
 
-void	set_token(	t_token	*t, int index, int token, char *word)
-{
-	t->token[index] = token;
-	t->word[index] = ft_xstrdup(word);
-}
-
 int	lexer_loop_handler_neutral(t_lexer_manager *mgr, const char *str)
 {
 	char	*init_str;
@@ -41,12 +37,7 @@ int	lexer_loop_handler_neutral(t_lexer_manager *mgr, const char *str)
 	init_str = str;
 	if (is_special_char(*str))
 	{
-		if (*str == '\'')
-			mgr->state = IN_SQUOTE;
-		if (*str == '\"')
-			mgr->state = IN_DQUOTE;
-		if (*str == '`')
-			mgr->state = IN_BQUOTE;
+		set_state(mgr, str);
 		tokenize_special_char(mgr, str);
 		if ((str[0] == '>' && str[1] == '>')
 			|| (str[0] == '<' && str[1] == '<'))
@@ -77,7 +68,12 @@ int	lexer_loop_handler_not_neutral(t_lexer_manager *mgr, const char *str)
 	if (mgr->state == IN_BQUOTE)
 		while (!(*str == '`' || *str == '\0'))
 			mgr->word[mgr->word_index++] = *str++;
+	if (mgr->state == IN_CBRACKET)
+		while (!(*str == '}' || *str == '\0'))
+			mgr->word[mgr->word_index++] = *str++;
 	mgr->word[mgr->word_index] = '\0';
+	if (*str == '\0')
+		g_last_exit_status = ERR_CODE_MISUSE_BUILTIN;
 	set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
 	mgr->state = NEUTRAL;
 	return (str - init_str);
