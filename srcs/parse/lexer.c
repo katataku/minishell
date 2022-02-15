@@ -39,8 +39,8 @@ int	lexer_loop_handler_neutral(t_lexer_manager *mgr, const char *str)
 	{
 		set_state(mgr, str);
 		tokenize_special_char(mgr, str);
-		if ((str[0] == '>' && str[1] == '>')
-			|| (str[0] == '<' && str[1] == '<'))
+		if (mgr->token->token[mgr->token_index - 1] == T_GTGT
+			|| mgr->token->token[mgr->token_index - 1] == T_LTLT)
 			str++;
 		str++;
 	}
