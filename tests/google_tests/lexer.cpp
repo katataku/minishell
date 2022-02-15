@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 
 extern "C" {
-#include "minishell.h"
+#include "lexer.h"
 }
 
 class LexerTest : public ::testing::Test {

@@ -1,7 +1,5 @@
 #include "lexer.h"
 
-int	g_last_exit_status;
-
 void	tokenize_special_char(t_lexer_manager *mgr, char *str)
 {
 	if (*str == '|')

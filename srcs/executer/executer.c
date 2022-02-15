@@ -6,13 +6,11 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/13 18:22:08 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/15 14:36:18 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
-
-int	g_last_exit_status;
 
 static void	replace_fd(int old_fd, int new_fd)
 {
