@@ -6,7 +6,7 @@ XSYSCALL_SRCS = $(addprefix srcs/xsyscall/, \
 		)
 SRCS = main.c $(XSYSCALL_SRCS) 
 OBJS = $(SRCS:%.c=%.o)
-LIBS = -lft -Llibft
+LIBS = -lft -Llibft -lreadline
 INCS = -Ilibft/includes -Iincludes
 
 $(NAME): $(OBJS)
