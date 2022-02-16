@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+void	set_signal(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
