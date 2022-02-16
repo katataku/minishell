@@ -16,5 +16,6 @@
 # include "lexer.h"
 # include "executer.h"
 # include <readline/readline.h>
+# include <signal.h>
 
 #endif
