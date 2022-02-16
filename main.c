@@ -14,11 +14,11 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	char *line = NULL;
+	char	*line;
+
 	(void)argc;
 	(void)argv;
 	(void)env;
-
 	while (1)
 	{
 		line = readline("> ");
