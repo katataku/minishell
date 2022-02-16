@@ -30,7 +30,7 @@ void	tokenize_special_char(t_lexer_manager *mgr, char *str)
 		mgr->token->token[mgr->token_index++] = T_C_BRA_CLS;
 }
 
-int	lexer_loop_handler_neutral(t_lexer_manager *mgr, const char *str)
+int	lexer_neutral(t_lexer_manager *mgr, const char *str)
 {
 	char	*init_str;
 
@@ -39,8 +39,8 @@ int	lexer_loop_handler_neutral(t_lexer_manager *mgr, const char *str)
 	{
 		set_state(mgr, str);
 		tokenize_special_char(mgr, str);
-		if ((str[0] == '>' && str[1] == '>')
-			|| (str[0] == '<' && str[1] == '<'))
+		if (mgr->token->token[mgr->token_index - 1] == T_GTGT
+			|| mgr->token->token[mgr->token_index - 1] == T_LTLT)
 			str++;
 		str++;
 	}
@@ -54,7 +54,7 @@ int	lexer_loop_handler_neutral(t_lexer_manager *mgr, const char *str)
 	return (str - init_str);
 }
 
-int	lexer_loop_handler_not_neutral(t_lexer_manager *mgr, const char *str)
+int	lexer_not_neutral(t_lexer_manager *mgr, const char *str)
 {
 	char	*init_str;
 
@@ -90,9 +90,9 @@ t_token	*lexer(const char *str)
 		while (*str == ' ')
 			*str++;
 		if (mgr->state == NEUTRAL)
-			str += lexer_loop_handler_neutral(mgr, str);
+			str += lexer_neutral(mgr, str);
 		else
-			str += lexer_loop_handler_not_neutral(mgr, str);
+			str += lexer_not_neutral(mgr, str);
 	}
 	return (mgr->token);
 }
