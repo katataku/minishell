@@ -1,0 +1,1 @@
+minishellはEOFで終了する。
