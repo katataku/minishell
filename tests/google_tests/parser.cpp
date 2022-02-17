@@ -117,3 +117,22 @@ TEST_F(ParserTest, word_2)
 	actual_exec_info = parser(token);
 	parser_test();
 }
+
+TEST_F(ParserTest, word_3)
+{
+
+	std::string cmds[] = {
+			"/bin/ls -l -a"
+	};
+	to_exec_info_cmd(cmds, 1);
+	expect_exec_info->cmd_num = 1;
+	expect_exec_info->srcfile = NULL;
+	expect_exec_info->dstfile = NULL;
+	expect_exec_info->o_flag = 0;
+
+	int tokenlst[] = {T_WORD, T_WORD, T_WORD, NULL};
+	char *wordlst[] = {"/bin/ls", "-l", "-a", NULL};
+	t_token *token = makeToken(tokenlst, wordlst);
+	actual_exec_info = parser(token);
+	parser_test();
+}

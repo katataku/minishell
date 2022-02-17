@@ -1,13 +1,24 @@
 #include "parser.h"
 
+int	count_lst(char **lst)
+{
+	int	count;
+
+	count = 0;
+	while (lst[count] != NULL)
+		count++;
+	return (count);
+}
+
 t_exec_info	*parser(t_token *token)
 {
 	t_exec_info	*exec_info;
 
 	exec_info = (t_exec_info *)calloc(1, sizeof(t_exec_info));
 	exec_info->cmds = (char ***)calloc(2, sizeof(char **));
-	exec_info->cmds[0] = (char **)calloc(3,sizeof(char *));
-	for (int i = 0; i < 2; i++)
+	exec_info->cmds[0] = (char **)calloc(3, sizeof(char *));
+
+	for (int i = 0; i < count_lst(token->word); i++)
 	{
 		exec_info->cmds[0][i] = token->word[i];
 	}
