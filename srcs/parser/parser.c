@@ -17,9 +17,9 @@ t_exec_info	*parser(t_token *token)
 	int			i;
 
 	word_cnt = count_lst(token->word);
-	exec_info = (t_exec_info *)calloc(1, sizeof(t_exec_info));
-	exec_info->cmds = (char ***)calloc(1, sizeof(char **));
-	exec_info->cmds[0] = (char **)calloc(word_cnt, sizeof(char *));
+	exec_info = (t_exec_info *)ft_xcalloc(1, sizeof(t_exec_info));
+	exec_info->cmds = (char ***)ft_xcalloc(1, sizeof(char **));
+	exec_info->cmds[0] = (char **)ft_xcalloc(word_cnt, sizeof(char *));
 	i = 0;
 	while (i < word_cnt)
 	{
