@@ -6,8 +6,8 @@ XSYSCALL_SRCS = $(addprefix srcs/xsyscall/, \
 		)
 SRCS = main.c $(XSYSCALL_SRCS) 
 OBJS = $(SRCS:%.c=%.o)
-LIBS = -lft -Llibft
-INCS = -Ilibft/includes -Iincludes
+LIBS = -lft -Llibft -lreadline -L$(shell brew --prefix readline)/lib
+INCS = -Ilibft/includes -Iincludes -I$(shell brew --prefix readline)/include
 
 $(NAME): $(OBJS)
 	make -C libft
