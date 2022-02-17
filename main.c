@@ -12,9 +12,26 @@
 
 #include "minishell.h"
 
+/*
+ * ^Cは表示されてしまう
+ */
+void	sigint_handler(int signal)
+{
+	(void)signal;
+	printf("\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
+	rl_replace_line("", 0);
+}
+
+/*
+ * SIGQUITは特に何もしなくても無視されていそう　
+ */
 void	set_signal(void)
 {
 	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, sigint_handler);
 }
 
 int	main(int argc, char **argv, char **env)
@@ -24,8 +41,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
-
-	signal(SIGQUIT, SIG_IGN);
+	set_signal();
 	while (1)
 	{
 		line = readline("> ");
