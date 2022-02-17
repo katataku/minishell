@@ -20,7 +20,7 @@ protected:
 
 	t_token *makeToken(int * token_lst, char** word_lst);
 	void to_exec_info_cmd(std::string cmds[], int size);
-	void check_cmd(char **cmd1, char **cmd2);
+	void check_cmd(char **actual, char **expect);
 	void parser_test();
 };
 
@@ -42,10 +42,6 @@ void ParserTest::to_exec_info_cmd(std::string cmds[], int size)
 	{
 		expect_exec_info->cmds[i] = ft_split(cmds[i].c_str(), ' ');
 	}
-	expect_exec_info->cmd_num = 1;
-	expect_exec_info->srcfile = NULL;
-	expect_exec_info->dstfile = NULL;
-	expect_exec_info->o_flag = 0;
 }
 
 void	ParserTest::parser_test()
@@ -71,17 +67,17 @@ void	ParserTest::parser_test()
 	}
 }
 
-void	ParserTest::check_cmd (char **cmd1, char **cmd2)
+void	ParserTest::check_cmd (char **actual, char **expect)
 {
-	if (cmd1 == NULL && cmd2 == NULL)
+	if (actual == NULL && expect == NULL)
 		return ;
-	while (*cmd1 != NULL)
+	while (*actual != NULL)
 	{
-		ASSERT_STREQ(*cmd1, *cmd2);
-		cmd1++;
-		cmd2++;
+		ASSERT_STREQ(*actual, *expect);
+		actual++;
+		expect++;
 	}
-	ASSERT_EQ(*cmd1, *cmd2);
+	ASSERT_EQ(*actual, *expect);
 }
 
 TEST_F(ParserTest, word_1)
@@ -91,9 +87,32 @@ TEST_F(ParserTest, word_1)
 			"/bin/cat"
 	};
 	to_exec_info_cmd(cmds, 1);
+	expect_exec_info->cmd_num = 1;
+	expect_exec_info->srcfile = NULL;
+	expect_exec_info->dstfile = NULL;
+	expect_exec_info->o_flag = 0;
 
 	int tokenlst[] = {T_WORD, NULL};
-	char *wordlst[] = {"ls", NULL};
+	char *wordlst[] = {"/bin/cat", NULL};
+	t_token *token = makeToken(tokenlst, wordlst);
+	actual_exec_info = parser(token);
+	parser_test();
+}
+
+TEST_F(ParserTest, word_2)
+{
+
+	std::string cmds[] = {
+			"/bin/ls -la"
+	};
+	to_exec_info_cmd(cmds, 1);
+	expect_exec_info->cmd_num = 1;
+	expect_exec_info->srcfile = NULL;
+	expect_exec_info->dstfile = NULL;
+	expect_exec_info->o_flag = 0;
+
+	int tokenlst[] = {T_WORD, T_WORD, NULL};
+	char *wordlst[] = {"/bin/ls", "-la", NULL};
 	t_token *token = makeToken(tokenlst, wordlst);
 	actual_exec_info = parser(token);
 	parser_test();
