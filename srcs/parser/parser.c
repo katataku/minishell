@@ -16,19 +16,22 @@ t_exec_info	*parser(t_token *token)
 	int			word_cnt;
 	int			i;
 
-	word_cnt = count_lst(token->word);
+	word_cnt = count_lst(token->token);
 	exec_info = (t_exec_info *)ft_xcalloc(1, sizeof(t_exec_info));
 	exec_info->cmds = (char ***)ft_xcalloc(1, sizeof(char **));
 	exec_info->cmds[0] = (char **)ft_xcalloc(word_cnt, sizeof(char *));
 	i = 0;
-	while (i < word_cnt)
+	while (token->token[i] != NULL)
 	{
-		exec_info->cmds[0][i] = token->word[i];
+		if (token->token[i] == T_WORD)
+			exec_info->cmds[0][i] = token->word[i];
+		if (token->token[i] == T_LT)
+			exec_info->srcfile = token->word[++i];
+		if (token->token[i] == T_GT)
+			exec_info->dstfile = token->word[++i];
 		i++;
 	}
 	exec_info->cmd_num = 1;
-	exec_info->srcfile = NULL;
-	exec_info->dstfile = NULL;
 	exec_info->o_flag = 0;
 	return (exec_info);
 }
