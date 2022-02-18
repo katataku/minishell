@@ -194,3 +194,23 @@ TEST_F(ParserTest, dstfile_2)
 	actual_exec_info = parser(token);
 	parser_test();
 }
+
+TEST_F(ParserTest, pipe_1)
+{
+
+	std::string cmds[] = {
+			"/bin/ls",
+			"/bin/cat"
+	};
+	expect_exec_info->cmd_num = 2;
+	to_exec_info_cmd(cmds, expect_exec_info->cmd_num);
+	expect_exec_info->srcfile = NULL;
+	expect_exec_info->dstfile = NULL;
+	expect_exec_info->o_flag = NULL;
+
+	int tokenlst[] = {T_WORD, T_BAR, T_WORD, NULL};
+	char *wordlst[] = {"/bin/ls", NULL, "/bin/cat", NULL};
+	t_token *token = makeToken(tokenlst, wordlst);
+	actual_exec_info = parser(token);
+	parser_test();
+}
