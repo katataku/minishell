@@ -49,27 +49,26 @@ void	init_parser(t_exec_info **e, t_token *t, int *i, int *j)
 t_exec_info	*parser(t_token *token)
 {
 	t_exec_info	*exec_info;
-	int			idx_token;
-	int			idx_cmd;
-	int			idx_word;
+	int			ti;
+	int			ci;
+	int			wi;
 
-	init_parser(&exec_info, token, &idx_token, &idx_cmd);
-	idx_word = 0;
-	while (token->token[++idx_token] != 0)
+	init_parser(&exec_info, token, &ti, &ci);
+	wi = 0;
+	while (token->token[++ti] != 0)
 	{
-		if (token->token[idx_token] == T_WORD)
-			exec_info->cmds[idx_cmd][idx_word++] = token->word[idx_token];
-		if (token->token[idx_token] == T_LT)
-			exec_info->srcfile = token->word[++idx_token];
-		if (token->token[idx_token] == T_GTGT)
+		if (token->token[ti] == T_WORD)
+			exec_info->cmds[ci][wi++] = token->word[ti];
+		if (token->token[ti] == T_LT)
+			exec_info->srcfile = token->word[++ti];
+		if (token->token[ti] == T_GTGT)
 			exec_info->o_flag = O_APPEND;
-		if (token->token[idx_token] == T_GT
-			|| token->token[idx_token] == T_GTGT)
-			exec_info->dstfile = token->word[++idx_token];
-		if (token->token[idx_token] == T_BAR)
+		if (token->token[ti] == T_GT || token->token[ti] == T_GTGT)
+			exec_info->dstfile = token->word[++ti];
+		if (token->token[ti] == T_BAR)
 		{
-			idx_cmd++;
-			idx_word = 0;
+			ci++;
+			wi = 0;
 		}
 	}
 	return (exec_info);
