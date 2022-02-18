@@ -26,6 +26,10 @@ int	count_cmd_num(int	*lst)
 	return (count);
 }
 
+/*
+* 初期化処理
+* メモリ確保は多めに取っている。
+*/
 void	init_parser(t_exec_info **e, t_token *t, int *i, int *j)
 {
 	int	index;
