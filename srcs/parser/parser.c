@@ -27,11 +27,12 @@ t_exec_info	*parser(t_token *token)
 			exec_info->cmds[0][i] = token->word[i];
 		if (token->token[i] == T_LT)
 			exec_info->srcfile = token->word[++i];
-		if (token->token[i] == T_GT)
+		if (token->token[i] == T_GTGT)
+			exec_info->o_flag = O_APPEND;
+		if (token->token[i] == T_GT || token->token[i] == T_GTGT)
 			exec_info->dstfile = token->word[++i];
 		i++;
 	}
 	exec_info->cmd_num = 1;
-	exec_info->o_flag = 0;
 	return (exec_info);
 }
