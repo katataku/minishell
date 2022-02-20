@@ -5,7 +5,7 @@ int	count_lst(int	*lst)
 	int	count;
 
 	count = 0;
-	while (lst[count] != NULL)
+	while (lst[count] != 0)
 		count++;
 	return (count);
 }

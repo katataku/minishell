@@ -30,7 +30,7 @@ void	tokenize_special_char(t_lexer_manager *mgr, char *str)
 		mgr->token->token[mgr->token_index++] = T_C_BRA_CLS;
 }
 
-int	lexer_neutral(t_lexer_manager *mgr, const char *str)
+int	lexer_neutral(t_lexer_manager *mgr, char *str)
 {
 	char	*init_str;
 
@@ -54,7 +54,7 @@ int	lexer_neutral(t_lexer_manager *mgr, const char *str)
 	return (str - init_str);
 }
 
-int	lexer_not_neutral(t_lexer_manager *mgr, const char *str)
+int	lexer_not_neutral(t_lexer_manager *mgr, char *str)
 {
 	char	*init_str;
 
@@ -79,7 +79,7 @@ int	lexer_not_neutral(t_lexer_manager *mgr, const char *str)
 	return (str - init_str);
 }
 
-t_token	*lexer(const char *str)
+t_token	*lexer(char *str)
 {
 	t_lexer_manager	*mgr;
 
@@ -88,7 +88,7 @@ t_token	*lexer(const char *str)
 	{
 		mgr->word_index = 0;
 		while (*str == ' ')
-			*str++;
+			str++;
 		if (mgr->state == NEUTRAL)
 			str += lexer_neutral(mgr, str);
 		else
