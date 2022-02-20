@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/16 16:09:06 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/02/20 13:34:26 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	main(int argc, char **argv, char **env)
 			free(line);
 			continue ;
 		}
-		printf("line is '%s'\n", line);
+		execute(parser(lexer(line)));
 		add_history(line);
 		free(line);
 	}
