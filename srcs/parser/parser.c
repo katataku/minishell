@@ -38,6 +38,7 @@ void	init_parser(t_exec_info **e, t_token *t, int *i, int *j)
 	word_cnt = count_lst(t->token);
 	*e = (t_exec_info *)ft_xcalloc(1, sizeof(t_exec_info));
 	(*e)->cmd_num = count_cmd_num(t->token);
+	(*e)->o_flag = O_WRONLY | O_CREAT;
 	(*e)->cmds = (char ***)ft_xcalloc((*e)->cmd_num, sizeof(char **));
 	index = 0;
 	while (index < (*e)->cmd_num)
@@ -62,7 +63,7 @@ t_exec_info	*parser(t_token *token)
 		if (token->token[ti] == T_LT)
 			exec_info->srcfile = token->word[++ti];
 		if (token->token[ti] == T_GTGT)
-			exec_info->o_flag = O_APPEND;
+			exec_info->o_flag |= O_APPEND;
 		if (token->token[ti] == T_GT || token->token[ti] == T_GTGT)
 			exec_info->dstfile = token->word[++ti];
 		if (token->token[ti] == T_BAR)
