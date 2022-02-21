@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/15 14:43:36 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/21 11:14:38 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 static void	replace_fd(int old_fd, int new_fd)
 {
-	xdup2(old_fd, new_fd);
-	xclose(old_fd);
+	if (old_fd != new_fd)
+	{
+		xdup2(old_fd, new_fd);
+		xclose(old_fd);
+	}
 }
 
 static void	do_command(char **argv, char **env, int read_fd, int write_fd)
@@ -41,11 +44,21 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 	int		write_fd;
 
 	if (i == 0)
-		read_fd = xopen(info->srcfile, O_RDONLY, 0);
+	{
+		if (info->srcfile != NULL)
+			read_fd = xopen(info->srcfile, O_RDONLY, 0);
+		else
+			read_fd = STDIN_FILENO;
+	}
 	else
 		read_fd = pipes[(i + 1) % 2][READ_INDEX];
 	if (i == info->cmd_num - 1)
-		write_fd = xopen(info->dstfile, info->o_flag, 0644);
+	{
+		if (info->dstfile != NULL)
+			write_fd = xopen(info->dstfile, info->o_flag, 0644);
+		else
+			write_fd = STDOUT_FILENO;
+	}
 	else
 	{
 		xclose(pipes[i % 2][READ_INDEX]);
