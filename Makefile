@@ -25,11 +25,18 @@ $(NAME): $(OBJS)
 	make -C libft
 	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
 
-test:
+test: utest itest
+
+ltest: ultest iltest
+
+utest:
 	make -C tests/google_tests
 
-ltest:
+ultest:
 	make -C tests/google_tests ltest
+
+itest:
+	bash ./tests/shell_scripts/main.sh
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
