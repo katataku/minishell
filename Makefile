@@ -28,6 +28,9 @@ $(NAME): $(OBJS)
 test:
 	make -C tests/google_tests
 
+ltest:
+	make -C tests/google_tests ltest
+
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 
@@ -41,4 +44,4 @@ clean:
 
 re: fclean all
 
-.PHONY: all fclean clean re test
+.PHONY: all fclean clean re test ltest
