@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/20 13:34:26 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:16:32 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	sigint_handler(int signal)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	rl_replace_line("", 0);
 }
 
 /*
