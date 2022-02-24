@@ -47,14 +47,12 @@ int	execute_single_builtin(t_exec_info	*info)
 		save_stdout = dup(STDOUT_FILENO);
 		tmp_fd = xopen(info->dstfile, O_RDWR | O_CREAT, 0644);
 		replace_fd(tmp_fd, STDOUT_FILENO);
-		xclose(tmp_fd);
 	}
 	if (info->srcfile != NULL)
 	{
 		save_stdout = dup(STDIN_FILENO);
 		tmp_fd = xopen(info->srcfile, O_RDONLY, 0);
 		replace_fd(tmp_fd, STDIN_FILENO);
-		xclose(tmp_fd);
 	}
 	exit_status = execute_builtin(-1, info->cmds[0]);
 	replace_fd(save_stdout, STDOUT_FILENO);
