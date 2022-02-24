@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:24:54 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/23 09:03:23 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/24 18:50:51 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 # include "define.h"
 # include "xlibft.h"
 
-typedef struct s_kvlist
+typedef struct s_keyvalue
 {
 	char			*key;
 	char			*value;
-	struct s_kvlist	*next;
-}	t_kvlist;
+}	t_keyvalue;
 
 char	*get_env(char *name);
 void	set_env(char *name, char *value);
