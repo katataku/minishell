@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdbool.h>
 #include "builtin.h"
 
 int	echo(int argc, char **argv)
@@ -18,9 +17,15 @@ int	echo(int argc, char **argv)
 	bool	isPrintLineFeed;
 	bool	isFirst;
 
+	(void)argc;
 	isPrintLineFeed = true;
 	isFirst = true;
 	argv++;
+	if (*argv != NULL && ft_strcmp("-n", *argv) == 0)
+	{
+		argv++;
+		isPrintLineFeed = false;
+	}
 	while (*argv != NULL)
 	{
 		if (!isFirst)

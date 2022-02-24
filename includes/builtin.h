@@ -14,6 +14,7 @@
 # define BUILTIN_H
 
 # include "libft.h"
+# include <stdbool.h>
 
 int	echo(int argc, char **argv);
 

@@ -50,3 +50,39 @@ TEST_F(BuiltinTest, echo_no_argument)
 	ASSERT_EQ(0, status_code);
 	ASSERT_STREQ("\n", output.c_str());
 }
+
+TEST_F(BuiltinTest, echo_only_n_option)
+{
+	int	argc = 2;
+	char *argv[] = {"echo", "-n", NULL};
+
+	testing::internal::CaptureStdout();
+	status_code = echo(argc, argv);
+	output = testing::internal::GetCapturedStdout();
+	ASSERT_EQ(0, status_code);
+	ASSERT_STREQ("", output.c_str());
+}
+
+TEST_F(BuiltinTest, echo_n_option)
+{
+	int	argc = 3;
+	char *argv[] = {"echo", "-n", "hello", NULL};
+
+	testing::internal::CaptureStdout();
+	status_code = echo(argc, argv);
+	output = testing::internal::GetCapturedStdout();
+	ASSERT_EQ(0, status_code);
+	ASSERT_STREQ("hello", output.c_str());
+}
+
+TEST_F(BuiltinTest, echo_n_option_multiple_arguments)
+{
+	int	argc = 5;
+	char *argv[] = {"echo", "-n", "hello", "world", "!", NULL};
+
+	testing::internal::CaptureStdout();
+	status_code = echo(argc, argv);
+	output = testing::internal::GetCapturedStdout();
+	ASSERT_EQ(0, status_code);
+	ASSERT_STREQ("hello world !", output.c_str());
+}
