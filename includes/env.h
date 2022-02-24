@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:24:54 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/24 18:50:51 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 07:27:55 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ typedef struct s_keyvalue
 char	*get_env(char *name);
 void	set_env(char *name, char *value);
 void	remove_env(char *name);
+void	remove_all_env(char *name);
 
 #endif

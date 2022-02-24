@@ -57,3 +57,11 @@ TEST_F(EnvTest, remove_1)
 	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), NULL);
 }
+
+TEST_F(EnvTest, remove_all_1)
+{
+	remove_all_env("PATH");
+	ASSERT_STREQ(get_env("HOME"), NULL);
+	ASSERT_STREQ(get_env("PATH"), NULL);
+	ASSERT_STREQ(get_env("PS1"), NULL);
+}

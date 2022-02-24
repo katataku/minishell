@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/24 18:52:42 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 07:28:05 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,12 @@ void	remove_env(char *name)
 		}
 		cur_env = cur_env->next;
 	}
+}
+
+void	remove_all_env(char *name)
+{
+	t_list		**env;
+
+	env = gen_env();
+	ft_lstclear(env, free_keyvalue);
 }
