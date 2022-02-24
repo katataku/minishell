@@ -12,30 +12,40 @@
 
 #include "builtin.h"
 
+static int	do_print(char **argv, bool is_print_linefeed)
+{
+	bool	is_first;
+
+	is_first = true;
+	while (*argv != NULL)
+	{
+		if (!is_first)
+		{
+			if (ft_putchar_fd(' ', STDOUT_FILENO) == -1)
+				return (1);
+		}
+		else
+			is_first = false;
+		if (ft_putstr_fd(*argv, STDOUT_FILENO) == -1)
+			return (1);
+		argv++;
+	}
+	if (is_print_linefeed && ft_putchar_fd('\n', STDOUT_FILENO) == -1)
+		return (1);
+	return (0);
+}
+
 int	echo(int argc, char **argv)
 {
 	bool	is_print_linefeed;
-	bool	is_first;
 
 	(void)argc;
 	is_print_linefeed = true;
-	is_first = true;
 	argv++;
 	if (*argv != NULL && ft_strcmp("-n", *argv) == 0)
 	{
 		argv++;
 		is_print_linefeed = false;
 	}
-	while (*argv != NULL)
-	{
-		if (!is_first)
-			ft_putchar_fd(' ', STDOUT_FILENO);
-		else
-			is_first = false;
-		ft_putstr_fd(*argv, STDOUT_FILENO);
-		argv++;
-	}
-	if (is_print_linefeed)
-		ft_putchar_fd('\n', STDOUT_FILENO);
-	return (0);
+	return (do_print(argv, is_print_linefeed));
 }
