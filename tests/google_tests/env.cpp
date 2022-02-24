@@ -15,6 +15,7 @@ protected:
 		set_env("PS1","\s-\v\$");
 	}
 	void TearDown() {
+		remove_all_env();
 	}
 };
 
@@ -49,7 +50,7 @@ TEST_F(EnvTest, remove_1)
 
 	remove_env("HOME");
 	ASSERT_STREQ(get_env("HOME"), NULL);
-	ASSERT_STREQ(get_env("]PATH"), NULL);
+	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), "\s-\v\$");
 
 	remove_env("PS1");
@@ -60,7 +61,7 @@ TEST_F(EnvTest, remove_1)
 
 TEST_F(EnvTest, remove_all_1)
 {
-	remove_all_env("PATH");
+	remove_all_env();
 	ASSERT_STREQ(get_env("HOME"), NULL);
 	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), NULL);

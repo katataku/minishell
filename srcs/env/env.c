@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 07:28:05 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 07:30:15 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	remove_env(char *name)
 	}
 }
 
-void	remove_all_env(char *name)
+void	remove_all_env(void)
 {
 	t_list		**env;
 
