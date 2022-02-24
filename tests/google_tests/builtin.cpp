@@ -38,3 +38,15 @@ TEST_F(BuiltinTest, echo_multiple_arguments)
 	ASSERT_EQ(0, status_code);
 	ASSERT_STREQ("hello world !\n", output.c_str());
 }
+
+TEST_F(BuiltinTest, echo_no_argument)
+{
+	int	argc = 1;
+	char *argv[] = {"echo", NULL};
+
+	testing::internal::CaptureStdout();
+	status_code = echo(argc, argv);
+	output = testing::internal::GetCapturedStdout();
+	ASSERT_EQ(0, status_code);
+	ASSERT_STREQ("\n", output.c_str());
+}
