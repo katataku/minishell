@@ -14,28 +14,28 @@
 
 int	echo(int argc, char **argv)
 {
-	bool	isPrintLineFeed;
-	bool	isFirst;
+	bool	is_print_linefeed;
+	bool	is_first;
 
 	(void)argc;
-	isPrintLineFeed = true;
-	isFirst = true;
+	is_print_linefeed = true;
+	is_first = true;
 	argv++;
 	if (*argv != NULL && ft_strcmp("-n", *argv) == 0)
 	{
 		argv++;
-		isPrintLineFeed = false;
+		is_print_linefeed = false;
 	}
 	while (*argv != NULL)
 	{
-		if (!isFirst)
+		if (!is_first)
 			ft_putchar_fd(' ', STDOUT_FILENO);
 		else
-			isFirst = false;
+			is_first = false;
 		ft_putstr_fd(*argv, STDOUT_FILENO);
 		argv++;
 	}
-	if (isPrintLineFeed)
+	if (is_print_linefeed)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	return (0);
 }
