@@ -28,19 +28,6 @@ $(NAME): $(OBJS)
 	make -C libft
 	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
 
-test: utest itest
-
-ltest: ultest iltest
-
-utest:
-	make -C tests/google_tests
-
-ultest:
-	make -C tests/google_tests ltest
-
-itest:
-	bash ./tests/shell_scripts/main.sh
-
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
 
@@ -54,4 +41,22 @@ clean:
 
 re: fclean all
 
-.PHONY: all fclean clean re test ltest
+.PHONY: all fclean clean re
+
+.PHONY: test
+test: utest itest
+
+.PHONY: ltest
+ltest: ultest iltest
+
+.PHONY: utest
+utest:
+	make -C tests/google_tests
+
+.PHONY: ultest
+ultest:
+	make -C tests/google_tests ltest
+
+.PHONY: itest
+itest: $(NAME)
+	bash ./tests/shell_scripts/main.sh
