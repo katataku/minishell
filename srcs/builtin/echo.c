@@ -35,6 +35,12 @@ static int	do_print(char **argv, bool is_print_linefeed)
 	return (0);
 }
 
+/*
+ * usage: echo [-n] arg...
+ * Output the args separated by spaces, terminated with a newline. The return
+ * status is 0 unless a write error occurs. If -n is specified, the trailing
+ * newline is suppressed.
+ */
 int	echo(int argc, char **argv)
 {
 	bool	is_print_linefeed;
