@@ -20,6 +20,7 @@
 
 int		execute(t_exec_info *exec_info);
 int		execute_builtin(int argc, char **argv);
+int		execute_single_builtin(t_exec_info	*info);
 bool	is_builtin(char *cmd);
 
 #endif

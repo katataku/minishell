@@ -28,15 +28,35 @@ bool	is_builtin(char *cmd)
 
 int	execute_builtin(int argc, char **argv)
 {
-	int	save_stdout;
-	int	exit_status;
-
-	save_stdout = dup(STDOUT_FILENO);
-	int fd = xopen("actual", O_RDWR | O_CREAT, 0644);
-	replace_fd(fd, STDOUT_FILENO);
-	close(fd);
 	if (ft_strcmp("echo", argv[0]) == 0)
-		exit_status = echo(argc, argv);
+		return (echo(argc, argv));
+}
+
+int	execute_single_builtin(t_exec_info	*info)
+{
+	int	save_stdout;
+	int	save_stdin;
+	int	exit_status;
+	int	tmp_fd;
+
+	save_stdout = STDOUT_FILENO;
+	save_stdin = STDIN_FILENO;
+	if (info->dstfile != NULL)
+	{
+		save_stdout = dup(STDOUT_FILENO);
+		tmp_fd = xopen(info->dstfile, O_RDWR | O_CREAT, 0644);
+		replace_fd(tmp_fd, STDOUT_FILENO);
+		close(tmp_fd);
+	}
+	if (info->srcfile != NULL)
+	{
+		save_stdout = dup(STDIN_FILENO);
+		tmp_fd = xopen(info->srcfile, O_RDONLY, 0);
+		replace_fd(tmp_fd, STDIN_FILENO);
+		close(tmp_fd);
+	}
+	exit_status = execute_builtin(-1, info->cmds[0]);
 	replace_fd(save_stdout, STDOUT_FILENO);
+	replace_fd(save_stdin, STDIN_FILENO);
 	return (exit_status);
 }

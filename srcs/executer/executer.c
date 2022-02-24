@@ -76,7 +76,7 @@ int	execute(t_exec_info *exec_info)
 
 	i = 0;
 	if (exec_info->cmd_num == 1 && is_builtin(exec_info->cmds[0][0]))
-		return (execute_builtin(0, exec_info->cmds[0]));
+		return (execute_single_builtin(exec_info));
 	while (i < exec_info->cmd_num)
 	{
 		if (i != exec_info->cmd_num - 1)
