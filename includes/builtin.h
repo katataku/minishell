@@ -13,6 +13,8 @@
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
+# include "libft.h"
+
 int	echo(int argc, char **argv);
 
 #endif
