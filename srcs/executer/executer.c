@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/21 11:14:38 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:12:40 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	execute(t_exec_info *exec_info)
 	int	status;
 
 	i = 0;
+	if (exec_info->cmd_num == 1 && is_builtin(exec_info->cmds[0][0]))
+		return (execute_builtin(0, exec_info->cmds[0]));
 	while (i < exec_info->cmd_num)
 	{
 		if (i != exec_info->cmd_num - 1)

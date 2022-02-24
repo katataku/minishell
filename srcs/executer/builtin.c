@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer.h                                         :+:      :+:    :+:   */
+/*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 17:10:04 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/24 17:09:52 by ahayashi         ###   ########.jp       */
+/*   Created: 2022/02/24 17:08:43 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/02/24 17:08:43 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTER_H
-# define EXECUTER_H
+#include "executer.h"
 
-# include "builtin.h"
-# include "define.h"
-# include "libft.h"
-# include "xsyscall.h"
+bool	is_builtin(char *cmd)
+{
+	return (ft_strcmp("echo", cmd) == 0);
+}
 
-int		execute(t_exec_info *exec_info);
-int		execute_builtin(int argc, char **argv);
-bool	is_builtin(char *cmd);
-
-#endif
+int	execute_builtin(int argc, char **argv)
+{
+	if (ft_strcmp("echo", argv[0]) == 0)
+		return (echo(argc, argv));
+}
