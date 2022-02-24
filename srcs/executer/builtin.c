@@ -31,6 +31,7 @@ int	execute_builtin(int argc, char **argv)
 {
 	if (ft_strcmp("echo", argv[0]) == 0)
 		return (echo(argc, argv));
+	return (1);
 }
 
 int	execute_single_builtin(t_exec_info	*info)
