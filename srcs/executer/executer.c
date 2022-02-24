@@ -25,6 +25,8 @@ static void	do_command(char **argv, char **env, int read_fd, int write_fd)
 {
 	replace_fd(read_fd, STDIN_FILENO);
 	replace_fd(write_fd, STDOUT_FILENO);
+	if (is_builtin(argv[0]))
+		exit (execute_builtin(-1, argv));
 	execve(argv[0], argv, env);
 	perror("execve");
 	exit(ERR_CODE_GENERAL);
