@@ -18,48 +18,48 @@ protected:
 
 TEST_F(EnvTest, normal_1)
 {
-	set_env("testkey","testval");
-	ASSERT_STREQ(get_env("testkey"), "testval");
+	set_env("HOME","/Users/takkatao");
+	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
 }
 
 TEST_F(EnvTest, normal_2)
 {
-	set_env("testkey","testval");
-	set_env("testkey2","testval2");
-	ASSERT_STREQ(get_env("testkey"), "testval");
-	ASSERT_STREQ(get_env("testkey2"), "testval2");
-	ASSERT_STREQ(get_env("testkey3"), NULL);
+	set_env("HOME","/Users/takkatao");
+	set_env("PATH","/bin");
+	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
+	ASSERT_STREQ(get_env("PATH"), "/bin");
+	ASSERT_STREQ(get_env("PS1"), NULL);
 }
 
 TEST_F(EnvTest, update_1)
 {
-	set_env("testkey","testval");
-	set_env("testkey","testval2");
-	ASSERT_STREQ(get_env("testkey"), "testval2");
+	set_env("HOME","/Users/takkatao");
+	set_env("HOME","/bin");
+	ASSERT_STREQ(get_env("HOME"), "/bin");
 }
 
 TEST_F(EnvTest, remove_1)
 {
-	set_env("testkey","testval");
-	set_env("testkey2","testval2");
-	set_env("testkey3","testval3");
+	set_env("HOME","/Users/takkatao");
+	set_env("PATH","/bin");
+	set_env("PS1","\s-\v\$");
 
-	ASSERT_STREQ(get_env("testkey"), "testval");
-	ASSERT_STREQ(get_env("testkey2"), "testval2");
-	ASSERT_STREQ(get_env("testkey3"), "testval3");
+	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
+	ASSERT_STREQ(get_env("PATH"), "/bin");
+	ASSERT_STREQ(get_env("PS1"), "\s-\v\$");
 
-	remove_env("testkey2");
-	ASSERT_STREQ(get_env("testkey"), "testval");
-	ASSERT_STREQ(get_env("testkey2"), NULL);
-	ASSERT_STREQ(get_env("testkey3"), "testval3");
+	remove_env("PATH");
+	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
+	ASSERT_STREQ(get_env("PATH"), NULL);
+	ASSERT_STREQ(get_env("PS1"), "\s-\v\$");
 
-	remove_env("testkey");
-	ASSERT_STREQ(get_env("testkey"), NULL);
-	ASSERT_STREQ(get_env("]testkey2"), NULL);
-	ASSERT_STREQ(get_env("testkey3"), "testval3");
+	remove_env("HOME");
+	ASSERT_STREQ(get_env("HOME"), NULL);
+	ASSERT_STREQ(get_env("]PATH"), NULL);
+	ASSERT_STREQ(get_env("PS1"), "\s-\v\$");
 
-	remove_env("testkey3");
-	ASSERT_STREQ(get_env("testkey"), NULL);
-	ASSERT_STREQ(get_env("testkey2"), NULL);
-	ASSERT_STREQ(get_env("testkey3"), NULL);
+	remove_env("PS1");
+	ASSERT_STREQ(get_env("HOME"), NULL);
+	ASSERT_STREQ(get_env("PATH"), NULL);
+	ASSERT_STREQ(get_env("PS1"), NULL);
 }
