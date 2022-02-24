@@ -134,7 +134,7 @@ TEST_F(ExecTest, multiple_pipe_even)
 TEST_F(ExecTest, single_builtin)
 {
 	std::string cmds[] = {
-			"echo -n hello",
+			"echo hello world !",
 	};
 	do_execute(cmds, 1);
 }
