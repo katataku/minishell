@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 07:34:35 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:09:00 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ void	set_env(char *name, char *value)
 	content = (t_keyvalue *)ft_xcalloc(1, sizeof(t_keyvalue));
 	content->key = ft_xstrdup(name);
 	content->value = ft_xstrdup(value);
-	ft_lstadd_back(env, ft_lstnew(content));
+	ft_lstadd_back(env, ft_xlstnew(content));
 }

@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 13:50:55 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:57:50 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	**gen_env(void)
 	static t_list	**env;
 
 	if (env == NULL)
-		env = (t_list **)calloc(1, sizeof(t_list *));
+		env = (t_list **)ft_xcalloc(1, sizeof(t_list *));
 	return (env);
 }
 
