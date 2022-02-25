@@ -1,6 +1,7 @@
 minishell
 .DS_Store
 **/build/*
+**/actual/*
 !.gitkeep
 .idea/*
 **/.idea/**/workspace.xml

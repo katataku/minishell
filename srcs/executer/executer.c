@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/21 11:14:38 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:12:40 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static void	do_command(char **argv, char **env, int read_fd, int write_fd)
 {
 	replace_fd(read_fd, STDIN_FILENO);
 	replace_fd(write_fd, STDOUT_FILENO);
+	if (is_builtin(argv[0]))
+		exit (execute_builtin(-1, argv));
 	execve(argv[0], argv, env);
 	perror("execve");
 	exit(ERR_CODE_GENERAL);
@@ -75,6 +77,8 @@ int	execute(t_exec_info *exec_info)
 	int	status;
 
 	i = 0;
+	if (exec_info->cmd_num == 1 && is_builtin(exec_info->cmds[0][0]))
+		return (execute_single_builtin(exec_info));
 	while (i < exec_info->cmd_num)
 	{
 		if (i != exec_info->cmd_num - 1)

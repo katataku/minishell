@@ -130,3 +130,20 @@ TEST_F(ExecTest, multiple_pipe_even)
 
 	do_execute(cmds, 6);
 }
+
+TEST_F(ExecTest, single_builtin)
+{
+	std::string cmds[] = {
+			"echo hello world !",
+	};
+	do_execute(cmds, 1);
+}
+
+TEST_F(ExecTest, builtin_with_pipe)
+{
+	std::string cmds[] = {
+			"echo hello world !",
+			"/bin/cat"
+	};
+	do_execute(cmds, 2);
+}
