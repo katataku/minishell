@@ -6,34 +6,46 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 14:21:31 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:54:22 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
+void	lst_delone_in_lst(t_list **lst, t_list *delete_lst, void (*del)(void *))
+{
+	t_list		*cur_lst;
+
+	if (lst == NULL || *lst == NULL)
+		return ;
+	if (*lst == delete_lst)
+		*lst = (*lst)->next;
+	else
+	{
+		cur_lst = (*lst);
+		while (cur_lst->next != NULL)
+		{
+			if (cur_lst->next == delete_lst)
+				cur_lst->next = delete_lst->next;
+			cur_lst = cur_lst->next;
+		}
+	}
+	ft_lstdelone(delete_lst, del);
+}
+
 void	remove_env(char *name)
 {
 	t_list		**env;
 	t_list		*cur_env;
-	t_list		*delete_env;
 
 	env = gen_env();
 	cur_env = *env;
-	if (ft_strcmp(((t_keyvalue *)(cur_env->content))->key, name) == 0)
+	while (cur_env != NULL)
 	{
-		delete_env = *env;
-		*env = (*env)->next;
-		ft_lstdelone(delete_env, &free_keyvalue);
-		return ;
-	}
-	while (cur_env->next != NULL)
-	{
-		if (ft_strcmp(((t_keyvalue *)(cur_env->next->content))->key, name) == 0)
+		if (ft_strcmp(((t_keyvalue *)(cur_env->content))->key, name) == 0)
 		{
-			delete_env = cur_env->next;
-			cur_env->next = cur_env->next->next;
-			ft_lstdelone(delete_env, &free_keyvalue);
+			lst_delone_in_lst(env, cur_env, &free_keyvalue);
+			return ;
 		}
 		cur_env = cur_env->next;
 	}
