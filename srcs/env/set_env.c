@@ -6,13 +6,13 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 14:09:00 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 15:09:17 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	set_env(char *name, char *value)
+void	set_env(char *key, char *value)
 {
 	t_list		**env;
 	t_list		*cur_env;
@@ -23,7 +23,7 @@ void	set_env(char *name, char *value)
 	while (cur_env != NULL)
 	{
 		content = cur_env->content;
-		if (ft_strcmp(content->key, name) == 0)
+		if (ft_strcmp(content->key, key) == 0)
 		{
 			free(content->value);
 			content->value = ft_xstrdup(value);
@@ -34,7 +34,7 @@ void	set_env(char *name, char *value)
 		cur_env = cur_env->next;
 	}
 	content = (t_keyvalue *)ft_xcalloc(1, sizeof(t_keyvalue));
-	content->key = ft_xstrdup(name);
+	content->key = ft_xstrdup(key);
 	content->value = ft_xstrdup(value);
 	ft_lstadd_back(env, ft_xlstnew(content));
 }

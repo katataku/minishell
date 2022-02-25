@@ -16,7 +16,7 @@ protected:
 		set_env("PS1","\s-\v\$");
 	}
 	void TearDown() {
-		remove_all_env();
+		remove_env();
 	}
 };
 
@@ -43,17 +43,17 @@ TEST_F(EnvTest, update_1)
 
 TEST_F(EnvTest, remove_1)
 {
-	remove_env("PATH");
+	unset_env("PATH");
 	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
 	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), "\s-\v\$");
 
-	remove_env("HOME");
+	unset_env("HOME");
 	ASSERT_STREQ(get_env("HOME"), NULL);
 	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), "\s-\v\$");
 
-	remove_env("PS1");
+	unset_env("PS1");
 	ASSERT_STREQ(get_env("HOME"), NULL);
 	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), NULL);
@@ -61,7 +61,7 @@ TEST_F(EnvTest, remove_1)
 
 TEST_F(EnvTest, remove_all_1)
 {
-	remove_all_env();
+	remove_env();
 	ASSERT_STREQ(get_env("HOME"), NULL);
 	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), NULL);
@@ -69,7 +69,7 @@ TEST_F(EnvTest, remove_all_1)
 
 TEST_F(EnvTest, init_env_1)
 {
-	remove_all_env();
+	remove_env();
 	init_env();
 	ASSERT_STREQ(get_env("LANG"), std::getenv("LANG"));
 
