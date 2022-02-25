@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 07:34:51 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:40:55 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	remove_env(char *name)
 	{
 		delete_env = *env;
 		*env = (*env)->next;
-		ft_lstdelone(delete_env, free_keyvalue);
+		ft_lstdelone(delete_env, (void (*)(void *)) & free_keyvalue);
 		return ;
 	}
 	while (cur_env->next != NULL)
@@ -33,7 +33,7 @@ void	remove_env(char *name)
 		{
 			delete_env = cur_env->next;
 			cur_env->next = cur_env->next->next;
-			ft_lstdelone(delete_env, free_keyvalue);
+			ft_lstdelone(delete_env, (void (*)(void *)) & free_keyvalue);
 		}
 		cur_env = cur_env->next;
 	}
@@ -44,5 +44,5 @@ void	remove_all_env(void)
 	t_list		**env;
 
 	env = gen_env();
-	ft_lstclear(env, free_keyvalue);
+	ft_lstclear(env, (void (*)(void *)) & free_keyvalue);
 }
