@@ -23,16 +23,16 @@ protected:
 
 TEST_F(EnvTest, normal_1)
 {
-	set_env("HOME","/Users/takkatao");
-	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
+	set_env("USER","takkatao");
+	ASSERT_STREQ(get_env("USER"), "takkatao");
 }
 
 TEST_F(EnvTest, normal_2)
 {
-	set_env("HOME","/Users/takkatao");
-	set_env("PATH","/bin");
-	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
-	ASSERT_STREQ(get_env("PATH"), "/bin");
+	set_env("USER","takkatao");
+	set_env("SHELL","/bin/bash");
+	ASSERT_STREQ(get_env("USER"), "takkatao");
+	ASSERT_STREQ(get_env("SHELL"), "/bin/bash");
 }
 
 TEST_F(EnvTest, update_1)
