@@ -37,7 +37,6 @@ TEST_F(EnvTest, normal_2)
 
 TEST_F(EnvTest, update_1)
 {
-	set_env("HOME","/Users/takkatao");
 	set_env("HOME","/bin");
 	ASSERT_STREQ(get_env("HOME"), "/bin");
 }
