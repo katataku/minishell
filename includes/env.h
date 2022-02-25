@@ -1,24 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xlibft.h                                           :+:      :+:    :+:   */
+/*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 23:39:45 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/25 14:08:33 by takkatao         ###   ########.fr       */
+/*   Created: 2022/02/23 08:24:54 by takkatao          #+#    #+#             */
+/*   Updated: 2022/02/25 15:28:17 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XLIBFT_H
-# define XLIBFT_H
+#ifndef ENV_H
+# define ENV_H
 
-# include "libft.h"
 # include "define.h"
+# include "xlibft.h"
 
-char	*ft_xcalloc(size_t count, size_t size);
-t_list	*ft_xlstnew(void *content);
-char	**ft_xsplit(const char *s, char c);
-char	*ft_xstrdup(const char *s);
-char	*ft_xstrjoin(const char *s1, const char *s2);
+typedef struct s_keyvalue
+{
+	char			*key;
+	char			*value;
+}	t_keyvalue;
+
+void	init_env(void);
+void	free_keyvalue(void *kv);
+t_list	**gen_env(void);
+char	*get_env(char *key);
+void	set_env(char *key, char *value);
+void	unset_env(char *key);
+void	remove_env(void);
+
 #endif

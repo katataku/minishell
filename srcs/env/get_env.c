@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xlibft.h                                           :+:      :+:    :+:   */
+/*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 23:39:45 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/25 14:08:33 by takkatao         ###   ########.fr       */
+/*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
+/*   Updated: 2022/02/25 15:10:13 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XLIBFT_H
-# define XLIBFT_H
+#include "env.h"
 
-# include "libft.h"
-# include "define.h"
+char	*get_env(char *key)
+{
+	t_list		**env;
+	t_list		*cur_env;
+	t_keyvalue	*content;
 
-char	*ft_xcalloc(size_t count, size_t size);
-t_list	*ft_xlstnew(void *content);
-char	**ft_xsplit(const char *s, char c);
-char	*ft_xstrdup(const char *s);
-char	*ft_xstrjoin(const char *s1, const char *s2);
-#endif
+	env = gen_env();
+	cur_env = *env;
+	while (cur_env != NULL)
+	{
+		content = cur_env->content;
+		if (content->key != NULL && ft_strcmp(content->key, key) == 0)
+			return (content->value);
+		cur_env = cur_env->next;
+	}
+	return (NULL);
+}

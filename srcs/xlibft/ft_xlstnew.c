@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xlibft.h                                           :+:      :+:    :+:   */
+/*   ft_xlstnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/20 23:39:45 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/25 14:08:33 by takkatao         ###   ########.fr       */
+/*   Created: 2022/01/20 23:48:23 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/02/25 14:08:04 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef XLIBFT_H
-# define XLIBFT_H
+#include "xlibft.h"
 
-# include "libft.h"
-# include "define.h"
+t_list	*ft_xlstnew(void *content)
+{
+	t_list	*tmp;
 
-char	*ft_xcalloc(size_t count, size_t size);
-t_list	*ft_xlstnew(void *content);
-char	**ft_xsplit(const char *s, char c);
-char	*ft_xstrdup(const char *s);
-char	*ft_xstrjoin(const char *s1, const char *s2);
-#endif
+	tmp = ft_lstnew(content);
+	if (tmp == NULL)
+	{
+		perror("malloc");
+		exit(ERR_CODE_GENERAL);
+	}
+	return (tmp);
+}
