@@ -7,6 +7,9 @@ XSYSCALL_SRCS = $(addprefix srcs/xsyscall/, \
 XLIBFT_SRCS = $(addprefix srcs/xlibft/, \
 		ft_xcalloc.c ft_xsplit.c ft_xstrdup.c ft_xstrjoin.c \
 		)
+ENV_SRCS = $(addprefix srcs/env/, \
+		env.c get_env.c remove_env.c set_env.c \
+		)
 EXECUTER_SRCS = $(addprefix srcs/executer/, \
 		executer.c \
 		)
@@ -16,7 +19,7 @@ LEXER_SRCS = $(addprefix srcs/lexer/, \
 PARSER_SRCS = $(addprefix srcs/parser/, \
 		parser.c \
 		)
-SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(EXECUTER_SRCS) $(LEXER_SRCS) $(PARSER_SRCS)
+SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(ENV_SRCS) $(EXECUTER_SRCS) $(LEXER_SRCS) $(PARSER_SRCS)
 OBJS = $(SRCS:%.c=%.o)
 LIBS = -lft -Llibft -lreadline -L$(shell brew --prefix readline)/lib
 INCS = -Ilibft/includes -Iincludes -I$(shell brew --prefix readline)/include

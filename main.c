@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/22 16:42:41 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 13:16:43 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
+	init_env();
 	set_signal();
 	while (1)
 	{

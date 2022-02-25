@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <cstdlib>
 
 extern "C" {
 #include "env.h"
@@ -65,4 +66,12 @@ TEST_F(EnvTest, remove_all_1)
 	ASSERT_STREQ(get_env("HOME"), NULL);
 	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), NULL);
+}
+
+TEST_F(EnvTest, init_env_1)
+{
+	remove_all_env();
+	init_env();
+	ASSERT_STREQ(get_env("LANG"), std::getenv("LANG"));
+
 }
