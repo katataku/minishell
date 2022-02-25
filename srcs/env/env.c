@@ -6,14 +6,17 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 13:57:50 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 14:20:51 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	free_keyvalue(t_keyvalue *kv)
+void	free_keyvalue(void *input)
 {
+	t_keyvalue	*kv;
+
+	kv = input;
 	if (kv != NULL)
 	{
 		free(kv->key);
