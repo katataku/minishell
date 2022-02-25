@@ -70,7 +70,7 @@ TEST_F(EnvTest, remove_all_1)
 TEST_F(EnvTest, init_env_1)
 {
 	remove_env();
-	init_env();
+	init_env(gen_env());
 	ASSERT_STREQ(get_env("LANG"), std::getenv("LANG"));
 
 }

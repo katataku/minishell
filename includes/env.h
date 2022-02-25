@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:24:54 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 15:09:56 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 15:24:38 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_keyvalue
 	char			*value;
 }	t_keyvalue;
 
-void	init_env(void);
+void	init_env(t_list **env);
 void	free_keyvalue(void *kv);
 t_list	**gen_env(void);
 char	*get_env(char *key);
