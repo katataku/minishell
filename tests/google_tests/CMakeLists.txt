@@ -26,6 +26,7 @@ add_executable(main
         lexer.cpp
         parser.cpp
         env.cpp
+        builtin.cpp
         )
 
 add_definitions(-w)

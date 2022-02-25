@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executer.h                                         :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/11 17:10:04 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/24 17:09:52 by ahayashi         ###   ########.jp       */
+/*   Created: 2022/02/24 10:56:18 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/02/24 10:56:18 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXECUTER_H
-# define EXECUTER_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
-# include "builtin.h"
-# include "define.h"
 # include "libft.h"
-# include "xsyscall.h"
+# include <stdbool.h>
 
-int		execute(t_exec_info *exec_info);
-int		execute_builtin(int argc, char **argv);
-int		execute_single_builtin(t_exec_info	*info);
-bool	is_builtin(char *cmd);
+// NOTE: 引数にargcはなくても良いかもしれない。他のbuiltinの様子も見て判断
+int	echo(int argc, char **argv);
 
 #endif

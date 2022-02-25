@@ -10,8 +10,11 @@ XLIBFT_SRCS = $(addprefix srcs/xlibft/, \
 ENV_SRCS = $(addprefix srcs/env/, \
 		env.c get_env.c remove_env.c set_env.c \
 		)
+BUILTIN_SRCS = $(addprefix srcs/builtin/, \
+		echo.c \
+		)
 EXECUTER_SRCS = $(addprefix srcs/executer/, \
-		executer.c \
+		builtin.c executer.c \
 		)
 LEXER_SRCS = $(addprefix srcs/lexer/, \
 		initialize_lexer.c lexer_utils.c lexer.c\
@@ -19,7 +22,7 @@ LEXER_SRCS = $(addprefix srcs/lexer/, \
 PARSER_SRCS = $(addprefix srcs/parser/, \
 		parser.c \
 		)
-SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(ENV_SRCS) $(EXECUTER_SRCS) $(LEXER_SRCS) $(PARSER_SRCS)
+SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(BUILTIN_SRCS) $(ENV_SRCS) $(EXECUTER_SRCS) $(LEXER_SRCS) $(PARSER_SRCS)
 OBJS = $(SRCS:%.c=%.o)
 LIBS = -lft -Llibft -lreadline -L$(shell brew --prefix readline)/lib
 INCS = -Ilibft/includes -Iincludes -I$(shell brew --prefix readline)/include
@@ -27,19 +30,6 @@ INCS = -Ilibft/includes -Iincludes -I$(shell brew --prefix readline)/include
 $(NAME): $(OBJS)
 	make -C libft
 	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
-
-test: utest itest
-
-ltest: ultest iltest
-
-utest:
-	make -C tests/google_tests
-
-ultest:
-	make -C tests/google_tests ltest
-
-itest:
-	bash ./tests/shell_scripts/main.sh
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
@@ -54,4 +44,22 @@ clean:
 
 re: fclean all
 
-.PHONY: all fclean clean re test ltest
+.PHONY: all fclean clean re
+
+.PHONY: test
+test: utest itest
+
+.PHONY: ltest
+ltest: ultest iltest
+
+.PHONY: utest
+utest:
+	make -C tests/google_tests
+
+.PHONY: ultest
+ultest:
+	make -C tests/google_tests ltest
+
+.PHONY: itest
+itest: $(NAME)
+	bash ./tests/shell_scripts/main.sh
