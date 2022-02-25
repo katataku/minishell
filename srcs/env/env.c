@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 14:20:51 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/25 15:05:58 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_env(void)
 	env = gen_env();
 	while (*cur_environ != NULL)
 	{
-		key_str = ft_strdup(*cur_environ);
+		key_str = ft_xstrdup(*cur_environ);
 		value_str = ft_strchr(key_str, '=');
 		*value_str = '\0';
 		value_str++;
