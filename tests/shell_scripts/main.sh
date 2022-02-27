@@ -75,3 +75,10 @@ TEST_NAME=0006.txt
 INPUT_CMDS="echo -n Hello World ! | /bin/cat"
 EXPECTED_EXIT_STATUS=0
 do_test
+
+# builtin env関数
+TEST_NAME=0007.txt
+env > ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS="env"
+EXPECTED_EXIT_STATUS=0
+do_test
