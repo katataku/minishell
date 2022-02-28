@@ -11,6 +11,7 @@ MAGENTA="\033[35m"
 
 ACTUAL_PATH=./tests/shell_scripts/actual/
 EXPECTED_PATH=./tests/shell_scripts/expected/
+INFILE_PATH=./tests/shell_scripts/
 
 # input, test_name
 function do_test() {
@@ -73,5 +74,29 @@ do_test
 # builtin関数withパイプ
 TEST_NAME=0006.txt
 INPUT_CMDS="echo -n Hello World ! | /bin/cat"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# 単一コマンド＆パス解決あり
+TEST_NAME=0007.txt
+INPUT_CMDS="cat ./tests/shell_scripts/infile.txt"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# パイプ&パス解決あり
+TEST_NAME=0008.txt
+INPUT_CMDS="cat ./tests/shell_scripts/infile.txt | grep ab"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# 単一コマンド＆パス解決あり&infileあり
+TEST_NAME=0009.txt
+INPUT_CMDS="< ./tests/shell_scripts/infile.txt grep ab"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# パイプ&パス解決なし&infileあり
+TEST_NAME=0010.txt
+INPUT_CMDS="< ./tests/shell_scripts/infile.txt grep ab | wc -c"
 EXPECTED_EXIT_STATUS=0
 do_test
