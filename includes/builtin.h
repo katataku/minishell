@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 10:56:18 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/01 18:15:15 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/02/27 14:26:17 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,5 @@
 // NOTE: 引数にargcはなくても良いかもしれない。他のbuiltinの様子も見て判断
 int	echo(int argc, char **argv);
 int	env(int argc, char **argv);
-int	unset(int argc, char **argv);
 
 #endif
