@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   get_envlist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 10:56:18 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/27 14:26:17 by takkatao         ###   ########.fr       */
+/*   Created: 2022/02/27 14:29:24 by takkatao          #+#    #+#             */
+/*   Updated: 2022/02/27 14:30:21 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "env.h"
 
-# include "libft.h"
-# include <stdbool.h>
-# include "env.h"
-
-// NOTE: 引数にargcはなくても良いかもしれない。他のbuiltinの様子も見て判断
-int	echo(int argc, char **argv);
-int	env(int argc, char **argv);
-
-#endif
+t_list	**get_envlist(void)
+{
+	return (gen_env());
+}

@@ -75,3 +75,15 @@ TEST_NAME=0006.txt
 INPUT_CMDS="echo -n Hello World ! | /bin/cat"
 EXPECTED_EXIT_STATUS=0
 do_test
+
+# builtin env関数
+TEST_NAME=buitlin_env.txt
+echo "> env" > ${EXPECTED_PATH}/${TEST_NAME}
+env | grep -v "_=">> ${EXPECTED_PATH}/${TEST_NAME}
+echo _=./minishell >> ${EXPECTED_PATH}/${TEST_NAME}
+echo LINES=24 >> ${EXPECTED_PATH}/${TEST_NAME}
+echo  COLUMNS=80 >> ${EXPECTED_PATH}/${TEST_NAME}
+echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS="env"
+EXPECTED_EXIT_STATUS=0
+do_test
