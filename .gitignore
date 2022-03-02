@@ -11,6 +11,7 @@ minishell
 
 # Test file
 buitlin_env.txt
+buitlin_pwd.txt
 
 # Prerequisites
 *.d
