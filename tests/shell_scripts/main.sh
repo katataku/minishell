@@ -128,5 +128,11 @@ TEST_NAME=buitlin_cd_absolute.txt
 echo "> cd /tmp" > ${EXPECTED_PATH}/${TEST_NAME}
 echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd /tmp"
+
+TEST_NAME=buitlin_pwd.txt
+echo "> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
+pwd >> ${EXPECTED_PATH}/${TEST_NAME}
+echo -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS="pwd"
 EXPECTED_EXIT_STATUS=0
 do_test
