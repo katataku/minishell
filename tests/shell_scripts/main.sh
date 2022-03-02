@@ -112,3 +112,11 @@ echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="env"
 EXPECTED_EXIT_STATUS=0
 do_test
+
+TEST_NAME=buitlin_pwd.txt
+echo "> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
+pwd >> ${EXPECTED_PATH}/${TEST_NAME}
+echo -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS="pwd"
+EXPECTED_EXIT_STATUS=0
+do_test

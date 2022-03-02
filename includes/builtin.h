@@ -20,6 +20,7 @@
 // NOTE: 引数にargcはなくても良いかもしれない。他のbuiltinの様子も見て判断
 int	echo(int argc, char **argv);
 int	env(int argc, char **argv);
+int	pwd(int argc, char **argv);
 int	unset(int argc, char **argv);
 
 #endif
