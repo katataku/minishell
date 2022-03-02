@@ -9,6 +9,9 @@ minishell
 **/cmake-build-debug/*
 .swp
 
+# Test file
+./tests/shell_scripts/expected/buitlin_env.txt
+
 # Prerequisites
 *.d
 
