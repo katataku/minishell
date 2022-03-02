@@ -14,7 +14,7 @@ BUILTIN_SRCS = $(addprefix srcs/builtin/, \
 		echo.c env.c unset.c \
 		)
 EXECUTER_SRCS = $(addprefix srcs/executer/, \
-		builtin.c executer.c \
+		builtin.c executer.c get_fullpath.c\
 		)
 LEXER_SRCS = $(addprefix srcs/lexer/, \
 		initialize_lexer.c lexer_utils.c lexer.c\

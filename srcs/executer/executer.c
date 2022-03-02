@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/24 17:12:40 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/02/27 16:18:29 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	do_command(char **argv, char **env, int read_fd, int write_fd)
 	replace_fd(write_fd, STDOUT_FILENO);
 	if (is_builtin(argv[0]))
 		exit (execute_builtin(-1, argv));
-	execve(argv[0], argv, env);
+	execve(get_fullpath(argv[0]), argv, env);
 	perror("execve");
 	exit(ERR_CODE_GENERAL);
 }
