@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:08:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/01 18:14:26 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/02 14:41:52 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool	is_builtin(char *cmd)
 {
 	return (ft_strcmp("echo", cmd) == 0
 		|| ft_strcmp("env", cmd) == 0
+		|| ft_strcmp("pwd", cmd) == 0
 		|| ft_strcmp("unset", cmd) == 0);
 }
 
@@ -35,6 +36,8 @@ int	execute_builtin(int argc, char **argv)
 		return (echo(argc, argv));
 	if (ft_strcmp("env", argv[0]) == 0)
 		return (env(argc, argv));
+	if (ft_strcmp("pwd", argv[0]) == 0)
+		return (pwd(argc, argv));
 	if (ft_strcmp("unset", argv[0]) == 0)
 		return (unset(argc, argv));
 	return (1);
