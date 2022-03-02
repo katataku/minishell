@@ -25,6 +25,8 @@
 int	cd(int argc, char **argv)
 {
 	(void)argc;
-	(void)argv;
+
+	if (chdir(argv[1]) == -1)
+		return (1);
 	return (0);
 }
