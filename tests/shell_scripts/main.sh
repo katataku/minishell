@@ -113,6 +113,22 @@ INPUT_CMDS="env"
 EXPECTED_EXIT_STATUS=0
 do_test
 
+# builtin cd関数(相対パスの場合）
+# 終了ステータスのみを確認
+TEST_NAME=buitlin_cd_relative.txt
+echo "> cd ./tests/google_tests" > ${EXPECTED_PATH}/${TEST_NAME}
+echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS="cd ./tests/google_tests"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# builtin cd関数(絶対パスの場合）
+# 終了ステータスのみを確認
+TEST_NAME=buitlin_cd_absolute.txt
+echo "> cd /tmp" > ${EXPECTED_PATH}/${TEST_NAME}
+echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS="cd /tmp"
+
 TEST_NAME=buitlin_pwd.txt
 echo "> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
 pwd >> ${EXPECTED_PATH}/${TEST_NAME}

@@ -18,6 +18,7 @@
 # include "unistd.h"
 
 // NOTE: 引数にargcはなくても良いかもしれない。他のbuiltinの様子も見て判断
+int	cd(int argc, char **argv);
 int	echo(int argc, char **argv);
 int	env(int argc, char **argv);
 int	pwd(int argc, char **argv);
