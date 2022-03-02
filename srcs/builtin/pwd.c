@@ -12,7 +12,6 @@
 
 #include "builtin.h"
 
-
 /*
  * usage: pwd
  * Print the absolute pathname of the current working directory. The return
