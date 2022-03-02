@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:08:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/01 18:14:26 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/02 15:20:50 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@ static void	replace_fd(int old_fd, int new_fd)
 
 bool	is_builtin(char *cmd)
 {
-	return (ft_strcmp("echo", cmd) == 0
+	return (ft_strcmp("cd", cmd) == 0
+		|| ft_strcmp("echo", cmd) == 0
 		|| ft_strcmp("env", cmd) == 0
 		|| ft_strcmp("unset", cmd) == 0);
 }
 
 int	execute_builtin(int argc, char **argv)
 {
+
+	if (ft_strcmp("cd", argv[0]) == 0)
+		return (cd(argc, argv));
 	if (ft_strcmp("echo", argv[0]) == 0)
 		return (echo(argc, argv));
 	if (ft_strcmp("env", argv[0]) == 0)
