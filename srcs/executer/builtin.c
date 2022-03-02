@@ -32,7 +32,6 @@ bool	is_builtin(char *cmd)
 
 int	execute_builtin(int argc, char **argv)
 {
-
 	if (ft_strcmp("cd", argv[0]) == 0)
 		return (cd(argc, argv));
 	if (ft_strcmp("echo", argv[0]) == 0)
