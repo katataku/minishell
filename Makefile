@@ -11,7 +11,7 @@ ENV_SRCS = $(addprefix srcs/env/, \
 		env.c get_env.c get_envlist.c remove_env.c set_env.c \
 		)
 BUILTIN_SRCS = $(addprefix srcs/builtin/, \
-		cd.c echo.c env.c pwd.c unset.c \
+		cd.c echo.c env.c pwd.c export.c unset.c \
 		)
 EXECUTER_SRCS = $(addprefix srcs/executer/, \
 		builtin.c executer.c get_fullpath.c\

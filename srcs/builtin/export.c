@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin.h                                          :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/24 10:56:18 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/03 09:45:47 by takkatao         ###   ########.fr       */
+/*   Created: 2022/02/27 14:20:52 by takkatao          #+#    #+#             */
+/*   Updated: 2022/03/03 10:11:10 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTIN_H
-# define BUILTIN_H
+#include "builtin.h"
 
-# include "libft.h"
-# include "env.h"
-# include "unistd.h"
+/*
+ * usage: unset
+ */
+int	export(int argc, char **argv)
+{
+	char	*key;
+	char	*value;
+	int		i;
 
-// NOTE: 引数にargcはなくても良いかもしれない。他のbuiltinの様子も見て判断
-int	cd(int argc, char **argv);
-int	echo(int argc, char **argv);
-int	env(int argc, char **argv);
-int	pwd(int argc, char **argv);
-int	export(int argc, char **argv);
-int	unset(int argc, char **argv);
-
-#endif
+	(void)argc;
+	i = 1;
+	while (argv[i] != NULL)
+	{
+		key = ft_xstrdup(argv[i]);
+		value = ft_strchr(key, '=');
+		if (value != NULL)
+		{
+			*value = '\0';
+			value++;
+			set_env(key, value);
+		}
+		i++;
+	}
+	return (0);
+}
