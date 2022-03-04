@@ -142,3 +142,13 @@ TEST_NAME=buitlin_exit.txt
 INPUT_CMDS="exit 1"
 EXPECTED_EXIT_STATUS=1
 do_test
+
+TEST_NAME=buitlin_exit_to_many_args.txt
+INPUT_CMDS="exit 1 2"
+EXPECTED_EXIT_STATUS=1
+do_test
+
+TEST_NAME=buitlin_exit_not_valid_string.txt
+INPUT_CMDS="exit abc"
+EXPECTED_EXIT_STATUS=255
+do_test
