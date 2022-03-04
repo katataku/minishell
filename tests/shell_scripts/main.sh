@@ -16,7 +16,7 @@ INFILE_PATH=./tests/shell_scripts/
 # input, test_name
 function do_test() {
 	IS_OK=1
-	echo "${INPUT_CMDS}" | ./minishell > "${ACTUAL_PATH}${TEST_NAME}"
+	echo "${INPUT_CMDS}" | ./minishell > "${ACTUAL_PATH}${TEST_NAME}" 2>&1
 
 	echo -n "[${TEST_NAME}] status: "
 	if [ $? -eq "${EXPECTED_EXIT_STATUS}" ] ;then
@@ -138,7 +138,6 @@ EXPECTED_EXIT_STATUS=0
 do_test
 
 TEST_NAME=buitlin_exit.txt
-echo "> exit" > ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="exit"
 EXPECTED_EXIT_STATUS=0
 do_test
