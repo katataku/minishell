@@ -108,8 +108,8 @@ echo "> env" > ${EXPECTED_PATH}/${TEST_NAME}
 env | grep -v "_=">> ${EXPECTED_PATH}/${TEST_NAME}
 echo _=./minishell >> ${EXPECTED_PATH}/${TEST_NAME}
 echo LINES=24 >> ${EXPECTED_PATH}/${TEST_NAME}
-echo  COLUMNS=80 >> ${EXPECTED_PATH}/${TEST_NAME}
-echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+echo COLUMNS=80 >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="env"
 EXPECTED_EXIT_STATUS=0
 do_test
@@ -118,7 +118,7 @@ do_test
 # 終了ステータスのみを確認
 TEST_NAME=buitlin_cd_relative.txt
 echo "> cd ./tests/google_tests" > ${EXPECTED_PATH}/${TEST_NAME}
-echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd ./tests/google_tests"
 EXPECTED_EXIT_STATUS=0
 do_test
@@ -127,13 +127,13 @@ do_test
 # 終了ステータスのみを確認
 TEST_NAME=buitlin_cd_absolute.txt
 echo "> cd /tmp" > ${EXPECTED_PATH}/${TEST_NAME}
-echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd /tmp"
 
 TEST_NAME=buitlin_pwd.txt
 echo "> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
 pwd >> ${EXPECTED_PATH}/${TEST_NAME}
-echo -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="pwd"
 EXPECTED_EXIT_STATUS=0
 do_test
