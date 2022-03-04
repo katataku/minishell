@@ -21,3 +21,9 @@ void	puterr(char *target, char *message)
 	if (ft_putendl_fd(message, STDERR_FILENO) == -1)
 		exit(ERR_CODE_GENERAL);
 }
+
+void	puterr_exit(char *target, char *message, int exit_status)
+{
+	puterr(target, message);
+	exit(exit_status);
+}

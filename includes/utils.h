@@ -17,5 +17,6 @@
 # include "libft.h"
 
 void	puterr(char *target, char *message);
+void	puterr_exit(char *target, char *message, int exit_status);
 
 #endif
