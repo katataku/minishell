@@ -43,5 +43,5 @@ int	builtin_exit(int argc, char **argv)
 		puterr("exit", "too many arguments");
 		return (1);
 	}
-	exit(0);
+	exit(ft_atoi(argv[1]));
 }

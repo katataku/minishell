@@ -18,10 +18,11 @@ function do_test() {
 	IS_OK=1
 	echo "${INPUT_CMDS}" | ./minishell > "${ACTUAL_PATH}${TEST_NAME}" 2>&1
 
-	echo -n "[${TEST_NAME}] status: "
 	if [ $? -eq "${EXPECTED_EXIT_STATUS}" ] ;then
+	  echo -n "[${TEST_NAME}] status: "
 		printf "OK, "
 	else
+	  echo -n "[${TEST_NAME}] status: "
 		printf "${RED}NG${NC}, "
 		IS_OK=0
 	fi
@@ -138,6 +139,6 @@ EXPECTED_EXIT_STATUS=0
 do_test
 
 TEST_NAME=buitlin_exit.txt
-INPUT_CMDS="exit"
-EXPECTED_EXIT_STATUS=0
+INPUT_CMDS="exit 1"
+EXPECTED_EXIT_STATUS=1
 do_test
