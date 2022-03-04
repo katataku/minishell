@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "env.h"
+# include "define.h"
 # include "unistd.h"
 
 // NOTE: 引数にargcはなくても良いかもしれない。他のbuiltinの様子も見て判断
