@@ -14,11 +14,7 @@
 
 static bool	is_valid_exit_status(char *str)
 {
-	if (!ft_is_number(str))
-		return (false);
-	if (!ft_is_long_value(str))
-		return (false);
-	return (true);
+	return (ft_is_number(str) && ft_is_long_value(str));
 }
 
 /*
