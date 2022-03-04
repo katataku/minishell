@@ -136,3 +136,9 @@ echo -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="pwd"
 EXPECTED_EXIT_STATUS=0
 do_test
+
+TEST_NAME=buitlin_exit.txt
+echo "> exit" > ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS="exit"
+EXPECTED_EXIT_STATUS=0
+do_test

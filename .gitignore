@@ -14,6 +14,7 @@ buitlin_env.txt
 buitlin_cd_relative.txt
 buitlin_cd_absolute.txt
 buitlin_pwd.txt
+buitlin_exit.txt
 
 # Prerequisites
 *.d
