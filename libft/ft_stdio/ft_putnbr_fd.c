@@ -12,25 +12,39 @@
 
 #include "ft_stdio.h"
 
-static void	ft_putdigit_fd(int n, int sign, int fd)
+static int	do_putnbr(int n, int base, int fd)
 {
-	char	c;
+	const char	digits[] = "9876543210123456789";
+	char		buf[10];
+	char		*p;
+	int			len;
 
-	if (sign * (n / 10) > 0)
-		ft_putdigit_fd(n / 10, sign, fd);
-	c = '0' + sign * (n % 10);
-	ft_putchar_fd(c, fd);
+	p = &buf[10 - 1];
+	*p-- = digits[n % base + 9];
+	while (n / base != 0)
+	{
+		n /= base;
+		*p-- = digits[n % base + 9];
+	}
+	len = &buf[10 - 1] - p;
+	while (++p != &buf[10])
+	{
+		if (ft_putchar_fd(*p, fd) == -1)
+			return (-1);
+	}
+	return (len);
 }
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
-	int	sign;
+	int	len;
 
-	sign = 1;
+	if (n < 0 && ft_putchar_fd('-', fd) == -1)
+		return (-1);
+	len = do_putnbr(n, 10, fd);
+	if (len == -1)
+		return (-1);
 	if (n < 0)
-	{
-		sign = -1;
-		ft_putchar_fd('-', fd);
-	}
-	ft_putdigit_fd(n, sign, fd);
+		len += 1;
+	return (len);
 }
