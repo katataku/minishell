@@ -19,7 +19,8 @@ SRCS += $(addprefix ft_stdio/, \
 		ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
 		)
 SRCS += $(addprefix ft_stdlib/, \
-		ft_abs.c ft_atoi.c ft_atol.c ft_calloc.c ft_itoa.c \
+		ft_abs.c ft_atoi.c ft_atol.c ft_calloc.c ft_is_integer.c \
+		ft_is_long_value.c ft_is_number.c ft_itoa.c \
 		)
 SRCS += $(addprefix ft_string/, \
 		ft_bzero.c ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \

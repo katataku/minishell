@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/26 22:15:57 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/01/26 22:21:30 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/04 16:26:35 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,10 @@ static long	_ft_atol(const char *str, int sign)
 	{
 		c = ft_todigit(*str);
 		if (acc > cutoff / 10 || (acc == cutoff / 10 && c > cutlim))
+		{
+			errno = ERANGE;
 			return (cutoff);
+		}
 		acc = acc * 10 + c;
 		str++;
 	}
@@ -43,6 +46,7 @@ long	ft_atol(const char *str)
 {
 	int	sign;
 
+	errno = 0;
 	sign = 1;
 	while (ft_isspace(*str))
 		str++;
