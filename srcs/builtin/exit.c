@@ -12,18 +12,6 @@
 
 #include "builtin.h"
 
-static void	puterr_exit(char *target, char *message)
-{
-	if (ft_putstr_fd(target, STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd(": ", STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd(message, STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd("\n", STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-}
-
 static bool	is_valid_exit_status(char *str)
 {
 	if (!ft_is_number(str))
