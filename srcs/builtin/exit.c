@@ -24,8 +24,12 @@ static void	puterr_exit(char *target, char *message)
 		exit(ERR_CODE_GENERAL);
 }
 
-bool	is_valid_exit_status(char *str)
+static bool	is_valid_exit_status(char *str)
 {
+	if (!ft_is_number(str))
+		return (false);
+	if (!ft_is_long_value(str))
+		return (false);
 	return (true);
 }
 
