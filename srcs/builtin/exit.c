@@ -30,6 +30,8 @@ static bool	is_valid_exit_status(char *str)
  */
 int	builtin_exit(int argc, char **argv)
 {
+	char	*message;
+
 	(void)argc;
 	if (ft_putendl_fd("exit", STDERR_FILENO) == -1)
 		return (EXIT_FAILURE);
@@ -37,7 +39,8 @@ int	builtin_exit(int argc, char **argv)
 		exit (g_last_exit_status);
 	if (!is_valid_exit_status(argv[1]))
 	{
-		puterr("exit", "numeric argument required");
+		message = ft_xstrjoin(argv[1], ": numeric argument required");
+		puterr_exit("exit", message, 255);
 	}
 	if (argv[2] != NULL)
 	{
