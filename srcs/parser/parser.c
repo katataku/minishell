@@ -29,13 +29,14 @@ int	count_cmd_num(int	*lst)
 /*
 * 初期化処理
 * メモリ確保は多めに取っている。
+* コマンドをNULL終端にするためにword_cntに + 1している。
 */
 void	init_parser(t_exec_info **e, t_token *t, int *i, int *j)
 {
 	int	index;
 	int	word_cnt;
 
-	word_cnt = count_lst(t->token);
+	word_cnt = count_lst(t->token) + 1;
 	*e = (t_exec_info *)ft_xcalloc(1, sizeof(t_exec_info));
 	(*e)->cmd_num = count_cmd_num(t->token);
 	(*e)->o_flag = O_WRONLY | O_CREAT;

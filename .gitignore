@@ -10,10 +10,10 @@ minishell
 .swp
 
 # Test file
-buitlin_env.txt
-buitlin_cd_relative.txt
-buitlin_cd_absolute.txt
-buitlin_pwd.txt
+buitin_env.txt
+buitin_cd_relative.txt
+buitin_cd_absolute.txt
+buitin_pwd.txt
 
 # Prerequisites
 *.d

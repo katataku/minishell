@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ahayashi <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:08:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/04 15:04:17 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/06 16:47:44 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool	is_builtin(char *cmd)
 		|| ft_strcmp("echo", cmd) == 0
 		|| ft_strcmp("env", cmd) == 0
 		|| ft_strcmp("exit", cmd) == 0
+		|| ft_strcmp("export", cmd) == 0
 		|| ft_strcmp("pwd", cmd) == 0
 		|| ft_strcmp("unset", cmd) == 0);
 }
@@ -42,6 +43,8 @@ int	execute_builtin(int argc, char **argv)
 		return (env(argc, argv));
 	if (ft_strcmp("exit", argv[0]) == 0)
 		return (builtin_exit(argc, argv));
+	if (ft_strcmp("export", argv[0]) == 0)
+		return (builtin_export(argc, argv));
 	if (ft_strcmp("pwd", argv[0]) == 0)
 		return (pwd(argc, argv));
 	if (ft_strcmp("unset", argv[0]) == 0)

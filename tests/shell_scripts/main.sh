@@ -103,7 +103,7 @@ EXPECTED_EXIT_STATUS=0
 do_test
 
 # builtin env関数
-TEST_NAME=buitlin_env.txt
+TEST_NAME=builtin_env.txt
 echo "> env" > ${EXPECTED_PATH}/${TEST_NAME}
 env | grep -v "_=">> ${EXPECTED_PATH}/${TEST_NAME}
 echo _=./minishell >> ${EXPECTED_PATH}/${TEST_NAME}
@@ -116,7 +116,7 @@ do_test
 
 # builtin cd関数(相対パスの場合）
 # 終了ステータスのみを確認
-TEST_NAME=buitlin_cd_relative.txt
+TEST_NAME=builtin_cd_relative.txt
 echo "> cd ./tests/google_tests" > ${EXPECTED_PATH}/${TEST_NAME}
 echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd ./tests/google_tests"
@@ -125,12 +125,12 @@ do_test
 
 # builtin cd関数(絶対パスの場合）
 # 終了ステータスのみを確認
-TEST_NAME=buitlin_cd_absolute.txt
+TEST_NAME=builtin_cd_absolute.txt
 echo "> cd /tmp" > ${EXPECTED_PATH}/${TEST_NAME}
 echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd /tmp"
 
-TEST_NAME=buitlin_pwd.txt
+TEST_NAME=builtin_pwd.txt
 echo "> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
 pwd >> ${EXPECTED_PATH}/${TEST_NAME}
 echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
@@ -138,17 +138,17 @@ INPUT_CMDS="pwd"
 EXPECTED_EXIT_STATUS=0
 do_test
 
-TEST_NAME=buitlin_exit.txt
+TEST_NAME=builtin_exit.txt
 INPUT_CMDS="exit 1"
 EXPECTED_EXIT_STATUS=1
 do_test
 
-TEST_NAME=buitlin_exit_to_many_args.txt
+TEST_NAME=builtin_exit_to_many_args.txt
 INPUT_CMDS="exit 1 2"
 EXPECTED_EXIT_STATUS=1
 do_test
 
-TEST_NAME=buitlin_exit_not_valid_string.txt
+TEST_NAME=builtin_exit_not_valid_string.txt
 INPUT_CMDS="exit abc"
 EXPECTED_EXIT_STATUS=255
 do_test

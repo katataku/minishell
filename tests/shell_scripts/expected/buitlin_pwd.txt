@@ -1,3 +1,0 @@
-> pwd
-/Users/hayashi-ay/Projects/minishell
-> exit
