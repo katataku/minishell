@@ -10,10 +10,10 @@ minishell
 .swp
 
 # Test file
-buitin_env.txt
-buitin_cd_relative.txt
-buitin_cd_absolute.txt
-buitin_pwd.txt
+builtin_env.txt
+builtin_cd_relative.txt
+builtin_cd_absolute.txt
+builtin_pwd.txt
 
 # Prerequisites
 *.d
