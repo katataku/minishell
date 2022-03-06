@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:20:52 by takkatao          #+#    #+#             */
-/*   Updated: 2022/03/06 00:41:39 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:09:10 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	puterr(char *target, char *message)
  * The return status is zero unless one of the names is not a valid
  * shell variable name.
  */
-int	export(int argc, char **argv)
+int	export_env(int argc, char **argv)
 {
 	char	*key;
 	char	*value;
@@ -56,8 +56,8 @@ int	export(int argc, char **argv)
 			continue ;
 		}
 		return_status = 1;
-		puterr("export", ft_strjoin("`",
-				ft_strjoin(*argv, "`: not a valid identifier")));
+		puterr("export", ft_xstrjoin("`",
+				ft_xstrjoin(*argv, "': not a valid identifier")));
 	}
 	return (return_status);
 }
