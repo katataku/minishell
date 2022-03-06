@@ -1,2 +1,2 @@
 > echo -n Hello World ! | /bin/cat
-Hello World !> 
+Hello World !> exit

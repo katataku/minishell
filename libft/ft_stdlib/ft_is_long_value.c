@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stdio.h                                         :+:      :+:    :+:   */
+/*   ft_is_long.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 18:02:19 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/01 12:01:42 by ahayashi         ###   ########.jp       */
+/*   Created: 2022/03/04 16:29:18 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/03/04 16:29:18 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STDIO_H
-# define FT_STDIO_H
+#include "ft_stdlib.h"
 
-# include "ft_string.h"
-# include <unistd.h>
-
-int	ft_putchar_fd(char c, int fd);
-int	ft_putendl_fd(char *s, int fd);
-int	ft_putnbr_fd(int n, int fd);
-int	ft_putstr_fd(char *s, int fd);
-
-#endif
+int	ft_is_long_value(char *str)
+{
+	ft_atol(str);
+	return (errno == 0);
+}

@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/25 15:24:10 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/04 18:05:05 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,7 @@ int	main(int argc, char **argv, char **env)
 		add_history(line);
 		free(line);
 	}
+	if (ft_putendl_fd("exit", STDERR_FILENO) == -1)
+		return (EXIT_FAILURE);
+	exit (g_last_exit_status);
 }

@@ -16,12 +16,13 @@ INFILE_PATH=./tests/shell_scripts/
 # input, test_name
 function do_test() {
 	IS_OK=1
-	echo "${INPUT_CMDS}" | ./minishell > "${ACTUAL_PATH}${TEST_NAME}"
+	echo "${INPUT_CMDS}" | ./minishell > "${ACTUAL_PATH}${TEST_NAME}" 2>&1
 
-	echo -n "[${TEST_NAME}] status: "
 	if [ $? -eq "${EXPECTED_EXIT_STATUS}" ] ;then
+	  echo -n "[${TEST_NAME}] status: "
 		printf "OK, "
 	else
+	  echo -n "[${TEST_NAME}] status: "
 		printf "${RED}NG${NC}, "
 		IS_OK=0
 	fi
@@ -102,37 +103,52 @@ EXPECTED_EXIT_STATUS=0
 do_test
 
 # builtin env関数
-TEST_NAME=buitlin_env.txt
+TEST_NAME=builtin_env.txt
 echo "> env" > ${EXPECTED_PATH}/${TEST_NAME}
 env | grep -v "_=">> ${EXPECTED_PATH}/${TEST_NAME}
 echo _=./minishell >> ${EXPECTED_PATH}/${TEST_NAME}
 echo LINES=24 >> ${EXPECTED_PATH}/${TEST_NAME}
-echo  COLUMNS=80 >> ${EXPECTED_PATH}/${TEST_NAME}
-echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+echo COLUMNS=80 >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="env"
 EXPECTED_EXIT_STATUS=0
 do_test
 
 # builtin cd関数(相対パスの場合）
 # 終了ステータスのみを確認
-TEST_NAME=buitlin_cd_relative.txt
+TEST_NAME=builtin_cd_relative.txt
 echo "> cd ./tests/google_tests" > ${EXPECTED_PATH}/${TEST_NAME}
-echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd ./tests/google_tests"
 EXPECTED_EXIT_STATUS=0
 do_test
 
 # builtin cd関数(絶対パスの場合）
 # 終了ステータスのみを確認
-TEST_NAME=buitlin_cd_absolute.txt
+TEST_NAME=builtin_cd_absolute.txt
 echo "> cd /tmp" > ${EXPECTED_PATH}/${TEST_NAME}
-echo  -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd /tmp"
 
-TEST_NAME=buitlin_pwd.txt
+TEST_NAME=builtin_pwd.txt
 echo "> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
 pwd >> ${EXPECTED_PATH}/${TEST_NAME}
-echo -n "> " >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="pwd"
 EXPECTED_EXIT_STATUS=0
+do_test
+
+TEST_NAME=builtin_exit.txt
+INPUT_CMDS="exit 1"
+EXPECTED_EXIT_STATUS=1
+do_test
+
+TEST_NAME=builtin_exit_to_many_args.txt
+INPUT_CMDS="exit 1 2"
+EXPECTED_EXIT_STATUS=1
+do_test
+
+TEST_NAME=builtin_exit_not_valid_string.txt
+INPUT_CMDS="exit abc"
+EXPECTED_EXIT_STATUS=255
 do_test

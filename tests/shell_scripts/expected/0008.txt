@@ -1,3 +1,3 @@
 > cat ./tests/shell_scripts/infile.txt | grep ab
 ab
-> 
+> exit

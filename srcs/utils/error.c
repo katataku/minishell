@@ -1,24 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stdio.h                                         :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/26 18:02:19 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/01 12:01:42 by ahayashi         ###   ########.jp       */
+/*   Created: 2022/03/04 17:04:02 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/03/04 17:04:02 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_STDIO_H
-# define FT_STDIO_H
+#include "utils.h"
 
-# include "ft_string.h"
-# include <unistd.h>
+void	puterr(char *target, char *message)
+{
+	if (ft_putstr_fd(target, STDERR_FILENO) == -1)
+		exit(ERR_CODE_GENERAL);
+	if (ft_putstr_fd(": ", STDERR_FILENO) == -1)
+		exit(ERR_CODE_GENERAL);
+	if (ft_putendl_fd(message, STDERR_FILENO) == -1)
+		exit(ERR_CODE_GENERAL);
+}
 
-int	ft_putchar_fd(char c, int fd);
-int	ft_putendl_fd(char *s, int fd);
-int	ft_putnbr_fd(int n, int fd);
-int	ft_putstr_fd(char *s, int fd);
-
-#endif
+void	puterr_exit(char *target, char *message, int exit_status)
+{
+	puterr(target, message);
+	exit(exit_status);
+}

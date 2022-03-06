@@ -1,18 +1,5 @@
 #include "executer.h"
 
-void	puterr_exit(char *target, char *message, int exit_status)
-{
-	if (ft_putstr_fd(target, STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd(": ", STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd(message, STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd("\n", STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	exit(exit_status);
-}
-
 char	*get_fullpath_find_from_path(char	*filepath)
 {
 	if (access(filepath, X_OK) == 0)

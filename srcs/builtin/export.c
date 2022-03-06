@@ -12,19 +12,6 @@
 
 #include "builtin.h"
 
-// getfullpathにあるputerr_exitといい感じにutili的なところに置きたいかもしれない
-static void	puterr(char *target, char *message)
-{
-	if (ft_putstr_fd(target, STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd(": ", STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd(message, STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-	if (ft_putstr_fd("\n", STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
-}
-
 /*
  * usage: export
  * Mark each name to be passed to child processes in the environment.

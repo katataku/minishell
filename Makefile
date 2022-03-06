@@ -11,7 +11,7 @@ ENV_SRCS = $(addprefix srcs/env/, \
 		env.c get_env.c get_envlist.c remove_env.c set_env.c \
 		)
 BUILTIN_SRCS = $(addprefix srcs/builtin/, \
-		cd.c echo.c env.c export.c pwd.c unset.c \
+		cd.c echo.c env.c exit.c export.c pwd.c unset.c \
 		)
 EXECUTER_SRCS = $(addprefix srcs/executer/, \
 		builtin.c executer.c get_fullpath.c\
@@ -22,7 +22,10 @@ LEXER_SRCS = $(addprefix srcs/lexer/, \
 PARSER_SRCS = $(addprefix srcs/parser/, \
 		parser.c \
 		)
-SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(BUILTIN_SRCS) $(ENV_SRCS) $(EXECUTER_SRCS) $(LEXER_SRCS) $(PARSER_SRCS)
+UTILS_SRCS = $(addprefix srcs/utils/, \
+		error.c \
+		)
+SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(BUILTIN_SRCS) $(ENV_SRCS) $(EXECUTER_SRCS) $(LEXER_SRCS) $(PARSER_SRCS) $(UTILS_SRCS)
 OBJS = $(SRCS:%.c=%.o)
 LIBS = -lft -Llibft -lreadline -L$(shell brew --prefix readline)/lib
 INCS = -Ilibft/includes -Iincludes -I$(shell brew --prefix readline)/include

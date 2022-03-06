@@ -1,3 +1,0 @@
-> pwd
-/Users/taku/42/github/minishell
-> 
