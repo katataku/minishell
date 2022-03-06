@@ -24,6 +24,7 @@ int	cd(int argc, char **argv);
 int	echo(int argc, char **argv);
 int	env(int argc, char **argv);
 int	builtin_exit(int argc, char **argv);
+int	builtin_export(int argc, char **argv);
 int	pwd(int argc, char **argv);
 int	unset(int argc, char **argv);
 
