@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:08:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/06 16:09:35 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:23:23 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	execute_builtin(int argc, char **argv)
 	if (ft_strcmp("env", argv[0]) == 0)
 		return (env(argc, argv));
 	if (ft_strcmp("export", argv[0]) == 0)
-		return (export_env(argc, argv));
+		return (builtin_export(argc, argv));
 	if (ft_strcmp("pwd", argv[0]) == 0)
 		return (pwd(argc, argv));
 	if (ft_strcmp("unset", argv[0]) == 0)

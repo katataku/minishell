@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:20:52 by takkatao          #+#    #+#             */
-/*   Updated: 2022/03/06 16:09:10 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/06 16:23:21 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	puterr(char *target, char *message)
  * The return status is zero unless one of the names is not a valid
  * shell variable name.
  */
-int	export_env(int argc, char **argv)
+int	builtin_export(int argc, char **argv)
 {
 	char	*key;
 	char	*value;
