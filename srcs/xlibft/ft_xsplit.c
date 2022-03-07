@@ -20,7 +20,7 @@ char	**ft_xsplit(const char *s, char c)
 	if (tmp == NULL)
 	{
 		perror("malloc");
-		exit(STATUS_CODE_FAILURE);
+		exit(STATUS_FAILURE);
 	}
 	return (tmp);
 }

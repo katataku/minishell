@@ -20,7 +20,7 @@ t_list	*ft_xlstnew(void *content)
 	if (tmp == NULL)
 	{
 		perror("malloc");
-		exit(STATUS_CODE_FAILURE);
+		exit(STATUS_FAILURE);
 	}
 	return (tmp);
 }

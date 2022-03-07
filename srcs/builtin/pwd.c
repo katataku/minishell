@@ -25,8 +25,8 @@ int	builtin_pwd(char **argv)
 	(void)argv;
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
-		return (STATUS_CODE_FAILURE);
+		return (STATUS_FAILURE);
 	ft_putendl_fd(pwd, STDOUT_FILENO);
 	free(pwd);
-	return (STATUS_CODE_SUCCESS);
+	return (STATUS_SUCCESS);
 }

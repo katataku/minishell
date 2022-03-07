@@ -17,9 +17,9 @@ char	*get_fullpath_find_from_path(char	*filepath)
 	if (access(filepath, X_OK) == 0)
 		return (filepath);
 	if (access(filepath, F_OK) == 0)
-		puterr_exit(filepath, strerror(EACCES), STATUS_CODE_CAN_NOT_EXECUTE);
+		puterr_exit(filepath, strerror(EACCES), STATUS_CAN_NOT_EXECUTE);
 	perror(filepath);
-	exit(STATUS_CODE_COMMAND_NOT_FOUND);
+	exit(STATUS_COMMAND_NOT_FOUND);
 }
 
 char	*get_fullpath_find_from_command(char **path, char *file_name)
@@ -42,9 +42,9 @@ char	*get_fullpath_find_from_command(char **path, char *file_name)
 		index++;
 	}
 	if (found_filepath != NULL)
-		puterr_exit(found_filepath, strerror(EACCES), STATUS_CODE_CAN_NOT_EXECUTE);
+		puterr_exit(found_filepath, strerror(EACCES), STATUS_CAN_NOT_EXECUTE);
 	else
-		puterr_exit(file_name, "command not found", STATUS_CODE_COMMAND_NOT_FOUND);
+		puterr_exit(file_name, "command not found", STATUS_COMMAND_NOT_FOUND);
 	return (NULL);
 }
 

@@ -327,7 +327,7 @@ TEST_F(LexerTest, not_close_squote)
 	char *expected_word[] = {NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
-	ASSERT_EQ(g_last_exit_status, STATUS_CODE_MISUSE_BUILTIN);
+	ASSERT_EQ(g_last_exit_status, STATUS_MISUSE_BUILTIN);
 }
 
 TEST_F(LexerTest, not_close_dquote)
@@ -338,7 +338,7 @@ TEST_F(LexerTest, not_close_dquote)
 	char *expected_word[] = {NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
-	ASSERT_EQ(g_last_exit_status, STATUS_CODE_MISUSE_BUILTIN);
+	ASSERT_EQ(g_last_exit_status, STATUS_MISUSE_BUILTIN);
 }
 
 TEST_F(LexerTest, not_close_bquote)
@@ -349,7 +349,7 @@ TEST_F(LexerTest, not_close_bquote)
 	char *expected_word[] = {NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
-	ASSERT_EQ(g_last_exit_status, STATUS_CODE_MISUSE_BUILTIN);
+	ASSERT_EQ(g_last_exit_status, STATUS_MISUSE_BUILTIN);
 }
 
 TEST_F(LexerTest, not_close_cbracket)
@@ -360,5 +360,5 @@ TEST_F(LexerTest, not_close_cbracket)
 	char *expected_word[] = {NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
-	ASSERT_EQ(g_last_exit_status, STATUS_CODE_MISUSE_BUILTIN);
+	ASSERT_EQ(g_last_exit_status, STATUS_MISUSE_BUILTIN);
 }

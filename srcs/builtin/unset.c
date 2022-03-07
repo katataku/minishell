@@ -19,5 +19,5 @@ int	builtin_unset(char **argv)
 {
 	if (argv[1] != NULL)
 		unset_env(argv[1]);
-	return (STATUS_CODE_SUCCESS);
+	return (STATUS_SUCCESS);
 }

@@ -29,7 +29,7 @@ int	builtin_exit(char **argv)
 	char	*message;
 
 	if (ft_putendl_fd("exit", STDERR_FILENO) == -1)
-		return (STATUS_CODE_FAILURE);
+		return (STATUS_FAILURE);
 	if (argv[1] == NULL)
 		exit (g_last_exit_status);
 	if (!is_valid_exit_status(argv[1]))
@@ -40,7 +40,7 @@ int	builtin_exit(char **argv)
 	if (argv[2] != NULL)
 	{
 		puterr("exit", "too many arguments");
-		return (STATUS_CODE_FAILURE);
+		return (STATUS_FAILURE);
 	}
 	exit(ft_atoi(argv[1]));
 }

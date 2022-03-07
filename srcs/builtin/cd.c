@@ -20,16 +20,16 @@ static int	cd_to_home(char **argv)
 	if (home_dir == NULL)
 	{
 		puterr(argv[0], "HOME not set");
-		return (STATUS_CODE_FAILURE);
+		return (STATUS_FAILURE);
 	}
 	if (chdir(home_dir) == -1)
 	{
 		free(home_dir);
 		perror(argv[0]);
-		return (STATUS_CODE_FAILURE);
+		return (STATUS_FAILURE);
 	}
 	free(home_dir);
-	return (STATUS_CODE_SUCCESS);
+	return (STATUS_SUCCESS);
 }
 
 /*
@@ -47,7 +47,7 @@ int	builtin_cd(char **argv)
 	if (chdir(argv[1]) == -1)
 	{
 		perror(argv[0]);
-		return (STATUS_CODE_FAILURE);
+		return (STATUS_FAILURE);
 	}
-	return (STATUS_CODE_SUCCESS);
+	return (STATUS_SUCCESS);
 }
