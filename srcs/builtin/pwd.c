@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:30:24 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/02 14:30:24 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/07 12:16:54 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@
  * status is zero unless an error is encountered while determining the name of
  * the current directory.
  */
-int	pwd(int argc, char **argv)
+int	builtin_pwd(char **argv)
 {
 	char	*pwd;
 
-	(void)argc;
 	(void)argv;
 	pwd = getcwd(NULL, 0);
 	if (pwd == NULL)
