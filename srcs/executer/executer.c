@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/07 09:36:20 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 12:50:55 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 			while (1)
 			{
 				line = readline("> ");
-				if (ft_strcmp(line, info->heredoc_word) == 0)
+				if (line == NULL || ft_strcmp(line, info->heredoc_word) == 0)
 				{
 					free(line);
 					break ;
