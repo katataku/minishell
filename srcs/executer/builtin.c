@@ -73,7 +73,7 @@ int	execute_single_builtin(t_exec_info	*info)
 		tmp_fd = xopen(info->srcfile, O_RDONLY, 0);
 		replace_fd(tmp_fd, STDIN_FILENO);
 	}
-	exit_status = execute_builtin(-1, info->cmds[0]);
+	exit_status = execute_builtin(info->cmds[0]);
 	replace_fd(save_stdout, STDOUT_FILENO);
 	replace_fd(save_stdin, STDIN_FILENO);
 	g_last_exit_status = exit_status;

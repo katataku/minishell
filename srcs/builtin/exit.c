@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 14:59:03 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/04 14:59:03 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/07 11:57:23 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,10 @@ static bool	is_valid_exit_status(char *str)
  * a valid number, the shell exit with 255. If more than two argument is given,
  * the shell not exit and return 1.
  */
-int	builtin_exit(int argc, char **argv)
+int	builtin_exit(char **argv)
 {
 	char	*message;
 
-	(void)argc;
 	if (ft_putendl_fd("exit", STDERR_FILENO) == -1)
 		return (EXIT_FAILURE);
 	if (argv[1] == NULL)

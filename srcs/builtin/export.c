@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:20:52 by takkatao          #+#    #+#             */
-/*   Updated: 2022/03/06 16:23:21 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 11:57:39 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@
  * The return status is zero unless one of the names is not a valid
  * shell variable name.
  */
-int	builtin_export(int argc, char **argv)
+int	builtin_export(char **argv)
 {
 	char	*key;
 	char	*value;
 	int		return_status;
 
-	(void)argc;
 	return_status = 0;
 	while (*(++argv) != NULL)
 	{
