@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:10:04 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/27 16:18:14 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 09:29:40 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/wait.h>
 # include <sys/errno.h>
 # include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 int		execute(t_exec_info *exec_info);
 int		execute_builtin(int argc, char **argv);

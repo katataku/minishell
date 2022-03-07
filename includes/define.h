@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/18 08:53:56 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 09:21:11 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_exec_info
 	char	***cmds;
 	int		cmd_num;
 	char	*srcfile;
+	char	*heredoc_word;
 	char	*dstfile;
 	int		o_flag;
 }	t_exec_info;

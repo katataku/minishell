@@ -36,4 +36,5 @@ target_link_libraries(main
     GTest::GTest
     GTest::Main
     minishell
+    readline
 )

@@ -62,7 +62,15 @@ t_exec_info	*parser(t_token *token)
 		if (token->token[ti] == T_WORD)
 			exec_info->cmds[ci][wi++] = token->word[ti];
 		if (token->token[ti] == T_LT)
+		{
+			exec_info->heredoc_word = NULL;
 			exec_info->srcfile = token->word[++ti];
+		}
+		if (token->token[ti] == T_LTLT)
+		{
+			exec_info->dstfile = NULL;
+			exec_info->heredoc_word = token->word[++ti];
+		}
 		if (token->token[ti] == T_GTGT)
 			exec_info->o_flag |= O_APPEND;
 		if (token->token[ti] == T_GT || token->token[ti] == T_GTGT)

@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/27 16:18:29 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 09:36:20 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,29 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 {
 	int		read_fd;
 	int		write_fd;
+	int		pipe_fd[2];
+	char	*line;
 
 	if (i == 0)
 	{
 		if (info->srcfile != NULL)
 			read_fd = xopen(info->srcfile, O_RDONLY, 0);
+		else if (info->heredoc_word != NULL)
+		{
+			xpipe(pipe_fd);
+			while (1)
+			{
+				line = readline("> ");
+				if (ft_strcmp(line, info->heredoc_word) == 0)
+				{
+					free(line);
+					break ;
+				}
+				ft_putendl_fd(line, pipe_fd[WRITE_INDEX]);
+			}
+			xclose(pipe_fd[WRITE_INDEX]);
+			read_fd = pipe_fd[READ_INDEX];
+		}
 		else
 			read_fd = STDIN_FILENO;
 	}

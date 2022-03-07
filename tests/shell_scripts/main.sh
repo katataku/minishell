@@ -152,3 +152,11 @@ TEST_NAME=builtin_exit_not_valid_string.txt
 INPUT_CMDS="exit abc"
 EXPECTED_EXIT_STATUS=255
 do_test
+
+# heredoc
+TEST_NAME=heredoc_normal.txt
+INPUT_CMDS="<< EOF cat
+abc
+EOF"
+EXPECTED_EXIT_STATUS=0
+do_test
