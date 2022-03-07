@@ -31,8 +31,8 @@ int	builtin_env(char **argv)
 			|| ft_putstr_fd("=", STDOUT_FILENO) == -1
 			|| ft_putstr_fd(kv->value, STDOUT_FILENO) == -1
 			|| ft_putstr_fd("\n", STDOUT_FILENO) == -1)
-			return (1);
+			return (STATUS_CODE_FAILURE);
 		current_env = current_env->next;
 	}
-	return (0);
+	return (STATUS_CODE_SUCCESS);
 }

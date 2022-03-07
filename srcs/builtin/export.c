@@ -27,7 +27,7 @@ int	builtin_export(char **argv)
 	char	*value;
 	int		return_status;
 
-	return_status = 0;
+	return_status = STATUS_CODE_SUCCESS;
 	while (*(++argv) != NULL)
 	{
 		key = ft_xstrdup(*argv);
@@ -41,7 +41,7 @@ int	builtin_export(char **argv)
 			}
 			continue ;
 		}
-		return_status = 1;
+		return_status = STATUS_CODE_FAILURE;
 		puterr("export", ft_xstrjoin("`",
 				ft_xstrjoin(*argv, "': not a valid identifier")));
 	}

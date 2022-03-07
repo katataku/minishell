@@ -22,17 +22,17 @@ static int	do_print(char **argv, bool is_print_linefeed)
 		if (!is_first)
 		{
 			if (ft_putchar_fd(' ', STDOUT_FILENO) == -1)
-				return (1);
+				return (STATUS_CODE_FAILURE);
 		}
 		else
 			is_first = false;
 		if (ft_putstr_fd(*argv, STDOUT_FILENO) == -1)
-			return (1);
+			return (STATUS_CODE_FAILURE);
 		argv++;
 	}
 	if (is_print_linefeed && ft_putchar_fd('\n', STDOUT_FILENO) == -1)
-		return (1);
-	return (0);
+		return (STATUS_CODE_FAILURE);
+	return (STATUS_CODE_SUCCESS);
 }
 
 /*
