@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/18 08:53:56 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 12:19:26 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@
 # define READ_INDEX 0
 # define WRITE_INDEX 1
 
-# define ERR_CODE_GENERAL 1
-# define ERR_CODE_MISUSE_BUILTIN 2
-# define ERR_CODE_CAN_NOT_EXECUTE 126
-# define ERR_CODE_COMMAND_NOT_FOUND 127
+# define STATUS_SUCCESS 0
+# define STATUS_FAILURE 1
+# define STATUS_MISUSE_BUILTIN 2
+# define STATUS_CAN_NOT_EXECUTE 126
+# define STATUS_COMMAND_NOT_FOUND 127
 
 extern int	g_last_exit_status;
 

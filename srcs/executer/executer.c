@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/02/27 16:18:29 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 12:28:31 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ static void	do_command(char **argv, char **env, int read_fd, int write_fd)
 	replace_fd(read_fd, STDIN_FILENO);
 	replace_fd(write_fd, STDOUT_FILENO);
 	if (is_builtin(argv[0]))
-		exit (execute_builtin(-1, argv));
+		exit (execute_builtin(argv));
 	execve(get_fullpath(argv[0]), argv, env);
 	perror("execve");
-	exit(ERR_CODE_GENERAL);
+	exit(STATUS_FAILURE);
 }
 
 static void	close_pipes(t_exec_info *info, int i, int pipes[2][2])

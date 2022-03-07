@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 23:48:23 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/01/20 23:48:25 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/07 12:28:31 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_xcalloc(size_t count, size_t size)
 	if (tmp == NULL)
 	{
 		perror("malloc");
-		exit(ERR_CODE_GENERAL);
+		exit(STATUS_FAILURE);
 	}
 	return (tmp);
 }
