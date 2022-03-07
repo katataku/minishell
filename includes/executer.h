@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:10:04 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/07 13:38:37 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 14:11:24 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ int		execute_builtin(char **argv);
 int		execute_single_builtin(t_exec_info	*info);
 bool	is_builtin(char *cmd);
 char	*get_fullpath(char *file_name);
+int		heredoc_read(t_exec_info *info);
+int		get_read_fd(t_exec_info *info, int i, int pipes[2][2]);
+int		get_write_fd(t_exec_info *info, int i, int pipes[2][2]);
 
 #endif
