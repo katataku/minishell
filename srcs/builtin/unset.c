@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:20:52 by takkatao          #+#    #+#             */
-/*   Updated: 2022/03/01 18:19:19 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/07 12:17:01 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,9 @@
 /*
  * usage: unset
  */
-int	unset(int argc, char **argv)
+int	builtin_unset(char **argv)
 {
-	(void)argc;
 	if (argv[1] != NULL)
 		unset_env(argv[1]);
-	return (0);
+	return (STATUS_SUCCESS);
 }

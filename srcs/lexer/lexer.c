@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/07 12:30:12 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/03/07 12:30:12 by ahayashi         ###   ########.jp       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lexer.h"
 
 int	g_last_exit_status;
@@ -73,7 +85,7 @@ int	lexer_not_neutral(t_lexer_manager *mgr, char *str)
 			mgr->word[mgr->word_index++] = *str++;
 	mgr->word[mgr->word_index] = '\0';
 	if (*str == '\0')
-		g_last_exit_status = ERR_CODE_MISUSE_BUILTIN;
+		g_last_exit_status = STATUS_MISUSE_BUILTIN;
 	set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
 	mgr->state = NEUTRAL;
 	return (str - init_str);
