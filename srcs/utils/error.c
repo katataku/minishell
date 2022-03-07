@@ -15,11 +15,11 @@
 void	puterr(char *target, char *message)
 {
 	if (ft_putstr_fd(target, STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
+		exit(STATUS_CODE_FAILURE);
 	if (ft_putstr_fd(": ", STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
+		exit(STATUS_CODE_FAILURE);
 	if (ft_putendl_fd(message, STDERR_FILENO) == -1)
-		exit(ERR_CODE_GENERAL);
+		exit(STATUS_CODE_FAILURE);
 }
 
 void	puterr_exit(char *target, char *message, int exit_status)

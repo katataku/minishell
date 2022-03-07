@@ -20,7 +20,7 @@ char	*ft_xcalloc(size_t count, size_t size)
 	if (tmp == NULL)
 	{
 		perror("malloc");
-		exit(ERR_CODE_GENERAL);
+		exit(STATUS_CODE_FAILURE);
 	}
 	return (tmp);
 }

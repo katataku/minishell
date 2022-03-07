@@ -29,7 +29,7 @@ static void	do_command(char **argv, char **env, int read_fd, int write_fd)
 		exit (execute_builtin(argv));
 	execve(get_fullpath(argv[0]), argv, env);
 	perror("execve");
-	exit(ERR_CODE_GENERAL);
+	exit(STATUS_CODE_FAILURE);
 }
 
 static void	close_pipes(t_exec_info *info, int i, int pipes[2][2])
