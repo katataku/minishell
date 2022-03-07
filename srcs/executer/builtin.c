@@ -6,7 +6,7 @@
 /*   By: ahayashi <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:08:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/06 16:47:44 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/07 11:54:44 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,22 @@ bool	is_builtin(char *cmd)
 		|| ft_strcmp("unset", cmd) == 0);
 }
 
-int	execute_builtin(int argc, char **argv)
+int	execute_builtin(char **argv)
 {
 	if (ft_strcmp("cd", argv[0]) == 0)
-		return (cd(argc, argv));
+		return (builtin_cd(argv));
 	if (ft_strcmp("echo", argv[0]) == 0)
-		return (echo(argc, argv));
+		return (builtin_echo(argv));
 	if (ft_strcmp("env", argv[0]) == 0)
-		return (env(argc, argv));
+		return (builtin_env(argv));
 	if (ft_strcmp("exit", argv[0]) == 0)
-		return (builtin_exit(argc, argv));
+		return (builtin_exit(argv));
 	if (ft_strcmp("export", argv[0]) == 0)
-		return (builtin_export(argc, argv));
+		return (builtin_export(argv));
 	if (ft_strcmp("pwd", argv[0]) == 0)
-		return (pwd(argc, argv));
+		return (builtin_pwd(argv));
 	if (ft_strcmp("unset", argv[0]) == 0)
-		return (unset(argc, argv));
+		return (builtin_unset(argv));
 	return (1);
 }
 
