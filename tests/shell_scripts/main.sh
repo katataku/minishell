@@ -160,3 +160,17 @@ abc
 EOF"
 EXPECTED_EXIT_STATUS=0
 do_test
+
+# heredocとリダイレクトの重複
+TEST_NAME=heredoc_duplicate_single.txt
+INPUT_CMDS="<< EOF < ./tests/shell_scripts/infile.txt cat"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# heredocとリダイレクトの重複
+TEST_NAME=heredoc_duplicate_double.txt
+INPUT_CMDS="< ./tests/shell_scripts/infile.txt << EOF cat
+abc
+EOF"
+EXPECTED_EXIT_STATUS=0
+do_test
