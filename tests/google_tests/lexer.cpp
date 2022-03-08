@@ -82,8 +82,8 @@ TEST_F(LexerTest, semi_1_normal)
 {
 	char *input = "ls ; cat";
 	int token_len = 4;
-	int expected_token[] = {T_WORD, T_SEMI, T_WORD, NULL};
-	char *expected_word[] = {"ls", NULL, "cat", NULL};
+	int expected_token[] = {T_WORD, T_WORD, T_WORD, NULL};
+	char *expected_word[] = {"ls", ";", "cat", NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -91,9 +91,9 @@ TEST_F(LexerTest, semi_1_normal)
 TEST_F(LexerTest, semi_1_normal_without_space)
 {
 	char *input = "ls;cat";
-	int token_len = 4;
-	int expected_token[] = {T_WORD, T_SEMI, T_WORD, NULL};
-	char *expected_word[] = {"ls", NULL, "cat", NULL};
+	int token_len = 2;
+	int expected_token[] = {T_WORD, NULL};
+	char *expected_word[] = {"ls;cat", NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -242,8 +242,8 @@ TEST_F(LexerTest, doller_1_normal)
 {
 	char *input = "ls $ outfile";
 	int token_len = 4;
-	int expected_token[] = {T_WORD, T_DOLLAR, T_WORD, NULL};
-	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+	int expected_token[] = {T_WORD, T_WORD, T_WORD, NULL};
+	char *expected_word[] = {"ls", "$", "outfile", NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -251,9 +251,9 @@ TEST_F(LexerTest, doller_1_normal)
 TEST_F(LexerTest, doller_1_normal_without_space)
 {
 	char *input = "ls$outfile";
-	int token_len = 4;
-	int expected_token[] = {T_WORD, T_DOLLAR, T_WORD, NULL};
-	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+	int token_len = 2;
+	int expected_token[] = {T_WORD, NULL};
+	char *expected_word[] = {"ls$outfile", NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -278,22 +278,22 @@ TEST_F(LexerTest, curly_bracket_open_1_normal_without_space)
 	lexer_test(input, token_len, expected_token, expected_word);
 }
 
-TEST_F(LexerTest, curly_bracket_close_1_normal)
-{
-	char *input = "ls } outfile";
-	int token_len = 4;
-	int expected_token[] = {T_WORD, T_C_BRA_CLS, T_WORD, NULL};
-	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+//TEST_F(LexerTest, curly_bracket_close_1_normal)
+//{
+//	char *input = "ls } outfile";
+//	int token_len = 4;
+//	int expected_token[] = {T_WORD, T_WORD, T_WORD, NULL};
+//	char *expected_word[] = {"ls", "}", "outfile", NULL};
 
-	lexer_test(input, token_len, expected_token, expected_word);
-}
+//	lexer_test(input, token_len, expected_token, expected_word);
+//}
 
 TEST_F(LexerTest, curly_bracket_close_1_normal_without_space)
 {
 	char *input = "ls}outfile";
-	int token_len = 4;
-	int expected_token[] = {T_WORD, T_C_BRA_CLS, T_WORD, NULL};
-	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+	int token_len = 2;
+	int expected_token[] = {T_WORD, NULL};
+	char *expected_word[] = {"ls}outfile", NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -301,9 +301,9 @@ TEST_F(LexerTest, curly_bracket_close_1_normal_without_space)
 TEST_F(LexerTest, special_char_in_dquote_1)
 {
 	char *input = "ls\"hoge'outfile\"";
-	int token_len = 5;
-	int expected_token[] = {T_WORD, T_DQ, T_WORD, T_DQ, NULL};
-	char *expected_word[] = {"ls", NULL, "hoge'outfile", NULL, NULL};
+	int token_len = 2;
+	int expected_token[] = {T_WORD, NULL};
+	char *expected_word[] = {"ls\"hoge'outfile\"", NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -311,9 +311,9 @@ TEST_F(LexerTest, special_char_in_dquote_1)
 TEST_F(LexerTest, special_char_in_squote_1)
 {
 	char *input = "ls 'hoge`outfile'";
-	int token_len = 5;
-	int expected_token[] = {T_WORD, T_SQ, T_WORD, T_SQ, NULL};
-	char *expected_word[] = {"ls", NULL, "hoge`outfile", NULL, NULL};
+	int token_len = 3;
+	int expected_token[] = {T_WORD, T_WORD, NULL};
+	char *expected_word[] = {"ls", "'hoge`outfile'", NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -321,9 +321,9 @@ TEST_F(LexerTest, special_char_in_squote_1)
 TEST_F(LexerTest, special_char_in_bquote_1)
 {
 	char *input = " ls `hoge|outfile`";
-	int token_len = 5;
-	int expected_token[] = {T_WORD, T_BQ, T_WORD, T_BQ, NULL};
-	char *expected_word[] = {"ls", NULL, "hoge|outfile", NULL, NULL};
+	int token_len = 3;
+	int expected_token[] = {T_WORD,  T_WORD, NULL};
+	char *expected_word[] = {"ls", "`hoge|outfile`", NULL};
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
