@@ -2,9 +2,8 @@
 
 bool	is_special_char(char c)
 {
-	return (c == ' ' || c == '\0' || c == '|' || c == ';'
-		|| c == '>' || c == '<' || c == '\'' || c == '\"' || c == '`'
-		|| c == '$' || c == '{' || c == '}');
+	return (c == ' ' || c == '\0' || c == '|'
+		|| c == '>' || c == '<' );
 }
 
 void	set_token(	t_token	*t, int index, int token, char *word)
