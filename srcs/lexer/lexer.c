@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 12:30:12 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/07 12:30:12 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/08 15:04:13 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,25 @@ int	lexer_not_neutral(t_lexer_manager *mgr, char *str)
 	return (str - init_str);
 }
 
+void	free_lexer_token(t_token *token)
+{
+	int		index;
+
+	index = 0;
+	while (token->token[index] != T_NOTUSE)
+	{
+		free(token->word[index]);
+		index++;
+	}
+	free(token->token);
+	free(token->word);
+	free(token);
+}
+
 t_token	*lexer(char *str)
 {
 	t_lexer_manager	*mgr;
+	t_token			*token;
 
 	mgr = initialize_lexer(str);
 	while (*str != '\0')
@@ -106,5 +122,12 @@ t_token	*lexer(char *str)
 		else
 			str += lexer_not_neutral(mgr, str);
 	}
-	return (mgr->token);
+	if (g_last_exit_status != 0)
+	{
+		free_lexer_token(mgr->token);
+		mgr->token = NULL;
+	}
+	token = mgr->token;
+	free(mgr);
+	return (token);
 }

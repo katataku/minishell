@@ -261,9 +261,9 @@ TEST_F(LexerTest, doller_1_normal_without_space)
 TEST_F(LexerTest, curly_bracket_open_1_normal)
 {
 	char *input = "ls { outfile";
-	int token_len = 4;
-	int expected_token[] = {T_WORD, T_C_BRA_OPN, T_WORD, NULL};
-	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -271,9 +271,9 @@ TEST_F(LexerTest, curly_bracket_open_1_normal)
 TEST_F(LexerTest, curly_bracket_open_1_normal_without_space)
 {
 	char *input = "ls{outfile";
-	int token_len = 4;
-	int expected_token[] = {T_WORD, T_C_BRA_OPN, T_WORD, NULL};
-	char *expected_word[] = {"ls", NULL, "outfile", NULL};
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
@@ -331,43 +331,39 @@ TEST_F(LexerTest, special_char_in_bquote_1)
 TEST_F(LexerTest, not_close_squote)
 {
 	char *input = "ls 'hoge";
-	int token_len = 0;
-	int expected_token[] = {NULL};
-	char *expected_word[] = {NULL};
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
 
 	lexer_test(input, token_len, expected_token, expected_word);
-	ASSERT_EQ(g_last_exit_status, STATUS_MISUSE_BUILTIN);
 }
 
 TEST_F(LexerTest, not_close_dquote)
 {
 	char *input = "ls \"hoge";
-	int token_len = 0;
-	int expected_token[] = {NULL};
-	char *expected_word[] = {NULL};
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
 
 	lexer_test(input, token_len, expected_token, expected_word);
-	ASSERT_EQ(g_last_exit_status, STATUS_MISUSE_BUILTIN);
 }
 
 TEST_F(LexerTest, not_close_bquote)
 {
 	char *input = "ls `hoge";
-	int token_len = 0;
-	int expected_token[] = {NULL};
-	char *expected_word[] = {NULL};
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
 
 	lexer_test(input, token_len, expected_token, expected_word);
-	ASSERT_EQ(g_last_exit_status, STATUS_MISUSE_BUILTIN);
 }
 
 TEST_F(LexerTest, not_close_cbracket)
 {
 	char *input = "ls {hoge";
-	int token_len = 0;
-	int expected_token[] = {NULL};
-	char *expected_word[] = {NULL};
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
 
 	lexer_test(input, token_len, expected_token, expected_word);
-	ASSERT_EQ(g_last_exit_status, STATUS_MISUSE_BUILTIN);
 }
