@@ -33,9 +33,8 @@ int	lexer_neutral(t_lexer_manager *mgr, char *str)
 	char	*init_str;
 
 	init_str = str;
-	if (is_not_wordable_char(*str))
+	if (is_special_char(*str))
 	{
-		set_state(mgr, str);
 		tokenize_special_char(mgr, str);
 		if (mgr->token->token[mgr->token_index - 1] == T_GTGT
 			|| mgr->token->token[mgr->token_index - 1] == T_LTLT)
@@ -44,13 +43,12 @@ int	lexer_neutral(t_lexer_manager *mgr, char *str)
 	}
 	else
 	{
-		while (!is_not_wordable_char(*str))
+		while (!is_special_char(*str))
 		{
-			mgr->word[mgr->word_index++] = *str++;
 			set_state(mgr, str);
+			mgr->word[mgr->word_index++] = *str++;
 			if (mgr->state != NEUTRAL)
 			{
-				mgr->word[mgr->word_index++] = *str++;
 				return (str - init_str);
 			}
 		}
@@ -77,11 +75,11 @@ int	lexer_not_neutral(t_lexer_manager *mgr, char *str)
 	if (mgr->state == IN_CBRACKET)
 		while (!(*str == '}' || *str == '\0'))
 			mgr->word[mgr->word_index++] = *str++;
+	if (*str == '\0')
+		g_last_exit_status = STATUS_MISUSE_BUILTIN;
 	if (*str != '\0')
 		mgr->word[mgr->word_index++] = *str++;
 	mgr->word[mgr->word_index] = '\0';
-	if (*str == '\0')
-		g_last_exit_status = STATUS_MISUSE_BUILTIN;
 	set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
 	mgr->state = NEUTRAL;
 	return (str - init_str);
@@ -110,7 +108,8 @@ t_token	*lexer(char *str)
 	mgr = initialize_lexer(str);
 	while (*str != '\0')
 	{
-		mgr->word_index = 0;
+		if (mgr->state == NEUTRAL)
+			mgr->word_index = 0;
 		while (*str == ' ')
 			str++;
 		if (mgr->state == NEUTRAL)
