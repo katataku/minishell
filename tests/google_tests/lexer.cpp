@@ -278,15 +278,15 @@ TEST_F(LexerTest, curly_bracket_open_1_normal_without_space)
 	lexer_test(input, token_len, expected_token, expected_word);
 }
 
-//TEST_F(LexerTest, curly_bracket_close_1_normal)
-//{
-//	char *input = "ls } outfile";
-//	int token_len = 4;
-//	int expected_token[] = {T_WORD, T_WORD, T_WORD, NULL};
-//	char *expected_word[] = {"ls", "}", "outfile", NULL};
+TEST_F(LexerTest, curly_bracket_close_1_normal)
+{
+	char *input = "ls } outfile";
+	int token_len = 4;
+	int expected_token[] = {T_WORD, T_WORD, T_WORD, NULL};
+	char *expected_word[] = {"ls", "}", "outfile", NULL};
 
-//	lexer_test(input, token_len, expected_token, expected_word);
-//}
+	lexer_test(input, token_len, expected_token, expected_word);
+}
 
 TEST_F(LexerTest, curly_bracket_close_1_normal_without_space)
 {
