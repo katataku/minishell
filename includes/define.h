@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/07 13:38:23 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/10 12:24:31 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,10 @@ enum e_token
 	T_NOTUSE,
 	T_WORD,
 	T_BAR,
-	T_SEMI,
 	T_GT,
 	T_GTGT,
 	T_LT,
 	T_LTLT,
-	T_SQ,
-	T_DQ,
-	T_BQ,
-	T_DOLLAR,
-	T_C_BRA_OPN,
-	T_C_BRA_CLS
 };
 
 typedef struct s_token
