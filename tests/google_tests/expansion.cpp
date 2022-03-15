@@ -29,7 +29,9 @@ TEST_F(ExpansionTest, not_expand)
 	ASSERT_STREQ("NOT", output);
 }
 
-//TEST_F(ExpansionTest, expand_with_no_quotes)
-//{
-//	ASSERT_STREQ(get_env("USER"), "takkatao");
-//}
+TEST_F(ExpansionTest, simple_expand_with_no_quotes)
+{
+	input = strdup("$HOME");
+	output = expand(input);
+	ASSERT_STREQ("/usr/nop", output);
+}
