@@ -15,6 +15,7 @@ builtin_cd_relative.txt
 builtin_cd_absolute.txt
 builtin_pwd.txt
 heredoc_extract.txt
+heredoc_extract_with_dquote.txt
 
 # Prerequisites
 *.d

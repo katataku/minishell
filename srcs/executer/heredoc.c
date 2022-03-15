@@ -42,6 +42,41 @@ char	*expand_env(char *line)
 	return (expanded);
 }
 
+bool	is_quoted(const char *str)
+{
+	char	*s;
+
+	s = ft_strchr(str, '"');
+	if (s != NULL && s != ft_strrchr(str, '"'))
+		return (true);
+	s = ft_strchr(str, '\'');
+	if (s != NULL && s != ft_strrchr(str, '\''))
+		return (true);
+	return (false);
+}
+
+char	*extract_quote(char *str)
+{
+	char	*extracted_str;
+	char	*current_str;
+
+	extracted_str = (char *)malloc(ft_strlen(str));
+	current_str = extracted_str;
+	while (*str != '\0')
+	{
+		if (*str == '"')
+			while (*(++str) != '"' && *str != '\0')
+				*current_str++ = *str;
+		else if (*str == '\'')
+			while (*(++str) != '\'' && *str != '\0')
+				*current_str++ = *str;
+		else
+			*current_str++ = *str++;
+	}
+	*current_str = *str;
+	return (extracted_str);
+}
+
 int	heredoc_read(t_exec_info *info)
 {
 	int		pipe_fd[2];
@@ -51,12 +86,17 @@ int	heredoc_read(t_exec_info *info)
 	while (1)
 	{
 		line = readline("> ");
-		if (line == NULL || ft_strcmp(line, info->heredoc_word) == 0)
+		if (line == NULL
+			|| ft_strcmp(line, extract_quote(info->heredoc_word)) == 0)
 		{
 			free(line);
 			break ;
 		}
-		ft_putendl_fd(expand_env(line), pipe_fd[WRITE_INDEX]);
+		if (is_quoted(info->heredoc_word))
+			ft_putendl_fd(line, pipe_fd[WRITE_INDEX]);
+		else
+			ft_putendl_fd(expand_env(line), pipe_fd[WRITE_INDEX]);
+		free(line);
 	}
 	xclose(pipe_fd[WRITE_INDEX]);
 	return (pipe_fd[READ_INDEX]);

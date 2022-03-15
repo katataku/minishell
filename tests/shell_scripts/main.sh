@@ -39,6 +39,7 @@ function do_test() {
 		printf " ${GREEN}[✓]${NC}\n"
 	else
 		printf " ${RED}[-]${NC}\n"
+		echo `diff "${ACTUAL_PATH}${TEST_NAME}" "${EXPECTED_PATH}${TEST_NAME}"`
 	fi
 }
 
@@ -190,3 +191,17 @@ EOF'
 EXPECTED_EXIT_STATUS=0
 do_test
 
+# heredoc $展開
+TEST_NAME=heredoc_extract_with_dquote.txt
+echo '> << "EOF" cat' > ${EXPECTED_PATH}/${TEST_NAME}
+echo '> $USER' >> ${EXPECTED_PATH}/${TEST_NAME}
+echo '> EOF' >> ${EXPECTED_PATH}/${TEST_NAME}
+<< "EOF" cat >> ${EXPECTED_PATH}/${TEST_NAME}
+$USER
+EOF
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS='<< "EOF" cat
+$USER
+EOF'
+EXPECTED_EXIT_STATUS=0
+do_test
