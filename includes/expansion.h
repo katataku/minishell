@@ -13,4 +13,8 @@
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
+# include "env.h"
+
+char	*expand(char *word);
+
 #endif
