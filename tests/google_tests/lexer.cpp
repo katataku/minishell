@@ -178,6 +178,17 @@ TEST_F(LexerTest, ltlt_1_normal_without_space)
 	lexer_test(input, token_len, expected_token, expected_word);
 }
 
+
+TEST_F(LexerTest, ltlt_1_normal_with_space2)
+{
+	char *input = "<< ''EOF cat";
+	int token_len = 4;
+	int expected_token[] = {T_LTLT, T_WORD,  T_WORD, NULL};
+	char *expected_word[] = {NULL, "''EOF", "cat", NULL};
+
+	lexer_test(input, token_len, expected_token, expected_word);
+}
+
 TEST_F(LexerTest, syntax_error_unquoted_sq)
 {
 	char *input = "ls ' outfile";

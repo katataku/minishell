@@ -205,3 +205,20 @@ $USER
 EOF'
 EXPECTED_EXIT_STATUS=0
 do_test
+
+# heredoc $展開
+TEST_NAME=heredoc_extract_with_squote.txt
+INPUT_CMDS='<< '\'EOF\'' cat
+$USER
+EOF'
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# heredoc $展開
+TEST_NAME=heredoc_extract_with_squote2.txt
+INPUT_CMDS='<< '\'\'EOF' cat
+$USER
+EOF'
+EXPECTED_EXIT_STATUS=0
+do_test
+

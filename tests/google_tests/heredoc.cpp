@@ -47,3 +47,9 @@ TEST_F(HeredocTest, extract_quote_squote)
 {
 	ASSERT_STREQ(extract_quote("\'test\'"), "test");
 }
+
+TEST_F(HeredocTest, extract_quote_squote2)
+{
+	ASSERT_STREQ(extract_quote("\'\'test"), "test");
+}
+
