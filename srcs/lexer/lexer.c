@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 12:30:12 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/08 16:03:57 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/17 06:20:12 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	lexer_neutral(t_lexer_manager *mgr, char *str)
 		}
 		mgr->word[mgr->word_index] = '\0';
 		set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
+		mgr->word_index = 0;
 	}
 	return (str - init_str);
 }
@@ -79,8 +80,12 @@ int	lexer_not_neutral(t_lexer_manager *mgr, char *str)
 		g_last_exit_status = STATUS_MISUSE_BUILTIN;
 	if (*str != '\0')
 		mgr->word[mgr->word_index++] = *str++;
-	mgr->word[mgr->word_index] = '\0';
-	set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
+	if (is_special_char(*str))
+	{
+		mgr->word[mgr->word_index] = '\0';
+		set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
+		mgr->word_index = 0;
+	}
 	mgr->state = NEUTRAL;
 	return (str - init_str);
 }
@@ -106,10 +111,9 @@ t_token	*lexer(char *str)
 	t_token			*token;
 
 	mgr = initialize_lexer(str);
+	mgr->word_index = 0;
 	while (*str != '\0')
 	{
-		if (mgr->state == NEUTRAL)
-			mgr->word_index = 0;
 		while (*str == ' ')
 			str++;
 		if (mgr->state == NEUTRAL)
