@@ -6,21 +6,11 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 14:23:19 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/01/26 21:28:03 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/15 17:55:37 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_string.h"
-
-static size_t	ft_strnlen(const char *s, size_t maxlen)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len] != '\0' && len < maxlen)
-		len++;
-	return (len);
-}
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
