@@ -22,11 +22,11 @@ add_library(minishell
 
 add_executable(main
         main.cpp
-#        exec.cpp
-#        lexer.cpp
-#        parser.cpp
-#        env.cpp
-#        builtin.cpp
+        exec.cpp
+        lexer.cpp
+        parser.cpp
+        env.cpp
+        builtin.cpp
         expansion.cpp
         )
 

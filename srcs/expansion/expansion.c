@@ -39,7 +39,7 @@ char	*get_env_key(char *word)
 
 	if (word[0] != '$')
 		return (NULL);
-	if (!ft_isalpha(word[1]) && word[i] != '_')
+	if (!ft_isalpha(word[1]) && word[1] != '_')
 		return (NULL);
 	i = 2;
 	while (ft_isalnum(word[i]) || word[i] == '_')
@@ -80,4 +80,22 @@ char	*expand(char *word)
 		i++;
 	}
 	return (word);
+}
+
+void	expand_cmd(t_exec_info *info)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < info->cmd_num)
+	{
+		j = 0;
+		while (info->cmds[i][j] != NULL)
+		{
+			info->cmds[i][j] = expand(info->cmds[i][j]);
+			j++;
+		}
+		i++;
+	}
 }

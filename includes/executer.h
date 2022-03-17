@@ -16,6 +16,7 @@
 # include "builtin.h"
 # include "define.h"
 # include "env.h"
+# include "expansion.h"
 # include "libft.h"
 # include "utils.h"
 # include "xsyscall.h"

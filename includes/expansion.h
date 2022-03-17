@@ -13,8 +13,10 @@
 #ifndef EXPANSION_H
 # define EXPANSION_H
 
+# include "define.h"
 # include "env.h"
 
 char	*expand(char *word);
+void	expand_cmd(t_exec_info *info);
 
 #endif
