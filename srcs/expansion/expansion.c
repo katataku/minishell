@@ -33,10 +33,20 @@
 //	return (p);
 //}
 
-char	*get_var_name(char *word)
+char	*get_env_key(char *word)
 {
-	(void)word;
-	return (ft_strdup("$HOME"));
+	size_t	i;
+
+	if (word[0] != '$')
+		return (NULL);
+	if (!ft_isalpha(word[1]) && word[i] != '_')
+		return (NULL);
+	i = 2;
+	while (ft_isalnum(word[i]) || word[i] == '_')
+	{
+		i++;
+	}
+	return (ft_substr(word, 1, i - 1));
 }
 
 char	*super_join(char *first, char *second, char *third)
@@ -50,7 +60,7 @@ char	*super_join(char *first, char *second, char *third)
 
 char	*expand(char *word)
 {
-	char	*name;
+	char	*key;
 	size_t	i;
 
 	i = 0;
@@ -58,10 +68,14 @@ char	*expand(char *word)
 	{
 		if (word[i] == '$')
 		{
-			name = get_var_name(word[i]);
-			word[i] = '\0';
-			word = super_join(word, get_env(&name[1]), word + i + ft_strlen(name));
-			continue;
+			key = get_env_key(word + i);
+			if (key != NULL)
+			{
+				word[i] = '\0';
+				word = super_join(word, get_env(key), word + i + 1 + ft_strlen(key));
+				free(key);
+				continue;
+			}
 		}
 		i++;
 	}
