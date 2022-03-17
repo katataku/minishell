@@ -103,6 +103,13 @@ INPUT_CMDS="< ./tests/shell_scripts/infile.txt grep ab | wc -c"
 EXPECTED_EXIT_STATUS=0
 do_test
 
+# builtin関数単体
+TEST_NAME=0011.txt
+INPUT_CMDS="echo -n -n -n Hello World !"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+
 # builtin env関数
 TEST_NAME=builtin_env.txt
 echo "> env" > ${EXPECTED_PATH}/${TEST_NAME}
