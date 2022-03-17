@@ -16,6 +16,7 @@
 # include "builtin.h"
 # include "define.h"
 # include "env.h"
+# include "expansion.h"
 # include "heredoc.h"
 # include "libft.h"
 # include "utils.h"

@@ -27,6 +27,7 @@ add_executable(main
         parser.cpp
         env.cpp
         builtin.cpp
+        expansion.cpp
         heredoc.cpp
         )
 
