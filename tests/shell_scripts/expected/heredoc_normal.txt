@@ -1,0 +1,5 @@
+> << EOF cat
+> abc
+> EOF
+abc
+> exit

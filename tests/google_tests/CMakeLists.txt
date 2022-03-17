@@ -27,6 +27,7 @@ add_executable(main
         parser.cpp
         env.cpp
         builtin.cpp
+        heredoc.cpp
         )
 
 add_definitions(-w)
@@ -36,4 +37,5 @@ target_link_libraries(main
     GTest::GTest
     GTest::Main
     minishell
+    readline
 )

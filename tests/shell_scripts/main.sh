@@ -39,6 +39,7 @@ function do_test() {
 		printf " ${GREEN}[✓]${NC}\n"
 	else
 		printf " ${RED}[-]${NC}\n"
+		echo `diff "${ACTUAL_PATH}${TEST_NAME}" "${EXPECTED_PATH}${TEST_NAME}"`
 	fi
 }
 
@@ -152,3 +153,72 @@ TEST_NAME=builtin_exit_not_valid_string.txt
 INPUT_CMDS="exit abc"
 EXPECTED_EXIT_STATUS=255
 do_test
+
+# heredoc
+TEST_NAME=heredoc_normal.txt
+INPUT_CMDS="<< EOF cat
+abc
+EOF"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# heredocとリダイレクトの重複
+TEST_NAME=heredoc_duplicate_single.txt
+INPUT_CMDS="<< EOF < ./tests/shell_scripts/infile.txt cat"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# heredocとリダイレクトの重複
+TEST_NAME=heredoc_duplicate_double.txt
+INPUT_CMDS="< ./tests/shell_scripts/infile.txt << EOF cat
+abc
+EOF"
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# heredoc $展開
+TEST_NAME=heredoc_extract.txt
+echo '> << EOF cat' > ${EXPECTED_PATH}/${TEST_NAME}
+echo '> $USER' >> ${EXPECTED_PATH}/${TEST_NAME}
+echo '> EOF' >> ${EXPECTED_PATH}/${TEST_NAME}
+<< EOF cat >> ${EXPECTED_PATH}/${TEST_NAME}
+$USER
+EOF
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS='<< EOF cat
+$USER
+EOF'
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# heredoc $展開
+TEST_NAME=heredoc_extract_with_dquote.txt
+echo '> << "EOF" cat' > ${EXPECTED_PATH}/${TEST_NAME}
+echo '> $USER' >> ${EXPECTED_PATH}/${TEST_NAME}
+echo '> EOF' >> ${EXPECTED_PATH}/${TEST_NAME}
+<< "EOF" cat >> ${EXPECTED_PATH}/${TEST_NAME}
+$USER
+EOF
+echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+INPUT_CMDS='<< "EOF" cat
+$USER
+EOF'
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# heredoc $展開
+TEST_NAME=heredoc_extract_with_squote.txt
+INPUT_CMDS='<< '\'EOF\'' cat
+$USER
+EOF'
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# heredoc $展開
+TEST_NAME=heredoc_extract_with_squote2.txt
+INPUT_CMDS='<< '\'\'EOF' cat
+$USER
+EOF'
+EXPECTED_EXIT_STATUS=0
+do_test
+
