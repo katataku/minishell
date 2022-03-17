@@ -51,7 +51,7 @@ char	*get_env_key(char *word)
 
 char	*super_join(char *first, char *second, char *third)
 {
-	char *str;
+	char	*str;
 
 	str = ft_xstrjoin(first, ft_xstrjoin(second, third));
 	free(first);
@@ -72,9 +72,10 @@ char	*expand(char *word)
 			if (key != NULL)
 			{
 				word[i] = '\0';
-				word = super_join(word, get_env(key), word + i + 1 + ft_strlen(key));
+				word = super_join(word, get_env(key), \
+					word + i + 1 + ft_strlen(key));
 				free(key);
-				continue;
+				continue ;
 			}
 		}
 		i++;
