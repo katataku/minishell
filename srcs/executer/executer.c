@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/07 12:28:31 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/07 14:09:54 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,8 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 	int		read_fd;
 	int		write_fd;
 
-	if (i == 0)
-	{
-		if (info->srcfile != NULL)
-			read_fd = xopen(info->srcfile, O_RDONLY, 0);
-		else
-			read_fd = STDIN_FILENO;
-	}
-	else
-		read_fd = pipes[(i + 1) % 2][READ_INDEX];
-	if (i == info->cmd_num - 1)
-	{
-		if (info->dstfile != NULL)
-			write_fd = xopen(info->dstfile, info->o_flag, 0644);
-		else
-			write_fd = STDOUT_FILENO;
-	}
-	else
-	{
-		xclose(pipes[i % 2][READ_INDEX]);
-		write_fd = pipes[i % 2][WRITE_INDEX];
-	}
+	read_fd = get_read_fd(info, i, pipes);
+	write_fd = get_write_fd(info, i, pipes);
 	do_command(info->cmds[i], NULL, read_fd, write_fd);
 }
 

@@ -1,0 +1,3 @@
+> << EOF < ./tests/shell_scripts/infile.txt cat
+bc
+ab> exit
