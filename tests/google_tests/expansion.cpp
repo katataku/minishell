@@ -31,7 +31,7 @@ TEST_F(ExpansionTest, not_expand)
 
 TEST_F(ExpansionTest, simple_expand_with_no_quotes)
 {
-	input = strdup("$HOME");
+	input = strdup("HOME$HOMEHOME");
 	output = expand(input);
-	ASSERT_STREQ("/usr/nop", output);
+	ASSERT_STREQ("HOME/usr/nopHOME", output);
 }
