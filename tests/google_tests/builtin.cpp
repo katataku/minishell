@@ -80,3 +80,14 @@ TEST_F(BuiltinTest, echo_n_option_multiple_arguments)
 	ASSERT_EQ(0, status_code);
 	ASSERT_STREQ("hello world !", output.c_str());
 }
+
+TEST_F(BuiltinTest, echo_n_option_multiple_arguments2)
+{
+	char *argv[] = {"echo", "-n", "-n", "-n", "hello", "world", "!", NULL};
+
+	testing::internal::CaptureStdout();
+	status_code = builtin_echo(argv);
+	output = testing::internal::GetCapturedStdout();
+	ASSERT_EQ(0, status_code);
+	ASSERT_STREQ("hello world !", output.c_str());
+}
