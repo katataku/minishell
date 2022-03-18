@@ -81,7 +81,7 @@ TEST_F(BuiltinTest, echo_n_option_multiple_arguments)
 	ASSERT_STREQ("hello world !", output.c_str());
 }
 
-TEST_F(BuiltinTest, echo_n_option_multiple_arguments2)
+TEST_F(BuiltinTest, echo_multiple_n_options)
 {
 	char *argv[] = {"echo", "-n", "-n", "-n", "hello", "world", "!", NULL};
 
