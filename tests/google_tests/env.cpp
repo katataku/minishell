@@ -11,6 +11,7 @@ protected:
 	static void TearDownTestCase() {}
 
 	void SetUp() {
+		remove_env();
 		set_env("HOME","/Users/takkatao");
 		set_env("PATH","/bin");
 		set_env("PS1","\s-\v\$");
@@ -55,6 +56,19 @@ TEST_F(EnvTest, remove_1)
 
 	unset_env("PS1");
 	ASSERT_STREQ(get_env("HOME"), NULL);
+	ASSERT_STREQ(get_env("PATH"), NULL);
+	ASSERT_STREQ(get_env("PS1"), NULL);
+}
+
+TEST_F(EnvTest, remove_last_element)
+{
+	unset_env("PATH");
+	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
+	ASSERT_STREQ(get_env("PATH"), NULL);
+	ASSERT_STREQ(get_env("PS1"), "\s-\v\$");
+
+	unset_env("PS1");
+	ASSERT_STREQ(get_env("HOME"), "/Users/takkatao");
 	ASSERT_STREQ(get_env("PATH"), NULL);
 	ASSERT_STREQ(get_env("PS1"), NULL);
 }
