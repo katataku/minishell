@@ -1,0 +1,3 @@
+> unset HOME
+> env | grep HOME=
+> exit

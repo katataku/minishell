@@ -1,0 +1,4 @@
+> unset HOME USER
+> env | grep HOME=
+> env | grep USER=
+> exit
