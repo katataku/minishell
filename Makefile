@@ -8,7 +8,7 @@ XLIBFT_SRCS = $(addprefix srcs/xlibft/, \
 		ft_xcalloc.c ft_xlstnew.c ft_xsplit.c ft_xstrdup.c ft_xstrjoin.c \
 		)
 ENV_SRCS = $(addprefix srcs/env/, \
-		env.c get_env.c get_envlist.c remove_env.c set_env.c \
+		env.c get_env.c get_envlist.c get_envp.c remove_env.c set_env.c \
 		)
 BUILTIN_SRCS = $(addprefix srcs/builtin/, \
 		cd.c echo.c env.c exit.c export.c pwd.c unset.c \
