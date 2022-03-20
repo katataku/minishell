@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/04 18:05:05 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/20 10:35:45 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 void	sigint_handler(int signal)
 {
 	(void)signal;
-	printf("\n");
+	ft_putchar_fd('\n', STDOUT_FILENO);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
@@ -40,9 +40,9 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
-	set_signal();
 	while (1)
 	{
+		set_signal();
 		line = readline("> ");
 		if (line == NULL)
 			break ;

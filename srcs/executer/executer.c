@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/20 19:25:43 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/21 08:52:10 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,16 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 	do_command(info->cmds[i], get_envp(), read_fd, write_fd);
 }
 
+/*
+ * SIGQUITは特に何もしなくても無視されていそう
+ * 子プロセス実行中は、親プロセスではSIGINTを無視する。
+ */
+void	set_signal_child(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+}
+
 int	execute(t_exec_info *exec_info)
 {
 	int	pid;
@@ -68,6 +78,8 @@ int	execute(t_exec_info *exec_info)
 		pid = xfork();
 		if (pid == 0)
 			exec_child(exec_info, i, pipes);
+		else
+			set_signal_child();
 		close_pipes(exec_info, i, pipes);
 		i++;
 	}
