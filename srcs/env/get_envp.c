@@ -6,13 +6,13 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:29:24 by takkatao          #+#    #+#             */
-/*   Updated: 2022/03/20 19:21:03 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/21 08:50:35 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-char	*get_keyvalue_string(t_keyvalue *content)
+char	*keyvalue_to_string(t_keyvalue *content)
 {
 	char	*str;
 
@@ -35,7 +35,7 @@ char	**get_envp(void)
 	index = 0;
 	while (current_env != NULL)
 	{
-		envp[index] = get_keyvalue_string(current_env->content);
+		envp[index] = keyvalue_to_string(current_env->content);
 		index++;
 		current_env = current_env->next;
 	}
