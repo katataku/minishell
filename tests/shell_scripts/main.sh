@@ -222,3 +222,17 @@ EOF'
 EXPECTED_EXIT_STATUS=0
 do_test
 
+# unset
+TEST_NAME=unset_single_command.txt
+INPUT_CMDS='unset HOME
+env | grep HOME='
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# unset
+TEST_NAME=unset_multi_commands.txt
+INPUT_CMDS='unset HOME USER
+env | grep HOME=
+env | grep USER='
+EXPECTED_EXIT_STATUS=0
+do_test

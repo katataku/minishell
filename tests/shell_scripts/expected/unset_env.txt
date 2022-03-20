@@ -1,0 +1,4 @@
+> export HOGE=USER
+> unset ${HOGE}
+> env | grep USER=
+> exit

@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 08:25:00 by takkatao          #+#    #+#             */
-/*   Updated: 2022/02/25 15:08:24 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/18 13:15:12 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	lst_delone_in_lst(t_list **lst, t_list *delete_lst, void (*del)(void *))
 	else
 	{
 		cur_lst = (*lst);
-		while (cur_lst->next != NULL)
+		while (cur_lst != NULL && cur_lst->next != NULL)
 		{
 			if (cur_lst->next == delete_lst)
 				cur_lst->next = delete_lst->next;
