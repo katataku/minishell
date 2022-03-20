@@ -226,5 +226,18 @@ do_test
 TEST_NAME=do_command_env.txt
 INPUT_CMDS='export FT=42
 bash -c env | grep FT'
+
+# unset
+TEST_NAME=unset_single_command.txt
+INPUT_CMDS='unset HOME
+env | grep HOME='
+EXPECTED_EXIT_STATUS=0
+do_test
+
+# unset
+TEST_NAME=unset_multi_commands.txt
+INPUT_CMDS='unset HOME USER
+env | grep HOME=
+env | grep USER='
 EXPECTED_EXIT_STATUS=0
 do_test
