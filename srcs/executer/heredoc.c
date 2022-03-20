@@ -77,6 +77,27 @@ char	*extract_quote(char *str)
 	return (extracted_str);
 }
 
+/*
+ * ^Cは表示されてしまう
+ * heredoc実行中は、改行表示後にexitすることでmainループに戻る
+ */
+void	sigint_handler_heredoc(int signal)
+{
+	(void)signal;
+	ft_putchar_fd('\n', 1);
+	exit(1);
+	return ;
+}
+
+/*
+ * SIGQUITは特に何もしなくても無視されていそう
+ */
+void	set_signal_heredoc(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, &sigint_handler_heredoc);
+}
+
 int	heredoc_read(t_exec_info *info)
 {
 	int		pipe_fd[2];
@@ -85,6 +106,7 @@ int	heredoc_read(t_exec_info *info)
 	xpipe(pipe_fd);
 	while (1)
 	{
+		set_signal_heredoc();
 		line = readline("> ");
 		if (line == NULL
 			|| ft_strcmp(line, extract_quote(info->heredoc_word)) == 0)
