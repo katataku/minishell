@@ -72,5 +72,13 @@ TEST_F(EnvTest, init_env_1)
 	remove_env();
 	init_env();
 	ASSERT_STREQ(get_env("LANG"), std::getenv("LANG"));
+}
 
+TEST_F(EnvTest, get_envp)
+{
+	char **envp = get_envp();
+	ASSERT_STREQ(envp[0], "HOME=/Users/takkatao");
+	ASSERT_STREQ(envp[1], "PATH=/bin");
+	ASSERT_STREQ(envp[2], "PS1=\s-\v\$");
+	ASSERT_EQ(envp[3], (char *)NULL);
 }

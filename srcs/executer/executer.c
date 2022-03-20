@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/07 14:09:54 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/03/20 19:25:43 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 
 	read_fd = get_read_fd(info, i, pipes);
 	write_fd = get_write_fd(info, i, pipes);
-	do_command(info->cmds[i], NULL, read_fd, write_fd);
+	do_command(info->cmds[i], get_envp(), read_fd, write_fd);
 }
 
 int	execute(t_exec_info *exec_info)

@@ -222,3 +222,9 @@ EOF'
 EXPECTED_EXIT_STATUS=0
 do_test
 
+# do_command 子プロセスへの環境変数伝播
+TEST_NAME=do_command_env.txt
+INPUT_CMDS='export FT=42
+bash -c env | grep FT'
+EXPECTED_EXIT_STATUS=0
+do_test
