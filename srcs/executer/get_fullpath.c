@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_fullpath.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 12:29:18 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/07 12:29:18 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/03/21 08:42:58 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_fullpath_find_from_command(char **path, char *file_name)
 	index = 0;
 	found_filepath = NULL;
 	file_name_with_slash = ft_xstrjoin("/", file_name);
-	while (path[index] != NULL)
+	while (path != NULL && path[index] != NULL)
 	{
 		fullpath = ft_xstrjoin(path[index], file_name_with_slash);
 		if (access(fullpath, X_OK) == 0)
@@ -51,9 +51,14 @@ char	*get_fullpath_find_from_command(char **path, char *file_name)
 char	*get_fullpath(char *file_name)
 {
 	char	**path;
+	char	*env_path;
 
 	if (ft_strchr(file_name, '/') != NULL)
 		return (get_fullpath_find_from_path(file_name));
-	path = ft_xsplit(get_env("PATH"), ':');
+	env_path = get_env("PATH");
+	if (env_path == NULL)
+		return (get_fullpath_find_from_command(NULL, file_name));
+	path = ft_xsplit(env_path, ':');
+	free(env_path);
 	return (get_fullpath_find_from_command(path, file_name));
 }
