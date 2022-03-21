@@ -241,3 +241,10 @@ env | grep HOME=
 env | grep USER='
 EXPECTED_EXIT_STATUS=0
 do_test
+
+# unset PATHしてgetfullpath
+TEST_NAME=unset_path.txt
+INPUT_CMDS='unset PATH
+ls'
+EXPECTED_EXIT_STATUS=0
+do_test
