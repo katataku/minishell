@@ -132,11 +132,11 @@ TEST(GetEnvKeyTest, no_dollar)
 	free(output);
 }
 
-TEST(GetEnvKeyTest, key_must_not_start_number)
+TEST(GetEnvKeyTest, special_variable_name)
 {
-	char *input = strdup("$2HOME");
+	char *input = strdup("$?");
 	char *output = get_env_key(input);
-	ASSERT_STREQ(output, NULL);
+	ASSERT_STREQ(output, "?");
 	free(input);
 	free(output);
 }

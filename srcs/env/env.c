@@ -16,6 +16,8 @@ char	*get_env_key(char *word)
 {
 	size_t	i;
 
+	if (ft_strcmp("$?", word) == 0)
+		return (ft_xstrdup("?"));
 	if (word[0] != '$')
 		return (NULL);
 	if (!ft_isalpha(word[1]) && word[1] != '_')
