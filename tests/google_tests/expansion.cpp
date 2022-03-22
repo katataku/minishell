@@ -83,3 +83,17 @@ TEST_F(ExpansionTest, expand_last_exist_status)
 	output = expand(input);
 	ASSERT_STREQ("Last exist status: 0", output);
 }
+
+TEST_F(ExpansionTest, only_dollar)
+{
+	input = strdup("$");
+	output = expand(input);
+	ASSERT_STREQ("$", output);
+}
+
+TEST_F(ExpansionTest, not_variable)
+{
+	input = strdup("$2");
+	output = expand(input);
+	ASSERT_STREQ("$2", output);
+}
