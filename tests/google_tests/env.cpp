@@ -21,7 +21,6 @@ protected:
 	}
 };
 
-
 TEST_F(EnvTest, normal_1)
 {
 	set_env("USER","takkatao");
@@ -95,4 +94,49 @@ TEST_F(EnvTest, get_envp)
 	ASSERT_STREQ(envp[1], "PATH=/bin");
 	ASSERT_STREQ(envp[2], "PS1=\s-\v\$");
 	ASSERT_EQ(envp[3], (char *)NULL);
+}
+
+TEST(GetEnvKeyTest, simple)
+{
+	char *input = strdup("$HOME");
+	char *output = get_env_key(input);
+	ASSERT_STREQ(output, "HOME");
+	free(input);
+	free(output);
+}
+
+TEST(GetEnvKeyTest, contain_underscore_and_numbers)
+{
+	char *input = strdup("$HOME_2**");
+	char *output = get_env_key(input);
+	ASSERT_STREQ(output, "HOME_2");
+	free(input);
+	free(output);
+}
+
+TEST(GetEnvKeyTest, start_with_underscore)
+{
+	char *input = strdup("$_HOME");
+	char *output = get_env_key(input);
+	ASSERT_STREQ(output, "_HOME");
+	free(input);
+	free(output);
+}
+
+TEST(GetEnvKeyTest, no_dollar)
+{
+	char *input = strdup("HOME");
+	char *output = get_env_key(input);
+	ASSERT_STREQ(output, NULL);
+	free(input);
+	free(output);
+}
+
+TEST(GetEnvKeyTest, key_must_not_start_number)
+{
+	char *input = strdup("$2HOME");
+	char *output = get_env_key(input);
+	ASSERT_STREQ(output, NULL);
+	free(input);
+	free(output);
 }
