@@ -35,3 +35,10 @@ TEST_F(ExpansionTest, simple_expand_with_no_quotes)
 	output = expand(input);
 	ASSERT_STREQ("HOME/usr/nop+HOME", output);
 }
+
+TEST_F(ExpansionTest, simple_double_quote)
+{
+	input = strdup("\"$HOME\"");
+	output = expand(input);
+	ASSERT_STREQ("/usr/nop", output);
+}

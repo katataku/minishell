@@ -41,10 +41,18 @@ char	*expand(char *word)
 {
 	char	*key;
 	size_t	i;
+	int		mode;
 
 	i = 0;
+	mode = NEUTRAL;
 	while (word[i] != '\0')
 	{
+		if (word[i] == '"')
+		{
+			mode = IN_DQUOTE;
+			(void)mode;
+			ft_memmove(word + i, word + i + 1, ft_strlen(word + i));
+		}
 		if (word[i] == '$')
 		{
 			key = get_env_key(word + i);
