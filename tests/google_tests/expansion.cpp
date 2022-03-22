@@ -16,8 +16,7 @@ protected:
 		set_env("HOME","/usr/nop");
 	}
 	void TearDown() {
-//		free(input);
-//		free(output);
+		free(output);
 		remove_env();
 	}
 };
