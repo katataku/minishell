@@ -49,3 +49,10 @@ TEST_F(ExpansionTest, simple_single_quote)
 	output = expand(input);
 	ASSERT_STREQ("$HOME", output);
 }
+
+TEST_F(ExpansionTest, single_quote_in_double_quote)
+{
+	input = strdup("\"'$HOME\"");
+	output = expand(input);
+	ASSERT_STREQ("'/usr/nop", output);
+}

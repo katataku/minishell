@@ -50,10 +50,9 @@ char	*expand(char *word)
 		if (word[i] == '"')
 		{
 			mode = IN_DQUOTE;
-			(void)mode;
 			ft_memmove(word + i, word + i + 1, ft_strlen(word + i));
 		}
-		if (word[i] == '\'')
+		if (word[i] == '\'' && mode != IN_DQUOTE)
 		{
 			mode = IN_SQUOTE;
 			ft_memmove(word + i, word + i + 1, ft_strlen(word + i));
