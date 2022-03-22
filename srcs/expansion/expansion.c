@@ -12,7 +12,7 @@
 
 #include "expansion.h"
 
-static char	*replace_variable(char *before, int	start, char *key)
+static char	*replace_variable(char *before, int start, char *key)
 {
 	char	*after;
 	char	*last;
@@ -23,6 +23,11 @@ static char	*replace_variable(char *before, int	start, char *key)
 	free(key);
 	free(before);
 	return (after);
+}
+
+static void	shift_left(char *word)
+{
+	ft_memmove(word, word + 1, ft_strlen(word));
 }
 
 char	*expand(char *word)
@@ -41,7 +46,7 @@ char	*expand(char *word)
 				mode = NEUTRAL;
 			else
 				mode = IN_DQUOTE;
-			ft_memmove(word + i, word + i + 1, ft_strlen(word + i));
+			shift_left(word + i);
 			continue ;
 		}
 		if (word[i] == '\'' && mode != IN_DQUOTE)
@@ -50,7 +55,7 @@ char	*expand(char *word)
 				mode = NEUTRAL;
 			else
 				mode = IN_SQUOTE;
-			ft_memmove(word + i, word + i + 1, ft_strlen(word + i));
+			shift_left(word + i);
 			continue ;
 		}
 		if (word[i] == '$' && mode != IN_SQUOTE)
