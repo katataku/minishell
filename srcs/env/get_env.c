@@ -18,6 +18,8 @@ char	*get_env(char *key)
 	t_list		*cur_env;
 	t_keyvalue	*content;
 
+	if (ft_strcmp("?", key) == 0)
+		return (ft_itoa(g_last_exit_status));
 	env = gen_env();
 	cur_env = *env;
 	while (cur_env != NULL)

@@ -76,3 +76,10 @@ TEST_F(ExpansionTest, double_quotes_after_single_quotes)
 	output = expand(input);
 	ASSERT_STREQ("a/usr/nopb$HOMEc/usr/nop", output);
 }
+
+TEST_F(ExpansionTest, expand_last_exist_status)
+{
+	input = strdup("Last exist status: $?");
+	output = expand(input);
+	ASSERT_STREQ("Last exist status: 0", output);
+}
