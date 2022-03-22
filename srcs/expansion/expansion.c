@@ -12,13 +12,17 @@
 
 #include "expansion.h"
 
-char	*super_join(char *first, char *second, char *third)
+static char	*replace_variable(char *before, int	start, char *key)
 {
-	char	*str;
+	char	*after;
+	char	*last;
 
-	str = ft_xstrjoin(first, ft_xstrjoin(second, third));
-	free(first);
-	return (str);
+	before[start] = '\0';
+	last = before + start + 1 + ft_strlen(key);
+	after = ft_xstrjoin(before, ft_xstrjoin(get_env(key), last));
+	free(key);
+	free(before);
+	return (after);
 }
 
 char	*expand(char *word)
@@ -54,10 +58,7 @@ char	*expand(char *word)
 			key = get_env_key(word + i);
 			if (key != NULL)
 			{
-				word[i] = '\0';
-				word = super_join(word, get_env(key), \
-					word + i + 1 + ft_strlen(key));
-				free(key);
+				word = replace_variable(word, i, key);
 				continue ;
 			}
 		}
