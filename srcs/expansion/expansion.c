@@ -47,7 +47,7 @@ char	*expand(char *word)
 	mode = NEUTRAL;
 	while (word[i] != '\0')
 	{
-		if (word[i] == '"')
+		if (word[i] == '"' && mode != IN_SQUOTE)
 		{
 			mode = IN_DQUOTE;
 			ft_memmove(word + i, word + i + 1, ft_strlen(word + i));
