@@ -30,6 +30,32 @@ static void	shift_left(char *word)
 	ft_memmove(word, word + 1, ft_strlen(word));
 }
 
+static bool	handle_quotes(int *mode, char *word)
+{
+	bool	is_shifted;
+
+	is_shifted = false;
+	if (*word == '"' && *mode != IN_SQUOTE)
+	{
+		if (*mode == IN_DQUOTE)
+			*mode = NEUTRAL;
+		else
+			*mode = IN_DQUOTE;
+		shift_left(word);
+		is_shifted = true;
+	}
+	else if (*word == '\'' && *mode != IN_DQUOTE)
+	{
+		if (*mode == IN_SQUOTE)
+			*mode = NEUTRAL;
+		else
+			*mode = IN_SQUOTE;
+		shift_left(word);
+		is_shifted = true;
+	}
+	return (is_shifted);
+}
+
 char	*expand(char *word)
 {
 	char	*key;
@@ -40,24 +66,8 @@ char	*expand(char *word)
 	mode = NEUTRAL;
 	while (word[i] != '\0')
 	{
-		if (word[i] == '"' && mode != IN_SQUOTE)
-		{
-			if (mode == IN_DQUOTE)
-				mode = NEUTRAL;
-			else
-				mode = IN_DQUOTE;
-			shift_left(word + i);
+		if (ft_strchr("\"'", word[i]) && handle_quotes(&mode, word + i))
 			continue ;
-		}
-		if (word[i] == '\'' && mode != IN_DQUOTE)
-		{
-			if (mode == IN_SQUOTE)
-				mode = NEUTRAL;
-			else
-				mode = IN_SQUOTE;
-			shift_left(word + i);
-			continue ;
-		}
 		if (word[i] == '$' && mode != IN_SQUOTE)
 		{
 			key = get_env_key(word + i);
