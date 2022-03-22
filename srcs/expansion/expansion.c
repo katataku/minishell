@@ -49,13 +49,21 @@ char	*expand(char *word)
 	{
 		if (word[i] == '"' && mode != IN_SQUOTE)
 		{
-			mode = IN_DQUOTE;
+			if (mode == IN_DQUOTE)
+				mode = NEUTRAL;
+			else
+				mode = IN_DQUOTE;
 			ft_memmove(word + i, word + i + 1, ft_strlen(word + i));
+			continue ;
 		}
 		if (word[i] == '\'' && mode != IN_DQUOTE)
 		{
-			mode = IN_SQUOTE;
+			if (mode == IN_SQUOTE)
+				mode = NEUTRAL;
+			else
+				mode = IN_SQUOTE;
 			ft_memmove(word + i, word + i + 1, ft_strlen(word + i));
+			continue ;
 		}
 		if (word[i] == '$' && mode != IN_SQUOTE)
 		{

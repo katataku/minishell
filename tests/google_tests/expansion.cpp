@@ -63,3 +63,17 @@ TEST_F(ExpansionTest, double_quote_in_single_quote)
 	output = expand(input);
 	ASSERT_STREQ("\"$HOME\"", output);
 }
+
+TEST_F(ExpansionTest, single_quotes_after_double_quotes)
+{
+	input = strdup("a$HOME\"b$HOME\"'c$HOME'");
+	output = expand(input);
+	ASSERT_STREQ("a/usr/nopb/usr/nopc$HOME", output);
+}
+
+TEST_F(ExpansionTest, double_quotes_after_single_quotes)
+{
+	input = strdup("a$HOME'b$HOME'\"c$HOME\"");
+	output = expand(input);
+	ASSERT_STREQ("a/usr/nopb$HOMEc/usr/nop", output);
+}
