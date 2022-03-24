@@ -248,3 +248,9 @@ INPUT_CMDS='unset PATH
 ls'
 EXPECTED_EXIT_STATUS=0
 do_test
+
+TEST_NAME=expansion.txt
+export FT=42
+INPUT_CMDS="echo \$FT\"\$FT\"'\$FT'"
+EXPECTED_EXIT_STATUS=0
+do_test

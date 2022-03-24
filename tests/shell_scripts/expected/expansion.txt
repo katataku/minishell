@@ -1,0 +1,3 @@
+> echo $FT"$FT"'$FT'
+4242$FT
+> exit

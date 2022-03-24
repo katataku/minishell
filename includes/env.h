@@ -26,6 +26,7 @@ void	init_env(void);
 void	free_keyvalue(void *kv);
 t_list	**gen_env(void);
 char	*get_env(char *key);
+char	*get_env_key(char *word);
 t_list	**get_envlist(void);
 char	**get_envp(void);
 void	set_env(char *key, char *value);

@@ -12,48 +12,68 @@
 
 #include "expansion.h"
 
-char	*get_env_key(char *word)
+static char	*replace_variable(char *before, int start, char *key)
 {
-	size_t	i;
+	char	*after;
+	char	*last;
 
-	if (word[0] != '$')
-		return (NULL);
-	if (!ft_isalpha(word[1]) && word[1] != '_')
-		return (NULL);
-	i = 2;
-	while (ft_isalnum(word[i]) || word[i] == '_')
-	{
-		i++;
-	}
-	return (ft_substr(word, 1, i - 1));
+	before[start] = '\0';
+	last = before + start + 1 + ft_strlen(key);
+	after = ft_xstrjoin(before, ft_xstrjoin(get_env(key), last));
+	free(key);
+	free(before);
+	return (after);
 }
 
-char	*super_join(char *first, char *second, char *third)
+static void	shift_left(char *word)
 {
-	char	*str;
+	ft_memmove(word, word + 1, ft_strlen(word));
+}
 
-	str = ft_xstrjoin(first, ft_xstrjoin(second, third));
-	free(first);
-	return (str);
+static bool	handle_quotes(int *mode, char *word)
+{
+	bool	is_shifted;
+
+	is_shifted = false;
+	if (*word == '"' && *mode != IN_SQUOTE)
+	{
+		if (*mode == IN_DQUOTE)
+			*mode = NEUTRAL;
+		else
+			*mode = IN_DQUOTE;
+		shift_left(word);
+		is_shifted = true;
+	}
+	else if (*word == '\'' && *mode != IN_DQUOTE)
+	{
+		if (*mode == IN_SQUOTE)
+			*mode = NEUTRAL;
+		else
+			*mode = IN_SQUOTE;
+		shift_left(word);
+		is_shifted = true;
+	}
+	return (is_shifted);
 }
 
 char	*expand(char *word)
 {
 	char	*key;
 	size_t	i;
+	int		mode;
 
 	i = 0;
+	mode = NEUTRAL;
 	while (word[i] != '\0')
 	{
-		if (word[i] == '$')
+		if (ft_strchr("\"'", word[i]) && handle_quotes(&mode, word + i))
+			continue ;
+		if (word[i] == '$' && mode != IN_SQUOTE)
 		{
 			key = get_env_key(word + i);
 			if (key != NULL)
 			{
-				word[i] = '\0';
-				word = super_join(word, get_env(key), \
-					word + i + 1 + ft_strlen(key));
-				free(key);
+				word = replace_variable(word, i, key);
 				continue ;
 			}
 		}

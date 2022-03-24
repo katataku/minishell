@@ -12,6 +12,24 @@
 
 #include "env.h"
 
+char	*get_env_key(char *word)
+{
+	size_t	i;
+
+	if (ft_strcmp("$?", word) == 0)
+		return (ft_xstrdup("?"));
+	if (word[0] != '$')
+		return (NULL);
+	if (!ft_isalpha(word[1]) && word[1] != '_')
+		return (NULL);
+	i = 2;
+	while (ft_isalnum(word[i]) || word[i] == '_')
+	{
+		i++;
+	}
+	return (ft_substr(word, 1, i - 1));
+}
+
 void	free_keyvalue(void *input)
 {
 	t_keyvalue	*kv;

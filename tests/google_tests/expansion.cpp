@@ -16,8 +16,7 @@ protected:
 		set_env("HOME","/usr/nop");
 	}
 	void TearDown() {
-//		free(input);
-//		free(output);
+		free(output);
 		remove_env();
 	}
 };
@@ -34,4 +33,67 @@ TEST_F(ExpansionTest, simple_expand_with_no_quotes)
 	input = strdup("HOME$HOME+HOME");
 	output = expand(input);
 	ASSERT_STREQ("HOME/usr/nop+HOME", output);
+}
+
+TEST_F(ExpansionTest, simple_double_quote)
+{
+	input = strdup("\"$HOME\"");
+	output = expand(input);
+	ASSERT_STREQ("/usr/nop", output);
+}
+
+TEST_F(ExpansionTest, simple_single_quote)
+{
+	input = strdup("'$HOME'");
+	output = expand(input);
+	ASSERT_STREQ("$HOME", output);
+}
+
+TEST_F(ExpansionTest, single_quote_in_double_quote)
+{
+	input = strdup("\"'$HOME\"");
+	output = expand(input);
+	ASSERT_STREQ("'/usr/nop", output);
+}
+
+TEST_F(ExpansionTest, double_quote_in_single_quote)
+{
+	input = strdup("'\"$HOME\"'");
+	output = expand(input);
+	ASSERT_STREQ("\"$HOME\"", output);
+}
+
+TEST_F(ExpansionTest, single_quotes_after_double_quotes)
+{
+	input = strdup("a$HOME\"b$HOME\"'c$HOME'");
+	output = expand(input);
+	ASSERT_STREQ("a/usr/nopb/usr/nopc$HOME", output);
+}
+
+TEST_F(ExpansionTest, double_quotes_after_single_quotes)
+{
+	input = strdup("a$HOME'b$HOME'\"c$HOME\"");
+	output = expand(input);
+	ASSERT_STREQ("a/usr/nopb$HOMEc/usr/nop", output);
+}
+
+TEST_F(ExpansionTest, expand_last_exist_status)
+{
+	input = strdup("Last exist status: $?");
+	output = expand(input);
+	ASSERT_STREQ("Last exist status: 0", output);
+}
+
+TEST_F(ExpansionTest, only_dollar)
+{
+	input = strdup("$");
+	output = expand(input);
+	ASSERT_STREQ("$", output);
+}
+
+TEST_F(ExpansionTest, not_variable)
+{
+	input = strdup("$2");
+	output = expand(input);
+	ASSERT_STREQ("$2", output);
 }
