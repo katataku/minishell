@@ -116,6 +116,8 @@ t_token	*lexer(char *str)
 	{
 		while (*str == ' ')
 			str++;
+		if (*str == '\0')
+			break ;
 		if (mgr->state == NEUTRAL)
 			str += lexer_neutral(mgr, str);
 		else
@@ -125,6 +127,11 @@ t_token	*lexer(char *str)
 	{
 		g_last_exit_status = STATUS_MISUSE_BUILTIN;
 		puterr("minishell", "syntax error");
+		free_lexer_token(mgr->token);
+		mgr->token = NULL;
+	}
+	if (mgr->token_index == 0)
+	{
 		free_lexer_token(mgr->token);
 		mgr->token = NULL;
 	}
