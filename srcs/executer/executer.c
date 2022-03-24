@@ -84,5 +84,5 @@ int	execute(t_exec_info *exec_info)
 		i++;
 	}
 	xwaitpid(pid, &status, 0);
-	return (status);
+	return (WEXITSTATUS(status));
 }

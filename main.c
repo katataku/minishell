@@ -55,7 +55,7 @@ int	main(int argc, char **argv, char **env)
 		token = lexer(line);
 		if (token != NULL)
 		{
-			execute(parser(token));
+			g_last_exit_status = execute(parser(token));
 		}
 		add_history(line);
 		free(line);
