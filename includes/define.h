@@ -60,6 +60,7 @@ typedef struct s_lexer_manager
 	int			word_index;
 	char		word[4097];
 	int			state;
+	bool		is_misuse_builtin;
 }	t_lexer_manager;
 
 enum e_lexer_state

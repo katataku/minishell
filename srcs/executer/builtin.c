@@ -76,6 +76,5 @@ int	execute_single_builtin(t_exec_info	*info)
 	exit_status = execute_builtin(info->cmds[0]);
 	replace_fd(save_stdout, STDOUT_FILENO);
 	replace_fd(save_stdin, STDIN_FILENO);
-	g_last_exit_status = exit_status;
 	return (exit_status);
 }

@@ -3,6 +3,7 @@
 
 # include "define.h"
 # include "xlibft.h"
+# include "utils.h"
 
 t_token			*lexer(char *str);
 t_lexer_manager	*initialize_lexer(char *str);

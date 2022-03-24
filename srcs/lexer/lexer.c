@@ -77,7 +77,7 @@ int	lexer_not_neutral(t_lexer_manager *mgr, char *str)
 		while (!(*str == '}' || *str == '\0'))
 			mgr->word[mgr->word_index++] = *str++;
 	if (*str == '\0')
-		g_last_exit_status = STATUS_MISUSE_BUILTIN;
+		mgr->is_misuse_builtin = true;
 	if (*str != '\0')
 		mgr->word[mgr->word_index++] = *str++;
 	if (is_special_char(*str))
@@ -116,12 +116,21 @@ t_token	*lexer(char *str)
 	{
 		while (*str == ' ')
 			str++;
+		if (*str == '\0')
+			break ;
 		if (mgr->state == NEUTRAL)
 			str += lexer_neutral(mgr, str);
 		else
 			str += lexer_not_neutral(mgr, str);
 	}
-	if (g_last_exit_status != 0)
+	if (mgr->is_misuse_builtin)
+	{
+		g_last_exit_status = STATUS_MISUSE_BUILTIN;
+		puterr("minishell", "syntax error");
+		free_lexer_token(mgr->token);
+		mgr->token = NULL;
+	}
+	if (mgr->token_index == 0)
 	{
 		free_lexer_token(mgr->token);
 		mgr->token = NULL;

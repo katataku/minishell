@@ -36,6 +36,7 @@ void	set_signal(void)
 int	main(int argc, char **argv, char **env)
 {
 	char	*line;
+	t_token	*token;
 
 	(void)argc;
 	(void)argv;
@@ -51,7 +52,11 @@ int	main(int argc, char **argv, char **env)
 			free(line);
 			continue ;
 		}
-		execute(parser(lexer(line)));
+		token = lexer(line);
+		if (token != NULL)
+		{
+			g_last_exit_status = execute(parser(token));
+		}
 		add_history(line);
 		free(line);
 	}

@@ -33,5 +33,6 @@ t_lexer_manager	*initialize_lexer(char *str)
 	mgr->token = token;
 	mgr->token_index = 0;
 	mgr->word_index = 0;
+	mgr->is_misuse_builtin = false;
 	return (mgr);
 }
