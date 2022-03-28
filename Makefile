@@ -32,10 +32,13 @@ SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(BUILTIN_SRCS) $(ENV_SRCS) $(EXEC
 OBJS = $(SRCS:%.c=%.o)
 LIBS = -lft -Llibft -lreadline -L$(shell brew --prefix readline)/lib
 INCS = -Ilibft/includes -Iincludes -I$(shell brew --prefix readline)/include
+LIBFT = libft/libft.a
 
-$(NAME): $(OBJS)
-	make -C libft
+$(NAME): $(LIBFT) $(OBJS)
 	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
+
+$(LIBFT):
+	make -C libft
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
@@ -43,9 +46,11 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 fclean: clean
+	make fclean -C libft
 	$(RM) $(NAME) $(NAME_BONUS)
 
 clean:
+	make clean -C libft
 	$(RM) $(OBJS) $(OBJS_BONUS)
 
 re: fclean all
