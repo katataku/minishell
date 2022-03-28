@@ -84,21 +84,21 @@ t_exec_info	*parser(t_token *token)
 	while (token->token[++ti] != 0)
 	{
 		if (token->token[ti] == T_WORD)
-			exec_info->cmds[ci][wi++] = token->word[ti];
+			exec_info->cmds[ci][wi++] = ft_xstrdup(token->word[ti]);
 		if (token->token[ti] == T_LT)
 		{
 			exec_info->heredoc_word = NULL;
-			exec_info->srcfile = token->word[++ti];
+			exec_info->srcfile = ft_xstrdup(token->word[++ti]);
 		}
 		if (token->token[ti] == T_LTLT)
 		{
 			exec_info->srcfile = NULL;
-			exec_info->heredoc_word = token->word[++ti];
+			exec_info->heredoc_word = ft_xstrdup(token->word[++ti]);
 		}
 		if (token->token[ti] == T_GTGT)
 			exec_info->o_flag |= O_APPEND;
 		if (token->token[ti] == T_GT || token->token[ti] == T_GTGT)
-			exec_info->dstfile = token->word[++ti];
+			exec_info->dstfile = ft_xstrdup(token->word[++ti]);
 		if (token->token[ti] == T_BAR)
 		{
 			ci++;
