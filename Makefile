@@ -35,7 +35,7 @@ INCS = -Ilibft/includes -Iincludes -I$(shell brew --prefix readline)/include
 LIBFT = libft/libft.a
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
+	$(CC) -o $(NAME) $(CFLAGS) $(OBJS) $(LIBS)
 
 $(LIBFT):
 	make -C libft
