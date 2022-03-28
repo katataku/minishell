@@ -48,6 +48,30 @@ void	init_parser(t_exec_info **e, t_token *t, int *i, int *j)
 	*j = 0;
 }
 
+void	free_exec_info(t_exec_info *exec_info)
+{
+	int		i;
+	char	**cur_cmd;
+
+	i = 0;
+	while (i < exec_info->cmd_num)
+	{
+		cur_cmd = exec_info->cmds[i];
+		while (*cur_cmd != NULL)
+		{
+			free(*cur_cmd);
+			cur_cmd++;
+		}
+		free(exec_info->cmds[i]);
+		i++;
+	}
+	free(exec_info->cmds);
+	free(exec_info->srcfile);
+	free(exec_info->heredoc_word);
+	free(exec_info->dstfile);
+	free(exec_info);
+}
+
 t_exec_info	*parser(t_token *token)
 {
 	t_exec_info	*exec_info;

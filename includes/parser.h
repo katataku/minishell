@@ -7,6 +7,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
+void	    free_exec_info(t_exec_info *exec_info);
 t_exec_info	*parser(t_token *token);
 
 #endif
