@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 XSYSCALL_SRCS = $(addprefix srcs/xsyscall/, \
 		xclose.c xfork.c xopen.c xpipe.c xwaitpid.c xdup2.c \
 		)
