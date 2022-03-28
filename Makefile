@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g
 XSYSCALL_SRCS = $(addprefix srcs/xsyscall/, \
 		xclose.c xfork.c xopen.c xpipe.c xwaitpid.c xdup2.c \
 		)
@@ -32,10 +32,13 @@ SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(BUILTIN_SRCS) $(ENV_SRCS) $(EXEC
 OBJS = $(SRCS:%.c=%.o)
 LIBS = -lft -Llibft -lreadline -L$(shell brew --prefix readline)/lib
 INCS = -Ilibft/includes -Iincludes -I$(shell brew --prefix readline)/include
+LIBFT = libft/libft.a
 
-$(NAME): $(OBJS)
+$(NAME): $(LIBFT) $(OBJS)
+	$(CC) -o $(NAME) $(CFLAGS) $(OBJS) $(LIBS)
+
+$(LIBFT):
 	make -C libft
-	$(CC) $(CFLAGS) $(LIBS) $(OBJS) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCS) -o $@ -c $<
@@ -43,9 +46,11 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 fclean: clean
+	make fclean -C libft
 	$(RM) $(NAME) $(NAME_BONUS)
 
 clean:
+	make clean -C libft
 	$(RM) $(OBJS) $(OBJS_BONUS)
 
 re: fclean all
