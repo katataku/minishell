@@ -16,6 +16,12 @@ protected:
 	}
 };
 
+// actualをfreeするためのラッパー関数。actualとexpectは逆だけど仕方なし。
+static void	assert_streq_wrap(char *actual, char *expect)
+{
+	ASSERT_STREQ(actual, expect);
+	free(actual);
+}
 
 TEST_F(HeredocTest, is_quoted_false)
 {
@@ -34,22 +40,22 @@ TEST_F(HeredocTest, is_quoted_squote)
 
 TEST_F(HeredocTest, extract_quote)
 {
-	ASSERT_STREQ(extract_quote("test"), "test");
+	assert_streq_wrap(extract_quote("test"), "test");
 }
 
 
 TEST_F(HeredocTest, extract_quote_dquote)
 {
-	ASSERT_STREQ(extract_quote("\"test\""), "test");
+	assert_streq_wrap(extract_quote("\"test\""), "test");
 }
 
 TEST_F(HeredocTest, extract_quote_squote)
 {
-	ASSERT_STREQ(extract_quote("\'test\'"), "test");
+	assert_streq_wrap(extract_quote("\'test\'"), "test");
 }
 
 TEST_F(HeredocTest, extract_quote_squote2)
 {
-	ASSERT_STREQ(extract_quote("\'\'test"), "test");
+	assert_streq_wrap(extract_quote("\'\'test"), "test");
 }
 

@@ -22,7 +22,7 @@ protected:
 };
 
 // actualをfreeするためのラッパー関数。actualとexpectは逆だけど仕方なし。
-void	assert_streq_wrap(char *actual, char *expect)
+static void	assert_streq_wrap(char *actual, char *expect)
 {
 	ASSERT_STREQ(actual, expect);
 	free(actual);
