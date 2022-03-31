@@ -58,7 +58,7 @@ re: fclean all
 .PHONY: all fclean clean re
 
 .PHONY: test
-test: utest itest
+test: ultest itest
 
 .PHONY: ltest
 ltest: ultest iltest
