@@ -16,11 +16,15 @@ static char	*replace_variable(char *before, int start, char *key)
 {
 	char	*after;
 	char	*last;
+	char	*head;
+	char	*tail;
 
 	before[start] = '\0';
+	head = before;
 	last = before + start + 1 + ft_strlen(key);
-	after = ft_xstrjoin(before, ft_xstrjoin(get_env(key), last));
-	free(key);
+	tail = ft_xstrjoin(get_env(key), last);
+	after = ft_xstrjoin(head, tail);
+	free(tail);
 	free(before);
 	return (after);
 }
@@ -74,6 +78,7 @@ char	*expand(char *word)
 			if (key != NULL)
 			{
 				word = replace_variable(word, i, key);
+				free(key);
 				continue ;
 			}
 		}

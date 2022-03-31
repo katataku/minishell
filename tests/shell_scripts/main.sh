@@ -231,7 +231,7 @@ bash -c env | grep FT'
 TEST_NAME=unset_single_command.txt
 INPUT_CMDS='unset HOME
 env | grep HOME='
-EXPECTED_EXIT_STATUS=0
+EXPECTED_EXIT_STATUS=1
 do_test
 
 # unset
@@ -239,14 +239,14 @@ TEST_NAME=unset_multi_commands.txt
 INPUT_CMDS='unset HOME USER
 env | grep HOME=
 env | grep USER='
-EXPECTED_EXIT_STATUS=0
+EXPECTED_EXIT_STATUS=1
 do_test
 
 # unset PATHしてgetfullpath
 TEST_NAME=unset_path.txt
 INPUT_CMDS='unset PATH
 ls'
-EXPECTED_EXIT_STATUS=0
+EXPECTED_EXIT_STATUS=127
 do_test
 
 TEST_NAME=expansion.txt
