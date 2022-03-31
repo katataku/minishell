@@ -26,7 +26,7 @@ PARSER_SRCS = $(addprefix srcs/parser/, \
 		parser.c \
 		)
 UTILS_SRCS = $(addprefix srcs/utils/, \
-		error.c \
+		error.c util.c \
 		)
 SRCS = main.c $(XSYSCALL_SRCS) $(XLIBFT_SRCS) $(BUILTIN_SRCS) $(ENV_SRCS) $(EXECUTER_SRCS) $(EXPANSION_SRCS) $(LEXER_SRCS) $(PARSER_SRCS) $(UTILS_SRCS)
 OBJS = $(SRCS:%.c=%.o)

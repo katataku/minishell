@@ -15,8 +15,10 @@
 
 # include "define.h"
 # include "libft.h"
+# include "xlibft.h"
 
 void	puterr(char *target, char *message);
 void	puterr_exit(char *target, char *message, int exit_status);
+char	*triple_join(char *s1, char *s2, char *s3);
 
 #endif
