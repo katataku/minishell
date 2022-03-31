@@ -26,8 +26,6 @@ protected:
 	void TearDown() {
 		unlink("actual");
 		unlink("expected");
-		free(exec_info->srcfile);
-		free(exec_info->dstfile);
 		free_exec_info(exec_info);
 	}
 	void to_exec_info_cmd(std::string cmds[], int size);
