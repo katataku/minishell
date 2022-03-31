@@ -60,7 +60,7 @@ char	*extract_quote(char *str)
 	char	*extracted_str;
 	char	*current_str;
 
-	extracted_str = (char *)ft_xcalloc(ft_strlen(str), sizeof(char));
+	extracted_str = (char *)ft_xcalloc(ft_strlen(str) + 1, sizeof(char));
 	current_str = extracted_str;
 	while (*str != '\0')
 	{

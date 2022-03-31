@@ -36,9 +36,13 @@ char	*get_fullpath_find_from_command(char **path, char *file_name)
 	{
 		fullpath = ft_xstrjoin(path[index], file_name_with_slash);
 		if (access(fullpath, X_OK) == 0)
+		{
+			free(file_name_with_slash);
 			return (fullpath);
+		}
 		if (found_filepath == NULL && access(fullpath, F_OK) == 0)
 			found_filepath = ft_xstrdup(fullpath);
+		free(fullpath);
 		index++;
 	}
 	if (found_filepath != NULL)

@@ -26,6 +26,7 @@ int	builtin_export(char **argv)
 	char	*key;
 	char	*value;
 	int		return_status;
+	char	*message;
 
 	return_status = STATUS_SUCCESS;
 	while (*(++argv) != NULL)
@@ -38,12 +39,15 @@ int	builtin_export(char **argv)
 			{
 				*value = '\0';
 				set_env(key, ++value);
+				free(key);
 			}
 			continue ;
 		}
 		return_status = STATUS_FAILURE;
-		puterr("export", ft_xstrjoin("`",
-				ft_xstrjoin(*argv, "': not a valid identifier")));
+		message = triple_join("`", *argv, "': not a valid identifier");
+		puterr("export", message);
+		free(message);
+		free(key);
 	}
 	return (return_status);
 }

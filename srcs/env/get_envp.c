@@ -15,10 +15,11 @@
 char	*keyvalue_to_string(t_keyvalue *content)
 {
 	char	*str;
+	char	*tmp;
 
-	str = content->key;
-	str = ft_xstrjoin(str, "=");
-	str = ft_xstrjoin(str, content->value);
+	tmp = ft_xstrjoin(content->key, "=");
+	str = ft_xstrjoin(tmp, content->value);
+	free(tmp);
 	return (str);
 }
 

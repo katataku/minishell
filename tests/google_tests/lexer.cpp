@@ -34,6 +34,7 @@ void	LexerTest::lexer_test(char *input, int token_len, int *expected_token, char
 			ASSERT_STREQ(token->word[i], expected_word[i]);
 		}
 		ASSERT_EQ(g_last_exit_status, 0);
+		free_lexer_token(token);
 	}
 }
 

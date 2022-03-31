@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/04 17:02:57 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/04 17:02:57 by ahayashi         ###   ########.jp       */
+/*   Created: 2022/03/31 15:47:01 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/03/31 15:47:01 by ahayashi         ###   ########.jp       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "utils.h"
 
-# include "define.h"
-# include "libft.h"
-# include "xlibft.h"
+char	*triple_join(char *s1, char *s2, char *s3)
+{
+	char	*rtv;
+	char	*tmp;
 
-void	puterr(char *target, char *message);
-void	puterr_exit(char *target, char *message, int exit_status);
-char	*triple_join(char *s1, char *s2, char *s3);
-
-#endif
+	tmp = ft_xstrjoin(s1, s2);
+	rtv = ft_xstrjoin(tmp, s3);
+	free(tmp);
+	return (rtv);
+}
