@@ -11,12 +11,17 @@ protected:
 	static void TearDownTestCase() {}
 	t_exec_info *actual_exec_info;
 	t_exec_info *expect_exec_info;
+	t_token *token;
 
 	void SetUp() {
 		g_last_exit_status = 0;
 		expect_exec_info = (t_exec_info *)calloc(1, sizeof(t_exec_info));
 	}
-	void TearDown() {}
+	void TearDown() {
+		free_exec_info(actual_exec_info);
+		free_exec_info(expect_exec_info);
+		free(token);
+	}
 
 	t_token *makeToken(int * token_lst, char** word_lst);
 	void to_exec_info_cmd(std::string cmds[], int size);
@@ -94,7 +99,7 @@ TEST_F(ParserTest, word_1)
 
 	int tokenlst[] = {T_WORD, NULL};
 	char *wordlst[] = {"/bin/cat", NULL};
-	t_token *token = makeToken(tokenlst, wordlst);
+	token = makeToken(tokenlst, wordlst);
 	actual_exec_info = parser(token);
 	parser_test();
 }
@@ -113,7 +118,7 @@ TEST_F(ParserTest, word_2)
 
 	int tokenlst[] = {T_WORD, T_WORD, NULL};
 	char *wordlst[] = {"/bin/ls", "-la", NULL};
-	t_token *token = makeToken(tokenlst, wordlst);
+	token = makeToken(tokenlst, wordlst);
 	actual_exec_info = parser(token);
 	parser_test();
 }
@@ -132,7 +137,7 @@ TEST_F(ParserTest, word_3)
 
 	int tokenlst[] = {T_WORD, T_WORD, T_WORD, NULL};
 	char *wordlst[] = {"/bin/ls", "-l", "-a", NULL};
-	t_token *token = makeToken(tokenlst, wordlst);
+	token = makeToken(tokenlst, wordlst);
 	actual_exec_info = parser(token);
 	parser_test();
 }
@@ -146,13 +151,13 @@ TEST_F(ParserTest, srcfile_1)
 	};
 	to_exec_info_cmd(cmds, 1);
 	expect_exec_info->cmd_num = 1;
-	expect_exec_info->srcfile = "infile";
+	expect_exec_info->srcfile = strdup("infile");
 	expect_exec_info->dstfile = NULL;
 	expect_exec_info->o_flag = O_WRONLY | O_CREAT;
 
 	int tokenlst[] = {T_WORD, T_LT, T_WORD, NULL};
 	char *wordlst[] = {"/bin/cat", NULL, "infile", NULL};
-	t_token *token = makeToken(tokenlst, wordlst);
+	token = makeToken(tokenlst, wordlst);
 	actual_exec_info = parser(token);
 	parser_test();
 }
@@ -166,12 +171,12 @@ TEST_F(ParserTest, dstfile_1)
 	to_exec_info_cmd(cmds, 1);
 	expect_exec_info->cmd_num = 1;
 	expect_exec_info->srcfile = NULL;
-	expect_exec_info->dstfile = "outfile";
+	expect_exec_info->dstfile = strdup("outfile");
 	expect_exec_info->o_flag = O_WRONLY | O_CREAT;
 
 	int tokenlst[] = {T_WORD, T_GT, T_WORD, NULL};
 	char *wordlst[] = {"/bin/cat", NULL, "outfile", NULL};
-	t_token *token = makeToken(tokenlst, wordlst);
+	token = makeToken(tokenlst, wordlst);
 	actual_exec_info = parser(token);
 	parser_test();
 }
@@ -185,12 +190,12 @@ TEST_F(ParserTest, dstfile_2)
 	to_exec_info_cmd(cmds, 1);
 	expect_exec_info->cmd_num = 1;
 	expect_exec_info->srcfile = NULL;
-	expect_exec_info->dstfile = "outfile";
+	expect_exec_info->dstfile = strdup("outfile");
 	expect_exec_info->o_flag = O_WRONLY | O_CREAT | O_APPEND;
 
 	int tokenlst[] = {T_WORD, T_GTGT, T_WORD, NULL};
 	char *wordlst[] = {"/bin/cat", NULL, "outfile", NULL};
-	t_token *token = makeToken(tokenlst, wordlst);
+	token = makeToken(tokenlst, wordlst);
 	actual_exec_info = parser(token);
 	parser_test();
 }
@@ -210,7 +215,7 @@ TEST_F(ParserTest, pipe_1)
 
 	int tokenlst[] = {T_WORD, T_BAR, T_WORD, NULL};
 	char *wordlst[] = {"/bin/ls", NULL, "/bin/cat", NULL};
-	t_token *token = makeToken(tokenlst, wordlst);
+	token = makeToken(tokenlst, wordlst);
 	actual_exec_info = parser(token);
 	parser_test();
 }
