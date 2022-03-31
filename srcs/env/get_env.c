@@ -26,7 +26,7 @@ char	*get_env(char *key)
 	{
 		content = cur_env->content;
 		if (content->key != NULL && ft_strcmp(content->key, key) == 0)
-			return (content->value);
+			return (ft_xstrdup(content->value));
 		cur_env = cur_env->next;
 	}
 	return (NULL);

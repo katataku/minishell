@@ -18,12 +18,15 @@ static char	*replace_variable(char *before, int start, char *key)
 	char	*last;
 	char	*head;
 	char	*tail;
+	char	*env_value;
 
 	before[start] = '\0';
 	head = before;
 	last = before + start + 1 + ft_strlen(key);
-	tail = ft_xstrjoin(get_env(key), last);
+	env_value = get_env(key);
+	tail = ft_xstrjoin(env_value, last);
 	after = ft_xstrjoin(head, tail);
+	free(env_value);
 	free(tail);
 	free(before);
 	return (after);
