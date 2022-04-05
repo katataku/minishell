@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:20:52 by takkatao          #+#    #+#             */
-/*   Updated: 2022/03/07 11:57:39 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/04/05 17:11:03 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	builtin_export(char **argv)
 			{
 				*value = '\0';
 				set_env(key, ++value);
-				free(key);
 			}
+			free(key);
 			continue ;
 		}
 		return_status = STATUS_FAILURE;

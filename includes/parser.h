@@ -2,6 +2,7 @@
 # define PARSER_H
 
 # include "define.h"
+# include "utils.h"
 # include "xlibft.h"
 # include <sys/types.h>
 # include <sys/stat.h>
