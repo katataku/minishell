@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/20 10:35:45 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:47:35 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,12 @@ int	main(int argc, char **argv, char **env)
 		if (token != NULL)
 		{
 			info = parser(token);
-			g_last_exit_status = execute(info);
-			free_lexer_token(token);
-			free_exec_info(info);
+			if (info != NULL)
+			{
+				g_last_exit_status = execute(info);
+				free_lexer_token(token);
+				free_exec_info(info);
+			}
 		}
 		add_history(line);
 		free(line);

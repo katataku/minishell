@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/10 12:24:31 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:25:25 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_exec_info
 	char	*heredoc_word;
 	char	*dstfile;
 	int		o_flag;
+	bool	is_syntaxerror;
 }	t_exec_info;
 
 typedef struct s_lexer_manager

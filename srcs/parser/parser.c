@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/05 17:38:46 by ahayashi          #+#    #+#             */
+/*   Updated: 2022/04/05 17:47:50 by ahayashi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "parser.h"
 
 int	count_lst(int	*lst)
@@ -93,7 +105,12 @@ t_exec_info	*parser(t_token *token)
 		if (token->token[ti] == T_LTLT)
 		{
 			exec_info->srcfile = NULL;
-			exec_info->heredoc_word = ft_xstrdup(token->word[++ti]);
+			if (token->word[++ti] == NULL)
+			{
+				exec_info->is_syntaxerror = true;
+				break ;
+			}
+			exec_info->heredoc_word = ft_strdup(token->word[ti]);
 		}
 		if (token->token[ti] == T_GTGT)
 			exec_info->o_flag |= O_APPEND;
@@ -104,6 +121,13 @@ t_exec_info	*parser(t_token *token)
 			ci++;
 			wi = 0;
 		}
+	}
+	if (exec_info->is_syntaxerror == true)
+	{
+		g_last_exit_status = STATUS_MISUSE_BUILTIN;
+		puterr("minishell", "syntax error");
+		free_exec_info(exec_info);
+		return (NULL);
 	}
 	return (exec_info);
 }
