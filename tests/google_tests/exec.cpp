@@ -138,6 +138,26 @@ TEST_F(ExecTest, single_builtin)
 	do_execute(cmds, 1);
 }
 
+TEST_F(ExecTest, path_is_directory)
+{
+	std::string cmds[] = {
+			"tmpdir/"
+	};
+	system("mkdir tmpdir");
+	do_execute(cmds, 1);
+	system("rm -rf tmpdir");
+}
+
+TEST_F(ExecTest, command_is_directory)
+{
+	std::string cmds[] = {
+			"tmpdir"
+	};
+	system("mkdir /usr/local/bin/tmpdir");
+	do_execute(cmds, 1);
+	system("rm -rf /usr/local/bin/tmpdir");
+}
+
 // TEST_F(ExecTest, builtin_with_pipe)
 // {
 // 	std::string cmds[] = {
