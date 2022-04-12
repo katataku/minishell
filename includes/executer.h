@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:10:04 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/15 15:57:25 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/12 14:26:10 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <sys/errno.h>
+# include <sys/stat.h>
 # include <string.h>
 # include <readline/readline.h>
 # include <readline/history.h>

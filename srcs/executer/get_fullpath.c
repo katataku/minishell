@@ -3,17 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   get_fullpath.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 12:29:18 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/21 08:42:58 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/12 14:42:31 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
+bool	is_directory(char *path)
+{
+	struct stat	path_stat;
+
+	stat(path, &path_stat);
+	return (S_ISDIR(path_stat.st_mode));
+}
+
 char	*get_fullpath_find_from_path(char	*filepath)
 {
+	if (is_directory(filepath))
+		puterr_exit(filepath, strerror(EISDIR), STATUS_CAN_NOT_EXECUTE);
 	if (access(filepath, X_OK) == 0)
 		return (filepath);
 	if (access(filepath, F_OK) == 0)
@@ -35,13 +45,16 @@ char	*get_fullpath_find_from_command(char **path, char *file_name)
 	while (path != NULL && path[index] != NULL)
 	{
 		fullpath = ft_xstrjoin(path[index], file_name_with_slash);
-		if (access(fullpath, X_OK) == 0)
+		if (!is_directory(fullpath))
 		{
-			free(file_name_with_slash);
-			return (fullpath);
+			if (access(fullpath, X_OK) == 0)
+			{
+				free(file_name_with_slash);
+				return (fullpath);
+			}
+			if (found_filepath == NULL && access(fullpath, F_OK) == 0)
+				found_filepath = ft_xstrdup(fullpath);
 		}
-		if (found_filepath == NULL && access(fullpath, F_OK) == 0)
-			found_filepath = ft_xstrdup(fullpath);
 		free(fullpath);
 		index++;
 	}
