@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/05 17:47:35 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:16:10 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		set_signal();
-		line = readline("> ");
+		line = readline("minishell> ");
 		if (line == NULL)
 			break ;
 		if (*line == '\0')
