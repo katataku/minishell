@@ -1,5 +1,5 @@
-> < ./tests/shell_scripts/infile.txt << EOF cat
+minishell> < ./tests/shell_scripts/infile.txt << EOF cat
 > abc
 > EOF
 abc
-> exit
+minishell> exit

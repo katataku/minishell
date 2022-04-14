@@ -6,18 +6,18 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 12:29:18 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/12 14:42:31 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/14 14:38:14 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
+// This returns true if stat is success and path is a directory.
 bool	is_directory(char *path)
 {
 	struct stat	path_stat;
 
-	stat(path, &path_stat);
-	return (S_ISDIR(path_stat.st_mode));
+	return (stat(path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode));
 }
 
 char	*get_fullpath_find_from_path(char	*filepath)

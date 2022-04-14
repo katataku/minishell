@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/05 17:47:35 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:24:37 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		set_signal();
-		line = readline("> ");
+		line = readline("minishell> ");
 		if (line == NULL)
 			break ;
 		if (*line == '\0')
@@ -60,9 +60,9 @@ int	main(int argc, char **argv, char **env)
 			if (info != NULL)
 			{
 				g_last_exit_status = execute(info);
-				free_lexer_token(token);
 				free_exec_info(info);
 			}
+			free_lexer_token(token);
 		}
 		add_history(line);
 		free(line);

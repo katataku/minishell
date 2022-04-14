@@ -1,4 +1,4 @@
-> export HOGE=USER
-> unset ${HOGE}
-> env | grep USER=
-> exit
+minishell> export HOGE=USER
+minishell> unset ${HOGE}
+minishell> env | grep USER=
+minishell> exit

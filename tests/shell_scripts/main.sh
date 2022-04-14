@@ -43,6 +43,28 @@ function do_test() {
 	fi
 }
 
+# input, test_name
+function do_exit_status_test() {
+	IS_OK=1
+	echo "${INPUT_CMDS}" | ./minishell > "${ACTUAL_PATH}${TEST_NAME}" 2>&1
+
+	if [ $? -eq "${EXPECTED_EXIT_STATUS}" ] ;then
+	  echo -n "[${TEST_NAME}] status: "
+		printf "OK, "
+	else
+	  echo -n "[${TEST_NAME}] status: "
+		printf "${RED}NG${NC}, "
+		IS_OK=0
+	fi
+
+	if [ $IS_OK -eq 1 ] ; then
+		printf " ${GREEN}[✓]${NC}\n"
+	else
+		printf " ${RED}[-]${NC}\n"
+		echo `diff "${ACTUAL_PATH}${TEST_NAME}" "${EXPECTED_PATH}${TEST_NAME}"`
+	fi
+}
+
 # 単一コマンド＆パス解決なし
 TEST_NAME=0001.txt
 INPUT_CMDS="/bin/echo hello"
@@ -105,12 +127,12 @@ do_test
 
 # builtin env関数
 TEST_NAME=builtin_env.txt
-echo "> env" > ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> env" > ${EXPECTED_PATH}/${TEST_NAME}
 env | grep -v "_=">> ${EXPECTED_PATH}/${TEST_NAME}
 echo _=./minishell >> ${EXPECTED_PATH}/${TEST_NAME}
 echo LINES=24 >> ${EXPECTED_PATH}/${TEST_NAME}
 echo COLUMNS=80 >> ${EXPECTED_PATH}/${TEST_NAME}
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="env"
 EXPECTED_EXIT_STATUS=0
 do_test
@@ -118,8 +140,8 @@ do_test
 # builtin cd関数(相対パスの場合）
 # 終了ステータスのみを確認
 TEST_NAME=builtin_cd_relative.txt
-echo "> cd ./tests/google_tests" > ${EXPECTED_PATH}/${TEST_NAME}
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> cd ./tests/google_tests" > ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd ./tests/google_tests"
 EXPECTED_EXIT_STATUS=0
 do_test
@@ -132,9 +154,9 @@ echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd /tmp"
 
 TEST_NAME=builtin_pwd.txt
-echo "> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
 pwd >> ${EXPECTED_PATH}/${TEST_NAME}
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="pwd"
 EXPECTED_EXIT_STATUS=0
 do_test
@@ -178,13 +200,13 @@ do_test
 
 # heredoc $展開
 TEST_NAME=heredoc_extract.txt
-echo '> << EOF cat' > ${EXPECTED_PATH}/${TEST_NAME}
+echo 'minishell> << EOF cat' > ${EXPECTED_PATH}/${TEST_NAME}
 echo '> $USER' >> ${EXPECTED_PATH}/${TEST_NAME}
 echo '> EOF' >> ${EXPECTED_PATH}/${TEST_NAME}
 << EOF cat >> ${EXPECTED_PATH}/${TEST_NAME}
 $USER
 EOF
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS='<< EOF cat
 $USER
 EOF'
@@ -193,13 +215,13 @@ do_test
 
 # heredoc $展開
 TEST_NAME=heredoc_extract_with_dquote.txt
-echo '> << "EOF" cat' > ${EXPECTED_PATH}/${TEST_NAME}
+echo 'minishell> << "EOF" cat' > ${EXPECTED_PATH}/${TEST_NAME}
 echo '> $USER' >> ${EXPECTED_PATH}/${TEST_NAME}
 echo '> EOF' >> ${EXPECTED_PATH}/${TEST_NAME}
 << "EOF" cat >> ${EXPECTED_PATH}/${TEST_NAME}
 $USER
 EOF
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS='<< "EOF" cat
 $USER
 EOF'
@@ -254,3 +276,48 @@ export FT=42
 INPUT_CMDS="echo \$FT\"\$FT\"'\$FT'"
 EXPECTED_EXIT_STATUS=0
 do_test
+
+TEST_NAME=no_cmd1.txt
+INPUT_CMDS="<< HOGE"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd2.txt
+INPUT_CMDS="<<"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd3.txt
+INPUT_CMDS="<"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd4.txt
+INPUT_CMDS="|"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd5.txt
+INPUT_CMDS=">"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd6.txt
+INPUT_CMDS="<< HOGE |"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd7.txt
+INPUT_CMDS="ls |"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd8.txt
+INPUT_CMDS=">>"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd9.txt
+INPUT_CMDS="<< |"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test

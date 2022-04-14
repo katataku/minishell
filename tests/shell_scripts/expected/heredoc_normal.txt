@@ -1,5 +1,5 @@
-> << EOF cat
+minishell> << EOF cat
 > abc
 > EOF
 abc
-> exit
+minishell> exit

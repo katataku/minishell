@@ -1,4 +1,4 @@
-> unset HOME USER
-> env | grep HOME=
-> env | grep USER=
-> exit
+minishell> unset HOME USER
+minishell> env | grep HOME=
+minishell> env | grep USER=
+minishell> exit
