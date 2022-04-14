@@ -105,12 +105,12 @@ do_test
 
 # builtin env関数
 TEST_NAME=builtin_env.txt
-echo "> env" > ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> env" > ${EXPECTED_PATH}/${TEST_NAME}
 env | grep -v "_=">> ${EXPECTED_PATH}/${TEST_NAME}
 echo _=./minishell >> ${EXPECTED_PATH}/${TEST_NAME}
 echo LINES=24 >> ${EXPECTED_PATH}/${TEST_NAME}
 echo COLUMNS=80 >> ${EXPECTED_PATH}/${TEST_NAME}
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="env"
 EXPECTED_EXIT_STATUS=0
 do_test
@@ -118,8 +118,8 @@ do_test
 # builtin cd関数(相対パスの場合）
 # 終了ステータスのみを確認
 TEST_NAME=builtin_cd_relative.txt
-echo "> cd ./tests/google_tests" > ${EXPECTED_PATH}/${TEST_NAME}
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> cd ./tests/google_tests" > ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd ./tests/google_tests"
 EXPECTED_EXIT_STATUS=0
 do_test
@@ -132,9 +132,9 @@ echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="cd /tmp"
 
 TEST_NAME=builtin_pwd.txt
-echo "> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> pwd" > ${EXPECTED_PATH}/${TEST_NAME}
 pwd >> ${EXPECTED_PATH}/${TEST_NAME}
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS="pwd"
 EXPECTED_EXIT_STATUS=0
 do_test
@@ -178,13 +178,13 @@ do_test
 
 # heredoc $展開
 TEST_NAME=heredoc_extract.txt
-echo '> << EOF cat' > ${EXPECTED_PATH}/${TEST_NAME}
+echo 'minishell> << EOF cat' > ${EXPECTED_PATH}/${TEST_NAME}
 echo '> $USER' >> ${EXPECTED_PATH}/${TEST_NAME}
 echo '> EOF' >> ${EXPECTED_PATH}/${TEST_NAME}
 << EOF cat >> ${EXPECTED_PATH}/${TEST_NAME}
 $USER
 EOF
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS='<< EOF cat
 $USER
 EOF'
@@ -193,13 +193,13 @@ do_test
 
 # heredoc $展開
 TEST_NAME=heredoc_extract_with_dquote.txt
-echo '> << "EOF" cat' > ${EXPECTED_PATH}/${TEST_NAME}
+echo 'minishell> << "EOF" cat' > ${EXPECTED_PATH}/${TEST_NAME}
 echo '> $USER' >> ${EXPECTED_PATH}/${TEST_NAME}
 echo '> EOF' >> ${EXPECTED_PATH}/${TEST_NAME}
 << "EOF" cat >> ${EXPECTED_PATH}/${TEST_NAME}
 $USER
 EOF
-echo "> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
+echo "minishell> exit" >> ${EXPECTED_PATH}/${TEST_NAME}
 INPUT_CMDS='<< "EOF" cat
 $USER
 EOF'

@@ -1,4 +1,4 @@
-> exit 1 2
+minishell> exit 1 2
 exit
 exit: too many arguments
-> exit
+minishell> exit

@@ -1,2 +1,2 @@
-> echo -n Hello World !
-Hello World !> exit
+minishell> echo -n Hello World !
+Hello World !minishell> exit

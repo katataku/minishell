@@ -1,4 +1,4 @@
-> unset PATH
-> ls
+minishell> unset PATH
+minishell> ls
 ls: command not found
-> exit
+minishell> exit

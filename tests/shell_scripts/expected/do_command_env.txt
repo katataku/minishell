@@ -1,4 +1,4 @@
-> export FT=42
-> bash -c env | grep FT
+minishell> export FT=42
+minishell> bash -c env | grep FT
 FT=42
-> exit
+minishell> exit

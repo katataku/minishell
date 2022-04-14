@@ -1,5 +1,5 @@
-> << ''EOF cat
+minishell> << ''EOF cat
 > $USER
 > EOF
 $USER
-> exit
+minishell> exit

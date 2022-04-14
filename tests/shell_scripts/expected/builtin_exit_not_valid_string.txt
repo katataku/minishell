@@ -1,3 +1,3 @@
-> exit abc
+minishell> exit abc
 exit
 exit: abc: numeric argument required

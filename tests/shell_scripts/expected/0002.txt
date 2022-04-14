@@ -1,3 +1,3 @@
-> /bin/echo hello | /usr/bin/rev
+minishell> /bin/echo hello | /usr/bin/rev
 olleh
-> exit
+minishell> exit
