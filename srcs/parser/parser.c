@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 17:38:46 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/05 17:47:50 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:08:35 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ t_exec_info	*parser(t_token *token)
 	int			ti;
 	int			ci;
 	int			wi;
+	int			i;
 
 	init_parser(&exec_info, token, &ti, &ci);
 	wi = 0;
@@ -122,6 +123,10 @@ t_exec_info	*parser(t_token *token)
 			wi = 0;
 		}
 	}
+	i = 0;
+	while (i < exec_info->cmd_num)
+		if (exec_info->cmds[i++][0] == NULL)
+			exec_info->is_syntaxerror = true;
 	if (exec_info->is_syntaxerror == true)
 	{
 		g_last_exit_status = STATUS_MISUSE_BUILTIN;

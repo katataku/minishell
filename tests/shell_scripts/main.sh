@@ -43,6 +43,28 @@ function do_test() {
 	fi
 }
 
+# input, test_name
+function do_exit_status_test() {
+	IS_OK=1
+	echo "${INPUT_CMDS}" | ./minishell > "${ACTUAL_PATH}${TEST_NAME}" 2>&1
+
+	if [ $? -eq "${EXPECTED_EXIT_STATUS}" ] ;then
+	  echo -n "[${TEST_NAME}] status: "
+		printf "OK, "
+	else
+	  echo -n "[${TEST_NAME}] status: "
+		printf "${RED}NG${NC}, "
+		IS_OK=0
+	fi
+
+	if [ $IS_OK -eq 1 ] ; then
+		printf " ${GREEN}[✓]${NC}\n"
+	else
+		printf " ${RED}[-]${NC}\n"
+		echo `diff "${ACTUAL_PATH}${TEST_NAME}" "${EXPECTED_PATH}${TEST_NAME}"`
+	fi
+}
+
 # 単一コマンド＆パス解決なし
 TEST_NAME=0001.txt
 INPUT_CMDS="/bin/echo hello"
@@ -254,3 +276,48 @@ export FT=42
 INPUT_CMDS="echo \$FT\"\$FT\"'\$FT'"
 EXPECTED_EXIT_STATUS=0
 do_test
+
+TEST_NAME=no_cmd1.txt
+INPUT_CMDS="<< HOGE"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd2.txt
+INPUT_CMDS="<<"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd3.txt
+INPUT_CMDS="<"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd4.txt
+INPUT_CMDS="|"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd5.txt
+INPUT_CMDS=">"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd6.txt
+INPUT_CMDS="<< HOGE |"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd7.txt
+INPUT_CMDS="ls |"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd8.txt
+INPUT_CMDS=">>"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
+
+TEST_NAME=no_cmd9.txt
+INPUT_CMDS="<< |"
+EXPECTED_EXIT_STATUS=2
+do_exit_status_test
