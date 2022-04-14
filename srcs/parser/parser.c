@@ -6,7 +6,7 @@
 /*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 17:38:46 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/14 16:08:35 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:19:55 by ahayashi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ t_exec_info	*parser(t_token *token)
 		if (token->token[ti] == T_LT)
 		{
 			exec_info->heredoc_word = NULL;
-			exec_info->srcfile = ft_xstrdup(token->word[++ti]);
+			if (token->word[++ti] != NULL)
+				exec_info->srcfile = ft_xstrdup(token->word[ti]);
+			else
+				exec_info->is_syntaxerror = true;
 		}
 		if (token->token[ti] == T_LTLT)
 		{
@@ -116,7 +119,12 @@ t_exec_info	*parser(t_token *token)
 		if (token->token[ti] == T_GTGT)
 			exec_info->o_flag |= O_APPEND;
 		if (token->token[ti] == T_GT || token->token[ti] == T_GTGT)
-			exec_info->dstfile = ft_xstrdup(token->word[++ti]);
+		{
+			if (token->word[++ti] != NULL)
+				exec_info->dstfile = ft_xstrdup(token->word[ti]);
+			else
+				exec_info->is_syntaxerror = true;
+		}
 		if (token->token[ti] == T_BAR)
 		{
 			ci++;
