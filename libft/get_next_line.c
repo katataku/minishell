@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp      +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 13:47:02 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/01/31 21:24:17 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/04/19 14:25:32 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	return_with_free(int rtv, char *ptr)
 int	get_next_line(int fd, char **line)
 {
 	static t_fd_info	fd_info;
-	char				c;
+	int					c;
 	size_t				i;
 	size_t				size;
 
