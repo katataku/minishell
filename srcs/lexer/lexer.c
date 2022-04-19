@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 12:30:12 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/17 06:20:12 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/19 15:56:16 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ t_token	*lexer(char *str)
 	mgr->word_index = 0;
 	while (*str != '\0')
 	{
-		while (*str == ' ')
+		while (*str == ' ' && mgr->state == NEUTRAL)
 			str++;
 		if (*str == '\0')
 			break ;
