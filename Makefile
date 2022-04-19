@@ -74,3 +74,9 @@ ultest:
 .PHONY: itest
 itest: $(NAME)
 	bash ./tests/shell_scripts/main.sh
+
+val_build:
+	docker build -t minishell_valgrind .
+
+val:
+	docker run -it -v $(PWD):/app minishell_valgrind
