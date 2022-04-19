@@ -75,8 +75,10 @@ ultest:
 itest: $(NAME)
 	bash ./tests/shell_scripts/main.sh
 
+.PHONY: val_build
 val_build:
 	docker build -t minishell_valgrind .
 
+.PHONY: val
 val:
-	docker run -it -v $(PWD):/app minishell_valgrind
+	docker run -it --rm -v $(PWD):/app minishell_valgrind

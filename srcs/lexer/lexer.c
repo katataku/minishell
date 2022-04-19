@@ -6,13 +6,11 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 12:30:12 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/17 06:20:12 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/19 16:03:33 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
-
-int	g_last_exit_status;
 
 void	tokenize_special_char(t_lexer_manager *mgr, char *str)
 {
@@ -114,7 +112,7 @@ t_token	*lexer(char *str)
 	mgr->word_index = 0;
 	while (*str != '\0')
 	{
-		while (*str == ' ')
+		while (*str == ' ' && mgr->state == NEUTRAL)
 			str++;
 		if (*str == '\0')
 			break ;
