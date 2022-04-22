@@ -18,4 +18,7 @@ RUN (cd /usr/src/googletest && cmake . && cmake --build . --target install)
 
 RUN pip install norminette==3.3.2
 
+# MacとLinuxでgrepのいる場所が違っているために統合テストが失敗してしまう
+RUN cp /bin/grep /usr/bin/grep
+
 CMD /bin/bash
