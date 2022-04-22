@@ -112,7 +112,7 @@ t_token	*lexer(char *str)
 	mgr->word_index = 0;
 	while (*str != '\0')
 	{
-		while (*str == ' ' && mgr->state == NEUTRAL)
+		while ((*str == ' ' || *str == '\t') && mgr->state == NEUTRAL)
 			str++;
 		if (*str == '\0')
 			break ;
@@ -121,7 +121,7 @@ t_token	*lexer(char *str)
 		else
 			str += lexer_not_neutral(mgr, str);
 	}
-	if (mgr->is_misuse_builtin)
+	if (mgr->is_misuse_builtin || mgr->state != NEUTRAL)
 	{
 		g_last_exit_status = STATUS_MISUSE_BUILTIN;
 		puterr("minishell", "syntax error");
