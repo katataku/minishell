@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:20:52 by takkatao          #+#    #+#             */
-/*   Updated: 2022/04/22 19:09:47 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/22 19:47:24 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	export_single(void)
 	}
 	return (STATUS_SUCCESS);
 }
+
 /*
  * usage: export
  * Mark each name to be passed to child processes in the environment.
