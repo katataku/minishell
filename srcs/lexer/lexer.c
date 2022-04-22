@@ -112,7 +112,7 @@ t_token	*lexer(char *str)
 	mgr->word_index = 0;
 	while (*str != '\0')
 	{
-		while (*str == ' ' && mgr->state == NEUTRAL)
+		while ((*str == ' ' || *str == '\t') && mgr->state == NEUTRAL)
 			str++;
 		if (*str == '\0')
 			break ;

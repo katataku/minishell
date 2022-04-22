@@ -14,7 +14,7 @@
 
 bool	is_special_char(char c)
 {
-	return (c == ' ' || c == '\0' || c == '|'
+	return (c == ' ' || c == '\t' || c == '\0' || c == '|'
 		|| c == '>' || c == '<' );
 }
 
