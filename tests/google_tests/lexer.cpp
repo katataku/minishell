@@ -388,3 +388,33 @@ TEST_F(LexerTest, not_close_cbracket)
 
 	lexer_test(input, token_len, expected_token, expected_word);
 }
+
+TEST_F(LexerTest, not_close_sq_edge_case)
+{
+	char *input = "echo '";
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
+
+	lexer_test(input, token_len, expected_token, expected_word);
+}
+
+TEST_F(LexerTest, not_close_dq_edge_case)
+{
+	char *input = "echo \"";
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
+
+	lexer_test(input, token_len, expected_token, expected_word);
+}
+
+TEST_F(LexerTest, not_close_bq_edge_case)
+{
+	char *input = "echo `";
+	int token_len = -1;
+	int *expected_token = NULL;
+	char **expected_word = NULL;
+
+	lexer_test(input, token_len, expected_token, expected_word);
+}
