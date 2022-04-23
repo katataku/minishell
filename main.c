@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/19 16:04:53 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 07:48:10 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ int	main(int argc, char **argv, char **env)
 			break ;
 		if (*line == '\0')
 		{
+			free(line);
+			continue ;
+		}
+		if (ft_strlen(line) >= MAX_WORD_SIZE)
+		{
+			if (ft_putendl_fd("line too long", STDERR_FILENO) == -1)
+				return (EXIT_FAILURE);
+			add_history(line);
 			free(line);
 			continue ;
 		}

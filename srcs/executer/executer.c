@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/12 14:49:20 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/23 07:12:59 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,30 @@ void	set_signal_child(void)
 
 int	execute(t_exec_info *exec_info)
 {
-	int	pid;
+	int	*pid;
 	int	pipes[2][2];
 	int	i;
 	int	status;
 
 	expand_cmd(exec_info);
-	i = 0;
 	if (exec_info->cmd_num == 1 && is_builtin(exec_info->cmds[0][0]))
 		return (execute_single_builtin(exec_info));
+	pid = (int *)ft_xcalloc(exec_info->cmd_num, sizeof(int));
+	i = 0;
 	while (i < exec_info->cmd_num)
 	{
 		if (i != exec_info->cmd_num - 1)
 			xpipe(pipes[i % 2]);
-		pid = xfork();
-		if (pid == 0)
+		pid[i] = xfork();
+		if (pid[i] == 0)
 			exec_child(exec_info, i, pipes);
-		else
-			set_signal_child();
+		set_signal_child();
 		close_pipes(exec_info, i, pipes);
 		i++;
 	}
-	xwaitpid(pid, &status, 0);
+	i = -1;
+	while (++i < exec_info->cmd_num)
+		xwaitpid(pid[i], &status, 0);
+	free(pid);
 	return (WEXITSTATUS(status));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/05 17:25:25 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/23 13:55:44 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define STATUS_MISUSE_BUILTIN 2
 # define STATUS_CAN_NOT_EXECUTE 126
 # define STATUS_COMMAND_NOT_FOUND 127
+
+# define MAX_WORD_SIZE 4096
 
 extern int	g_last_exit_status;
 
@@ -59,7 +61,7 @@ typedef struct s_lexer_manager
 	t_token		*token;
 	int			token_index;
 	int			word_index;
-	char		word[4097];
+	char		word[MAX_WORD_SIZE];
 	int			state;
 	bool		is_misuse_builtin;
 }	t_lexer_manager;
