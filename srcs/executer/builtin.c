@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/24 17:08:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/03/07 11:54:44 by ahayashi         ###   ########.jp       */
+/*   Updated: 2022/04/23 19:29:16 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ int	execute_single_builtin(t_exec_info	*info)
 	save_stdin = STDIN_FILENO;
 	if (info->dstfile != NULL)
 	{
-		save_stdout = dup(STDOUT_FILENO);
+		save_stdout = xdup(STDOUT_FILENO);
 		tmp_fd = xopen(info->dstfile, O_RDWR | O_CREAT, 0644);
 		replace_fd(tmp_fd, STDOUT_FILENO);
 	}
 	if (info->srcfile != NULL)
 	{
-		save_stdout = dup(STDIN_FILENO);
+		save_stdout = xdup(STDIN_FILENO);
 		tmp_fd = xopen(info->srcfile, O_RDONLY, 0);
 		replace_fd(tmp_fd, STDIN_FILENO);
 	}

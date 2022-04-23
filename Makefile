@@ -2,7 +2,7 @@ NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 XSYSCALL_SRCS = $(addprefix srcs/xsyscall/, \
-		xclose.c xfork.c xopen.c xpipe.c xwaitpid.c xdup2.c \
+		xclose.c xfork.c xopen.c xpipe.c xwaitpid.c xdup.c xdup2.c \
 		)
 XLIBFT_SRCS = $(addprefix srcs/xlibft/, \
 		ft_xcalloc.c ft_xlstnew.c ft_xsplit.c ft_xstrdup.c ft_xstrjoin.c \
@@ -14,7 +14,7 @@ BUILTIN_SRCS = $(addprefix srcs/builtin/, \
 		cd.c echo.c env.c exit.c export.c pwd.c unset.c \
 		)
 EXECUTER_SRCS = $(addprefix srcs/executer/, \
-		builtin.c executer.c fd_getter.c get_fullpath.c heredoc.c signal.c \
+		builtin.c exec_child.c executer.c fd_getter.c get_fullpath.c heredoc.c signal.c \
 		)
 EXPANSION_SRCS = $(addprefix srcs/expansion/, \
 		expansion.c \
