@@ -56,7 +56,7 @@ clean:
 re: fclean all
 
 .PHONY: all fclean clean re
-
+# DELETE #
 .PHONY: test
 test: utest itest
 
@@ -82,3 +82,7 @@ val_build:
 .PHONY: val
 val:
 	docker run -it --rm -v $(PWD):/app minishell_valgrind
+
+.PHONY: submit
+submit:
+	bash tools/submit.sh

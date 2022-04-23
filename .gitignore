@@ -2,6 +2,7 @@ minishell
 .DS_Store
 **/build/*
 **/actual/*
+submit/
 !.gitkeep
 .idea/*
 **/.idea/**/workspace.xml
