@@ -3,62 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 17:38:46 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/14 16:19:55 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/23 17:32:46 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-int	count_lst(int	*lst)
-{
-	int	count;
-
-	count = 0;
-	while (lst[count] != 0)
-		count++;
-	return (count);
-}
-
-int	count_cmd_num(int	*lst)
-{
-	int	i;
-	int	count;
-
-	count = 1;
-	i = 0;
-	while (lst[i] != 0)
-	{
-		if (lst[i] == T_BAR)
-			count++;
-		i++;
-	}
-	return (count);
-}
-
-/*
-* 初期化処理
-* メモリ確保は多めに取っている。
-* コマンドをNULL終端にするためにword_cntに + 1している。
-*/
-void	init_parser(t_exec_info **e, t_token *t, int *i, int *j)
-{
-	int	index;
-	int	word_cnt;
-
-	word_cnt = count_lst(t->token) + 1;
-	*e = (t_exec_info *)ft_xcalloc(1, sizeof(t_exec_info));
-	(*e)->cmd_num = count_cmd_num(t->token);
-	(*e)->o_flag = O_WRONLY | O_CREAT;
-	(*e)->cmds = (char ***)ft_xcalloc((*e)->cmd_num, sizeof(char **));
-	index = 0;
-	while (index < (*e)->cmd_num)
-		(*e)->cmds[index++] = (char **)ft_xcalloc(word_cnt, sizeof(char *));
-	*i = -1;
-	*j = 0;
-}
 
 void	free_exec_info(t_exec_info *exec_info)
 {
@@ -84,6 +36,41 @@ void	free_exec_info(t_exec_info *exec_info)
 	free(exec_info);
 }
 
+t_exec_info	*syntaxerror(t_exec_info	*exec_info)
+{
+	g_last_exit_status = STATUS_MISUSE_BUILTIN;
+	puterr("minishell", "syntax error");
+	free_exec_info(exec_info);
+	return (NULL);
+}
+
+t_exec_info	*parser_legt(t_exec_info *exec_info, t_token *token, int *ti)
+{
+	if (token->token[*ti] == T_LT)
+	{
+		exec_info->heredoc_word = NULL;
+		if (token->word[++(*ti)] == NULL)
+			return (syntaxerror(exec_info));
+		exec_info->srcfile = ft_xstrdup(token->word[*ti]);
+	}
+	if (token->token[*ti] == T_LTLT)
+	{
+		exec_info->srcfile = NULL;
+		if (token->word[++(*ti)] == NULL)
+			return (syntaxerror(exec_info));
+		exec_info->heredoc_word = ft_xstrdup(token->word[*ti]);
+	}
+	if (token->token[*ti] == T_GTGT)
+		exec_info->o_flag |= O_APPEND;
+	if (token->token[*ti] == T_GT || token->token[*ti] == T_GTGT)
+	{
+		if (token->word[++(*ti)] == NULL)
+			return (syntaxerror(exec_info));
+		exec_info->dstfile = ft_xstrdup(token->word[*ti]);
+	}
+	return (exec_info);
+}
+
 t_exec_info	*parser(t_token *token)
 {
 	t_exec_info	*exec_info;
@@ -98,49 +85,17 @@ t_exec_info	*parser(t_token *token)
 	{
 		if (token->token[ti] == T_WORD)
 			exec_info->cmds[ci][wi++] = ft_xstrdup(token->word[ti]);
-		if (token->token[ti] == T_LT)
-		{
-			exec_info->heredoc_word = NULL;
-			if (token->word[++ti] != NULL)
-				exec_info->srcfile = ft_xstrdup(token->word[ti]);
-			else
-				exec_info->is_syntaxerror = true;
-		}
-		if (token->token[ti] == T_LTLT)
-		{
-			exec_info->srcfile = NULL;
-			if (token->word[++ti] == NULL)
-			{
-				exec_info->is_syntaxerror = true;
-				break ;
-			}
-			exec_info->heredoc_word = ft_strdup(token->word[ti]);
-		}
-		if (token->token[ti] == T_GTGT)
-			exec_info->o_flag |= O_APPEND;
-		if (token->token[ti] == T_GT || token->token[ti] == T_GTGT)
-		{
-			if (token->word[++ti] != NULL)
-				exec_info->dstfile = ft_xstrdup(token->word[ti]);
-			else
-				exec_info->is_syntaxerror = true;
-		}
 		if (token->token[ti] == T_BAR)
 		{
 			ci++;
 			wi = 0;
 		}
+		if (parser_legt(exec_info, token, &ti) == NULL)
+			return (NULL);
 	}
 	i = 0;
 	while (i < exec_info->cmd_num)
 		if (exec_info->cmds[i++][0] == NULL)
-			exec_info->is_syntaxerror = true;
-	if (exec_info->is_syntaxerror == true)
-	{
-		g_last_exit_status = STATUS_MISUSE_BUILTIN;
-		puterr("minishell", "syntax error");
-		free_exec_info(exec_info);
-		return (NULL);
-	}
+			return (syntaxerror(exec_info));
 	return (exec_info);
 }

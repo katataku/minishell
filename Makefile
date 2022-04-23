@@ -23,7 +23,7 @@ LEXER_SRCS = $(addprefix srcs/lexer/, \
 		free_lexer_token.c initialize_lexer.c lexer_postprocess.c lexer_utils.c lexer.c\
 		)
 PARSER_SRCS = $(addprefix srcs/parser/, \
-		parser.c \
+		parser.c init_parser.c\
 		)
 UTILS_SRCS = $(addprefix srcs/utils/, \
 		error.c util.c \
