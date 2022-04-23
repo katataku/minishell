@@ -50,17 +50,6 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 	do_command(info->cmds[i], get_envp(), read_fd, write_fd);
 }
 
-static void	nop_handler(int signal)
-{
-	(void)signal;
-}
-
-void	set_signal_parent(void)
-{
-	signal(SIGQUIT, nop_handler);
-	signal(SIGINT, nop_handler);
-}
-
 int	execute(t_exec_info *exec_info)
 {
 	int	*pid;
