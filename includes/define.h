@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/23 13:55:44 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 15:13:40 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define STATUS_MISUSE_BUILTIN 2
 # define STATUS_CAN_NOT_EXECUTE 126
 # define STATUS_COMMAND_NOT_FOUND 127
+# define STATUS_SIGNAL_BASE 128
 
 # define MAX_WORD_SIZE 4096
 

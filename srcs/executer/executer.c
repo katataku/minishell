@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/23 07:12:59 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 16:38:25 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
 	do_command(info->cmds[i], get_envp(), read_fd, write_fd);
 }
 
-/*
- * SIGQUITは特に何もしなくても無視されていそう
- * 子プロセス実行中は、親プロセスではSIGINTを無視する。
- */
-void	set_signal_child(void)
+static void	nop_handler(int signal)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
+	(void)signal;
+}
+
+void	set_signal_parent(void)
+{
+	signal(SIGQUIT, nop_handler);
+	signal(SIGINT, nop_handler);
 }
 
 int	execute(t_exec_info *exec_info)
@@ -72,6 +73,7 @@ int	execute(t_exec_info *exec_info)
 		return (execute_single_builtin(exec_info));
 	pid = (int *)ft_xcalloc(exec_info->cmd_num, sizeof(int));
 	i = 0;
+	set_signal_parent();
 	while (i < exec_info->cmd_num)
 	{
 		if (i != exec_info->cmd_num - 1)
@@ -79,7 +81,6 @@ int	execute(t_exec_info *exec_info)
 		pid[i] = xfork();
 		if (pid[i] == 0)
 			exec_child(exec_info, i, pipes);
-		set_signal_child();
 		close_pipes(exec_info, i, pipes);
 		i++;
 	}
@@ -87,5 +88,13 @@ int	execute(t_exec_info *exec_info)
 	while (++i < exec_info->cmd_num)
 		xwaitpid(pid[i], &status, 0);
 	free(pid);
-	return (WEXITSTATUS(status));
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGQUIT)
+			ft_putendl_fd("Quit: 3", STDOUT_FILENO);
+		return (STATUS_SIGNAL_BASE + WTERMSIG(status));
+	}
+	return (EXIT_FAILURE);
 }
