@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 12:33:34 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/23 07:46:23 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 13:55:44 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define STATUS_CAN_NOT_EXECUTE 126
 # define STATUS_COMMAND_NOT_FOUND 127
 
-# define MAX_WORD_SIZE 4097
+# define MAX_WORD_SIZE 4096
 
 extern int	g_last_exit_status;
 

@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/27 14:20:52 by takkatao          #+#    #+#             */
-/*   Updated: 2022/04/22 19:47:24 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 13:54:45 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	export_single(void)
 	while (current_env != NULL)
 	{
 		kv = current_env->content;
-		if (ft_putstr_fd("declare -x ", STDOUT_FILENO) == -1
+		if (ft_putstr_fd("export ", STDOUT_FILENO) == -1
 			|| ft_putstr_fd(kv->key, STDOUT_FILENO) == -1
 			|| ft_putstr_fd("=\"", STDOUT_FILENO) == -1
 			|| ft_putstr_fd(kv->value, STDOUT_FILENO) == -1
