@@ -6,31 +6,11 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/23 16:38:25 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:58:35 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
-
-static void	replace_fd(int old_fd, int new_fd)
-{
-	if (old_fd != new_fd)
-	{
-		xdup2(old_fd, new_fd);
-		xclose(old_fd);
-	}
-}
-
-static void	do_command(char **argv, char **env, int read_fd, int write_fd)
-{
-	replace_fd(read_fd, STDIN_FILENO);
-	replace_fd(write_fd, STDOUT_FILENO);
-	if (is_builtin(argv[0]))
-		exit (execute_builtin(argv));
-	execve(get_fullpath(argv[0]), argv, env);
-	perror("execve");
-	exit(STATUS_FAILURE);
-}
 
 static void	close_pipes(t_exec_info *info, int i, int pipes[2][2])
 {
@@ -40,14 +20,17 @@ static void	close_pipes(t_exec_info *info, int i, int pipes[2][2])
 		xclose(pipes[i % 2][WRITE_INDEX]);
 }
 
-static void	exec_child(t_exec_info *info, int i, int pipes[2][2])
+static int	return_status(int status)
 {
-	int		read_fd;
-	int		write_fd;
-
-	read_fd = get_read_fd(info, i, pipes);
-	write_fd = get_write_fd(info, i, pipes);
-	do_command(info->cmds[i], get_envp(), read_fd, write_fd);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGQUIT)
+			ft_putendl_fd("Quit: 3", STDOUT_FILENO);
+		return (STATUS_SIGNAL_BASE + WTERMSIG(status));
+	}
+	return (EXIT_FAILURE);
 }
 
 int	execute(t_exec_info *exec_info)
@@ -61,9 +44,9 @@ int	execute(t_exec_info *exec_info)
 	if (exec_info->cmd_num == 1 && is_builtin(exec_info->cmds[0][0]))
 		return (execute_single_builtin(exec_info));
 	pid = (int *)ft_xcalloc(exec_info->cmd_num, sizeof(int));
-	i = 0;
+	i = -1;
 	set_signal_parent();
-	while (i < exec_info->cmd_num)
+	while (++i < exec_info->cmd_num)
 	{
 		if (i != exec_info->cmd_num - 1)
 			xpipe(pipes[i % 2]);
@@ -71,19 +54,10 @@ int	execute(t_exec_info *exec_info)
 		if (pid[i] == 0)
 			exec_child(exec_info, i, pipes);
 		close_pipes(exec_info, i, pipes);
-		i++;
 	}
 	i = -1;
 	while (++i < exec_info->cmd_num)
 		xwaitpid(pid[i], &status, 0);
 	free(pid);
-	if (WIFEXITED(status))
-		return (WEXITSTATUS(status));
-	else if (WIFSIGNALED(status))
-	{
-		if (WTERMSIG(status) == SIGQUIT)
-			ft_putendl_fd("Quit: 3", STDOUT_FILENO);
-		return (STATUS_SIGNAL_BASE + WTERMSIG(status));
-	}
-	return (EXIT_FAILURE);
+	return (return_status(status));
 }

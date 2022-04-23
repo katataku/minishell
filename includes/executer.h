@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayashi <ahayashi@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:10:04 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/12 14:26:10 by ahayashi         ###   ########.fr       */
+/*   Updated: 2022/04/23 19:57:02 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,6 @@ int		get_read_fd(t_exec_info *info, int i, int pipes[2][2]);
 int		get_write_fd(t_exec_info *info, int i, int pipes[2][2]);
 void	set_signal_heredoc(void);
 void	set_signal_parent(void);
+void	exec_child(t_exec_info *info, int i, int pipes[2][2]);
+
 #endif
