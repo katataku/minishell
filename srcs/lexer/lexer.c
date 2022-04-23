@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 12:30:12 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/23 16:40:43 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 16:51:35 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ int	lexer_neutral(t_lexer_manager *mgr, char *str)
 	return (str - init_str);
 }
 
+static void	lexer_not_neutral_postprocess(t_lexer_manager *mgr, char *str)
+{
+	if (is_special_char(*str))
+	{
+		mgr->word[mgr->word_index] = '\0';
+		set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
+		mgr->word_index = 0;
+	}
+	mgr->state = NEUTRAL;
+}
+
 int	lexer_not_neutral(t_lexer_manager *mgr, char *str)
 {
 	char	*init_str;
@@ -71,45 +82,8 @@ int	lexer_not_neutral(t_lexer_manager *mgr, char *str)
 		mgr->is_misuse_builtin = true;
 	else
 		mgr->word[mgr->word_index++] = *str++;
-	if (is_special_char(*str))
-	{
-		mgr->word[mgr->word_index] = '\0';
-		set_token(mgr->token, mgr->token_index++, T_WORD, mgr->word);
-		mgr->word_index = 0;
-	}
-	mgr->state = NEUTRAL;
+	lexer_not_neutral_postprocess(mgr, str);
 	return (str - init_str);
-}
-
-void	free_lexer_token(t_token *token)
-{
-	int		index;
-
-	index = 0;
-	while (token->token[index] != T_NOTUSE)
-	{
-		free(token->word[index]);
-		index++;
-	}
-	free(token->token);
-	free(token->word);
-	free(token);
-}
-
-static void	lexer_postprocess(t_lexer_manager	*mgr)
-{
-	if (mgr->is_misuse_builtin || mgr->state != NEUTRAL)
-	{
-		g_last_exit_status = STATUS_MISUSE_BUILTIN;
-		puterr("minishell", "syntax error");
-		free_lexer_token(mgr->token);
-		mgr->token = NULL;
-	}
-	if (mgr->token_index == 0)
-	{
-		free_lexer_token(mgr->token);
-		mgr->token = NULL;
-	}
 }
 
 t_token	*lexer(char *str)
