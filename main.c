@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 16:09:06 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/23 07:48:10 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 14:16:27 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,9 @@ void	sigint_handler(int signal)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+	g_last_exit_status = STATUS_FAILURE;
 }
 
-/*
- * SIGQUITは特に何もしなくても無視されていそう　
- */
 void	set_signal(void)
 {
 	signal(SIGQUIT, SIG_IGN);
