@@ -37,5 +37,6 @@ bool	is_builtin(char *cmd);
 char	*get_fullpath(char *file_name);
 int		get_read_fd(t_exec_info *info, int i, int pipes[2][2]);
 int		get_write_fd(t_exec_info *info, int i, int pipes[2][2]);
-
+void	set_signal_heredoc(void);
+void	set_signal_parent(void);
 #endif

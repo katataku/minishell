@@ -12,15 +12,27 @@
 
 #include "executer.h"
 
-// This returns true if stat is success and path is a directory.
-bool	is_directory(char *path)
+/*
+ * Returns true if stat is success and path is a directory, otherwise returns
+ * false.
+ */
+static bool	is_directory(char *path)
 {
 	struct stat	path_stat;
 
 	return (stat(path, &path_stat) == 0 && S_ISDIR(path_stat.st_mode));
 }
 
-char	*get_fullpath_find_from_path(char	*filepath)
+static char	*puterr_exit_find_from_command(char *found, char *file_name)
+{
+	if (found != NULL)
+		puterr_exit(found, strerror(EACCES), STATUS_CAN_NOT_EXECUTE);
+	else
+		puterr_exit(file_name, "command not found", STATUS_COMMAND_NOT_FOUND);
+	return (NULL);
+}
+
+static char	*get_fullpath_find_from_path(char	*filepath)
 {
 	if (is_directory(filepath))
 		puterr_exit(filepath, strerror(EISDIR), STATUS_CAN_NOT_EXECUTE);
@@ -32,7 +44,7 @@ char	*get_fullpath_find_from_path(char	*filepath)
 	exit(STATUS_COMMAND_NOT_FOUND);
 }
 
-char	*get_fullpath_find_from_command(char **path, char *file_name)
+static char	*get_fullpath_find_from_command(char **path, char *file_name)
 {
 	int		index;
 	char	*fullpath;
@@ -58,11 +70,7 @@ char	*get_fullpath_find_from_command(char **path, char *file_name)
 		free(fullpath);
 		index++;
 	}
-	if (found_filepath != NULL)
-		puterr_exit(found_filepath, strerror(EACCES), STATUS_CAN_NOT_EXECUTE);
-	else
-		puterr_exit(file_name, "command not found", STATUS_COMMAND_NOT_FOUND);
-	return (NULL);
+	return (puterr_exit_find_from_command(found_filepath, file_name));
 }
 
 char	*get_fullpath(char *file_name)

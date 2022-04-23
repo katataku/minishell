@@ -12,7 +12,7 @@
 
 #include "builtin.h"
 
-int	export_single(void)
+static int	print_values(void)
 {
 	t_list		**env;
 	t_list		*current_env;
@@ -34,25 +34,13 @@ int	export_single(void)
 	return (STATUS_SUCCESS);
 }
 
-/*
- * usage: export
- * Mark each name to be passed to child processes in the environment.
- * If a variable name is followed by =value, the value of the variable is set
- * to value. In this function, all the environment variables are to be passed
- * to child process.
- * The return status is zero unless one of the names is not a valid
- * shell variable name.
- */
-int	builtin_export(char **argv)
+static int	export_values(char **argv)
 {
 	char	*key;
 	char	*value;
 	int		return_status;
-	char	*message;
 
 	return_status = STATUS_SUCCESS;
-	if (*(argv + 1) == NULL)
-		return (export_single());
 	while (*(++argv) != NULL)
 	{
 		key = ft_xstrdup(*argv);
@@ -68,10 +56,24 @@ int	builtin_export(char **argv)
 			continue ;
 		}
 		return_status = STATUS_FAILURE;
-		message = triple_join("`", *argv, "': not a valid identifier");
-		puterr("export", message);
-		free(message);
+		puterr("export", triple_join("`", *argv, "': not a valid identifier"));
 		free(key);
 	}
 	return (return_status);
+}
+
+/*
+ * usage: export [name[=value]]
+ *
+ * If no names are supplied, a list of names of all variables is displayed.
+ * If names are supplied and a variable name is followed by =value, the value
+ * of the variable is set to value. All the environment variables are to be
+ * passed to child process in this shell.
+ */
+int	builtin_export(char **argv)
+{
+	if (argv[1] == NULL)
+		return (print_values());
+	else
+		return (export_values(argv));
 }
