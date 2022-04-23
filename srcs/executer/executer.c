@@ -6,7 +6,7 @@
 /*   By: takkatao <takkatao@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/11 17:29:43 by ahayashi          #+#    #+#             */
-/*   Updated: 2022/04/23 15:24:22 by takkatao         ###   ########.fr       */
+/*   Updated: 2022/04/23 16:38:25 by takkatao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ static void	nop_handler(int signal)
 
 void	set_signal_parent(void)
 {
-	 signal(SIGQUIT, nop_handler);
-	 signal(SIGINT, nop_handler);
+	signal(SIGQUIT, nop_handler);
+	signal(SIGINT, nop_handler);
 }
 
 int	execute(t_exec_info *exec_info)
