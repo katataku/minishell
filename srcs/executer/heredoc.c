@@ -36,7 +36,7 @@ static char	*replace_variable(char *before, int start, char *key)
 char	*expand_env(char *line)
 {
 	char	*key;
-	size_t	i;
+	size_t	index;
 
 	i = 0;
 	while (line[i] != '\0')
